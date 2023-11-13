@@ -21,12 +21,21 @@ public class SearchVenueController {
 	private SearchVenueService searchVenueService;
 	
 	@GetMapping("/search/venue")
-	public ResponseEntity<List<SearchVenue>>findVenue(@RequestParam int vid){
+	public ResponseEntity<List<SearchVenue>>findAllVenue(SearchVenue searchVenue){
+		
+		List<SearchVenue> venue = searchVenueService.findAllVenue(searchVenue);
+		
+		return  ResponseEntity.ok(venue);
+		
+	}
+	@GetMapping("/search/venueId")
+
+    public ResponseEntity<List<SearchVenue>>findVenue(@RequestParam int vid){
 		
 		List<SearchVenue> venue = searchVenueService.findByVenueid(vid);
 		
 		return  ResponseEntity.ok(venue);
 		
 	}
-
 }
+

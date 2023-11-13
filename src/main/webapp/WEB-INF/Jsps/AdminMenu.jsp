@@ -76,34 +76,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         function loadExcel() {
-            // Path to the example Excel file (replace with your file path)
-    var excelFilePath = "resources/AcademicCalender.xlsx";
-
-            // Load and process the Excel file
-            fetch(excelFilePath)
-                .then(response => response.arrayBuffer())
-                .then(data => {
-                    var workbook = XLSX.read(data, { type: 'array' });
-                    var sheetName = workbook.SheetNames[0];
-                    var sheet = workbook.Sheets[sheetName];
-                    var jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-                    // Create an HTML table
-                    var tableHtml = '<table border="1">';
-                    for (var i = 0; i < jsonData.length; i++) {
-                        tableHtml += '<tr>';
-                        for (var j = 0; j < jsonData[i].length; j++) {
-                            tableHtml += '<td>' + jsonData[i][j] + '</td>';
-                        }
-                        tableHtml += '</tr>';
-                    }
-                    tableHtml += '</table>';
-
-                    // Display the HTML table on the page
-                    document.getElementById('excelContent').innerHTML = tableHtml;
-                })
-                .catch(error => console.error('Error loading Excel file:', error));
-        }
-    </script>
+            
 </body>
 </html>

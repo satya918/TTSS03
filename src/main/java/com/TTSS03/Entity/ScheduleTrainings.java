@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 @Entity
-@Table(name="tscheduledtrainings")
+@Table(name="ttransactiontraining")
 public class ScheduleTrainings {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +22,11 @@ public class ScheduleTrainings {
 	private String apply_start_dt;
 	private String apply_end_dt;
 	private String created_dt;
+	private String created_by;
 	private String modified_by;
 	private String modified_dt;
 	private String record_status;
-	private String tstatus;
+	//private String tstatus;
 	private String tmode;
 	private String tgrade;
 	private String state;
@@ -126,12 +127,7 @@ public class ScheduleTrainings {
 	public void setRecord_status(String record_status) {
 		this.record_status = record_status;
 	}
-	public String getTstatus() {
-		return tstatus;
-	}
-	public void setTstatus(String tstatus) {
-		this.tstatus = tstatus;
-	}
+	
 	public String getTmode() {
 		return tmode;
 	}
@@ -191,6 +187,42 @@ public class ScheduleTrainings {
 	}
 	public void setTmodule(String tmodule) {
 		this.tmodule = tmodule;
+	}
+	public String getCreated_by() {
+		return created_by;
+	}
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getDistrict() {
+		return district;
+	}
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	public String getMandal() {
+		return mandal;
+	}
+	public void setMandal(String mandal) {
+		this.mandal = mandal;
+	}
+	public String getCoordinatoremailid() {
+		return coordinatoremailid;
+	}
+	public void setCoordinatoremailid(String coordinatoremailid) {
+		this.coordinatoremailid = coordinatoremailid;
+	}
+	public String getCoordinatormobileno() {
+		return coordinatormobileno;
+	}
+	public void setCoordinatormobileno(String coordinatormobileno) {
+		this.coordinatormobileno = coordinatormobileno;
 	}
 	
 	

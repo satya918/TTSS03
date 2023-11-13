@@ -17,7 +17,12 @@ public class SearchVenueServiceimpl implements SearchVenueService {
 	@Override
 	public List<SearchVenue> findByVenueid(int vid) {
 		List<SearchVenue> venue = SearchVenueRepo.findByVId(vid);
-		return venue;
+		return venue;	}
+
+	@Override
+	public List<SearchVenue> findAllVenue(SearchVenue searchVenue) {
+		List<SearchVenue> allVenue = SearchVenueRepo.findAll();
+		return allVenue;
 	}
 
 }

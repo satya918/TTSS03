@@ -6,6 +6,10 @@ import com.TTSS03.Entity.SearchVenue;
 
 public interface SearchVenueService {
 	
-	List<SearchVenue>findByVenueid(int vid);
+	List<SearchVenue>findAllVenue(SearchVenue searchVenue);
+
+	List<SearchVenue> findByVenueid(int vid);
+	
+	
 
 }

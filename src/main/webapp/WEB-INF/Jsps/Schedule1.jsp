@@ -8,10 +8,9 @@
     
     <script>
     $(document).ready(function () {
-        // Function to handle the "SCHEDULE" button click
         $("#scheduleButton").click(function () {
-            // Gather data from the form fields
-            
+            var trainingRefId = $("#trainingReferenceId").val();
+            var tvenueId = $("#venueId").val();
             var trainingMode = $("#trainingMode").val();
             var trainingMonth = $("#trainingMonth").val();
             var trainingYear = $("#trainingYear").val();
@@ -20,32 +19,44 @@
             var description = $("#description").val();
             var grade = $("#grade").val();
             var agency = $("#agency").val();
-            var appStartDate = $("#appStartDate").val();
-            var appEndDate = $("#appEndDate").val();
-            var trainingStartDate = $("#trainingStartDate").val();
-            var trainingEndDate = $("#trainingEndDate").val();
- 
-            // Create a URL-encoded form data string
-            var formData =
-                'tmode=' + encodeURIComponent(trainingMode) +
-                '&tmonth=' + encodeURIComponent(trainingMonth) +
-                '&tyear=' + encodeURIComponent(trainingYear) +
-                '&tname=' + encodeURIComponent(trainingName) +
-                '&tmodule=' + encodeURIComponent(module) +
-                '&tdescription=' + encodeURIComponent(description) +
-                '&tgrade=' + encodeURIComponent(grade) +
-                '&tagency=' + encodeURIComponent(agency) +
-                '&training_reg_start_dt=' + encodeURIComponent(appStartDate) +
-                '&training_reg_end_dt=' + encodeURIComponent(appEndDate) +
-                '&actual_start_dt=' + encodeURIComponent(trainingStartDate) +
-                '&actual_end_dt=' + encodeURIComponent(trainingEndDate);
-            
+            var coordinatorname = $("#coordinatorName").val();
+            var cemail = $("#email").val();
+            var cmobile = $("#mobile").val();
+            var tstate = $("#state").val();
+            var tdistrict = $("#district").val();
+            var tmandal = $("#mandal").val();
+            var astartDate = $("#appStartDate").val();
+            var aendDate = $("#appEndDate").val();
+            var tstartDate = $("#trainingStartDate").val();
+            var tendDate = $("#trainingEndDate").val();
+
+            // Construct the formData object
+            var formData = {
+                ref_planner_id: trainingRefId,
+                venue_id: tvenueId,
+                tmode: trainingMode,
+                tmonth: trainingMonth,
+                tyear: trainingYear,
+                tname: trainingName,
+                tmodule: module,
+                tdescription: description,
+                tgrade: grade,
+                tagency: agency,
+                coordinatorname: coordinatorname,
+                coordinatoremailid: cemail,
+                coordinatormobileno: cmobile,
+                state: tstate,
+                district: tdistrict,
+                mandal: tmandal,          
+                apply_start_dt: astartDate,
+                apply_end_dt: aendDate,
+                training_start_dt: tstartDate,
+                training_end_dt: tendDate
+            };
+
             var jsonString = JSON.stringify(formData);
- 
-            
-            console.log(formData);
- 
-            // Make a POST request to the API
+
+
             fetch('/api/schedule', {
                 method: 'POST',
                 headers: {
@@ -55,16 +66,14 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Handle the response
                 console.log("Schedule API response:", data);
             })
             .catch(error => {
                 console.log("Error:", error);
-                // Handle errors
             });
         });
     });
-    
+
     //script-2
     $(document).ready(function () {
         $("#searchButton").click(function () {
@@ -79,32 +88,21 @@
                     var tyear = response[0].tyear;
                     var tname = response[0].tname;
                     var tdescription = response[0].tdescription;
-                    var training_reg_start_dt = response[0].training_reg_start_dt;
-                    var training_reg_end_dt = response[0].training_reg_end_dt;
-                    var actual_start_dt = response[0].actual_start_dt;
-                    var actual_end_dt = response[0].actual_end_dt;
-                    var venue_id = response[0].venue_id;
+                   
                     var tmode = response[0].tmode;
-                    var tmodule = response[0].tmodule;
+                    //var tmodule = response[0].tmodule;
                     var tgrade = response[0].tgrade;
                     var tagency = response[0].tagency;
  
-                    training_reg_start_dt = formatDate(training_reg_start_dt);
-                    training_reg_end_dt = formatDate(training_reg_end_dt);
-                    actual_start_dt = formatDate(actual_start_dt);
-                    actual_end_dt = formatDate(actual_end_dt);
+                   
  
                     $("#trainingMonth").val(tmonth);
                     $("#trainingYear").val(tyear);
                     $("#trainingName").val(tname);
                     $("#description").val(tdescription);
-                    $("#appStartDate").val(training_reg_start_dt);
-                    $("#appEndDate").val(training_reg_end_dt);
-                    $("#trainingStartDate").val(actual_start_dt);
-                    $("#trainingEndDate").val(actual_end_dt);
-                    $("#venueId").val(venue_id);
+                   
                     $("#trainingMode").val(tmode);
-                    $("#module").val(tmodule);
+                    //$("#module").val(tmodule);
                     $("#grade").val(tgrade);
                     $("#agency").val(tagency);
                 },
@@ -124,42 +122,76 @@
     }
     
                   
+   
     $(document).ready(function () {
-        $("#searchButtonVenue").click(function () {
-            var searchVenue = $("#venueId").val();
- 
-            $.ajax({
-                type: "GET",
-                url: "/api/search/venue?vid=" + searchVenue,
-                dataType: "json",
-                success: function (response) {
-                    var vmandal = response[0].vmandal;
-                    var vstate = response[0].vstate;
-                    var vdistrict = response[0].vdistrict;
-                    var vlocation = response[0].vlocation;
-                    var vcontactname = response[0].vcontactname;
-                    var vcontactno = response[0].vcontactno;
-                    var vcontactmailid = response[0].vcontactmailid;
-                     
- 
-                    
-                    $("#mandal").val(vmandal);
-                    $("#state").val(vstate);
-                    $("#district").val(vdistrict);
-                    $("#mapLocation").val(vlocation);
-                    $("#coordinatorName").val(vcontactname);
-                    $("#mobile").val(vcontactno);
-                    $("#email").val(vcontactmailid);
-                    
- 
-                },
-                error: function (error) {
-                    console.log("Error:", error);
-                }
-            });
+        $.ajax({
+            url: "/api/search/venue",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                var dropdown = $("#venueDropdown");
+                dropdown.empty();
+                dropdown.append($("<option>").val("").text("----Select Venue----"));
+                $.each(data, function (index, item) {
+                    var optionText = item.vname;
+                    dropdown.append($("<option>").val(item.vid).text(optionText));
+                });
+            },
+            error: function (error) {
+                console.log("Error fetching venue data:", error);
+            }
+        });
+
+        $('#venueDropdown').change(function () {
+            var selectedVenueId = $(this).val();
+            console.log(selectedVenueId);
+
+            if (selectedVenueId) {
+                $('#venueId').val(selectedVenueId);
+
+                $.ajax({
+                    type: "GET",
+                    url: "/api/search/venueId?vid=" + selectedVenueId,
+                    dataType: "json",
+                    success: function (response) {
+                        var vid = response[0].vid;
+
+                        var vmandal = response[0].vmandal;
+                        var vstate = response[0].vstate;
+                        var vdistrict = response[0].vdistrict;
+                        var vlocation = response[0].vlocation;
+                        var vcontactname = response[0].vcontactname;
+                        var vcontactno = response[0].vcontactno;
+                        var vcontactmailid = response[0].vcontactmailid;
+                        
+                        $("#venueId").val(vid);
+                        $("#mandal").val(vmandal);
+                        $("#state").val(vstate);
+                        $("#district").val(vdistrict);
+                        $("#mapLocation").val(vlocation);
+                        $("#coordinatorName").val(vcontactname);
+                        $("#mobile").val(vcontactno);
+                        $("#email").val(vcontactmailid);
+                         
+
+                    },
+                    error: function (error) {
+                        console.log("Error fetching venue details:", error);
+                    }
+                });
+            } else {
+                $('#venueId').val('');
+                $('#mandal').val('');
+                $('#state').val('');
+                $('#district').val('');
+                $('#mapLocation').val('');
+                $('#coordinatorName').val('');
+                $('#mobile').val('');
+                $('#email').val('');
+            }
         });
     });
- 
+
 </script>
     <style>
         body {
@@ -219,7 +251,7 @@
     <div class="container">
         <h2>TEACHER TRAINING SUPPORT SYSTEM</h2>
         
-        <form action="/api/schedule" method="post" id="scheduleButton">
+        <form action="" method="post" id="scheduleForm">
             <div class="form-group">
                 <label for="trainingReferenceId">Training ReferenceId:</label>
                 <input type="text" class="form-control" id="trainingReferenceId" name="trainingReferenceId" placeholder="Enter Training ReferenceId..." required>
@@ -228,13 +260,15 @@
                 <button type="button" class="btn btn-primary" id="searchButton">Search</button>
             </div>
             <div class="form-group">
-                <label for="venue">Venue Id:</label>
-                <input type="text" class="form-control" id="venueId" name="venueid" placeholder="Enter Venue..." required>
+			    <label for="venue">Venue Name:</label>
+			    <select id="venueDropdown" class="form-control"></select>
             </div>
- 
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" id="searchButtonVenue">Search</button>
-            </div>
+            
+          <div class="form-group" style="display: none;">
+    <label for="venue">Venue Id:</label>
+    <input type="text" class="form-control" id="venueId" name="venueId"  required>
+</div>
+           
  
             <div class="form-group">
                 <label for="trainingMode">Training Mode:</label>
@@ -256,10 +290,7 @@
                 <input type="text" id="trainingName" name="trainingName" placeholder="Enter Training Name..." required>
             </div>
  
-            <div class="form-group">
-                <label for="module">Module:</label>
-                <input type="text" id="module" name="module" placeholder="Enter Module..." required>
-            </div>
+            
  
             <div class="form-group">
                 <label for="description">Description:</label>
@@ -325,9 +356,7 @@
                 <label for="trainingEndDate">Training End Date:</label>
                 <input type="date" id="trainingEndDate" name="trainingEndDate" required>
             </div>
-            <div class="form-group">
-                <button type="submit" value="/api/schedule">SCHEDULE</button>
-            </div>
+           <button type="submit" id="scheduleButton">Submit</button>
         </form>
     </div>
  
