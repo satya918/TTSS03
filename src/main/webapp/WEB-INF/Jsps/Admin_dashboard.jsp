@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,11 +9,204 @@
     <title>TTSS</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <!-- Core theme CSS (includes Bootstrap)-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+    $(document).ready(function () {
+        $("#saveSchedule").click(function () {
+            var trainingRefId = $("#trainingReferenceId").val();
+            var tvenueId = $("#venueId").val();
+            var trainingMode = $("#trainingMode").val();
+            var trainingMonth = $("#trainingMonth").val();
+            var trainingYear = $("#trainingYear").val();
+            var trainingName = $("#trainingName").val();
+            var module = $("#module").val();
+            var description = $("#description").val();
+            var grade = $("#grade").val();
+            var agency = $("#agency").val();
+            var coordinatorname = $("#coordinatorName").val();
+            var cemail = $("#email").val();
+            var cmobile = $("#mobile").val();
+            var tstate = $("#state").val();
+            var tdistrict = $("#district").val();
+            var tmandal = $("#mandal").val();
+            var astartDate = $("#applicationSD").val();
+            var aendDate = $("#applicationED").val();
+            var tstartDate = $("#trainingSD").val();
+            var tendDate = $("#trainingED").val();
+
+            // Construct the formData object
+            var formData = {
+                ref_planner_id: trainingRefId,
+                venue_id: tvenueId,
+                tmode: trainingMode,
+                tmonth: trainingMonth,
+                tyear: trainingYear,
+                tname: trainingName,
+                tmodule: module,
+                tdescription: description,
+                tgrade: grade,
+                tagency: agency,
+                coordinatorname: coordinatorname,
+                coordinatoremailid: cemail,
+                coordinatormobileno: cmobile,
+                state: tstate,
+                district: tdistrict,
+                mandal: tmandal,          
+                apply_start_dt: astartDate,
+                apply_end_dt: aendDate,
+                training_start_dt: tstartDate,
+                training_end_dt: tendDate
+            };
+
+            var jsonString = JSON.stringify(formData);
+
+
+            fetch('/api/schedule', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: jsonString
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Schedule API response:", data);
+            })
+            .catch(error => {
+                console.log("Error:", error);
+            });
+        });
+    });
+
+    //script-2
+    $(document).ready(function () {
+        $("#searchButton").click(function () {
+            var searchTerm = $("#trainingReferenceId").val();
+ 
+            $.ajax({
+                type: "GET",
+                url: "/api/search/schedule?ref_planner_id=" + searchTerm,
+                dataType: "json",
+                success: function (response) {
+					console.log(response);
+                    var tmonth = response[0].tmonth;
+                    var tyear = response[0].tyear;
+                    var tname = response[0].tname;
+                    var tdescription = response[0].tdescription;
+                   
+                    var tmode = response[0].tmode;
+                    //var tmodule = response[0].tmodule;
+                    var tgrade = response[0].tgrade;
+                    var tagency = response[0].tagency;
+ 
+                   
+ 
+                    $("#trainingMonth").val(tmonth);
+                    $("#trainingYear").val(tyear);
+                    $("#trainingName").val(tname);
+                    $("#description").val(tdescription);
+                   
+                    $("#traningMode").val(tmode);
+                    //$("#module").val(tmodule);
+                    $("#grade").val(tgrade);
+                    $("#trainingMode").val(tmode);
+                    $("#agency").val(tagency);
+                    $("#agency").val(tagency);
+                },
+                error: function (error) {
+                    console.log("Error:", error);
+                }
+            });
+        });
+    });
+ 
+    function formatDate(inputDate) {
+        var date = new Date(inputDate);
+        var year = date.getFullYear();
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var day = String(date.getDate()).padStart(2, '0');
+        return year + "-" + month + "-" + day;
+    }
+    
+                  
+   
+    $(document).ready(function () {
+        $.ajax({
+            url: "/api/search/venue",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                var dropdown = $("#venueDropdown");
+                dropdown.empty();
+                dropdown.append($("<option>").val("").text("----Select Venue----"));
+                $.each(data, function (index, item) {
+                    var optionText = item.vname;
+                    dropdown.append($("<option>").val(item.vid).text(optionText));
+                });
+            },
+            error: function (error) {
+                console.log("Error fetching venue data:", error);
+            }
+        });
+
+        $('#venueDropdown').change(function () {
+            var selectedVenueId = $(this).val();
+            console.log(selectedVenueId);
+
+            if (selectedVenueId) {
+                $('#venueId').val(selectedVenueId);
+
+                $.ajax({
+                    type: "GET",
+                    url: "/api/search/venueId?vid=" + selectedVenueId,
+                    dataType: "json",
+                    success: function (response) {
+                        var vid = response[0].vid;
+
+                        var vmandal = response[0].vmandal;
+                        var vstate = response[0].vstate;
+                        var vdistrict = response[0].vdistrict;
+                        var vlocation = response[0].vlocation;
+                        var vcontactname = response[0].vcontactname;
+                        var vcontactno = response[0].vcontactno;
+                        var vcontactmailid = response[0].vcontactmailid;
+                        
+                        $("#venueId").val(vid);
+                        $("#mandal").val(vmandal);
+                        $("#state").val(vstate);
+                        $("#district").val(vdistrict);
+                        $("#mapLocation").val(vlocation);
+                        $("#coordinatorName").val(vcontactname);
+                        $("#mobile").val(vcontactno);
+                        $("#email").val(vcontactmailid);
+                         
+
+                    },
+                    error: function (error) {
+                        console.log("Error fetching venue details:", error);
+                    }
+                });
+            } else {
+                $('#venueId').val('');
+                $('#mandal').val('');
+                $('#state').val('');
+                $('#district').val('');
+                $('#mapLocation').val('');
+                $('#coordinatorName').val('');
+                $('#mobile').val('');
+                $('#email').val('');
+            }
+        });
+    });
+    
+
+</script>
 </head>
 
 <body>
@@ -87,8 +278,8 @@
             </div>
             <script>
                 // Replace 'example.xlsx' with the path to your Excel file
-                var excelFileURL = './file.xlsx';
-
+                var excelFileURL = './actualTable.csv';
+                 
                 fetch(excelFileURL)
                     .then(function (response) {
                         return response.arrayBuffer();
@@ -117,6 +308,7 @@
                     .catch(function (error) {
                         console.error('Error loading Excel file:', error);
                     });
+                
             </script>
             <!-- Traning Schudule Form -->
             <div class="container tab-content " id="tab2" style="display: none;">
@@ -133,28 +325,23 @@
                             <div class="row">
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingInputGridTreasury"
+                                        <input type="text" class="form-control" id="trainingReferenceId"
                                             placeholder="12343215" value="">
                                         <label for="floatingInputGridTreasury">Traning Ref Id</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <button type="button" class="btn btn-primary btn-lg ">Search</button>
+                                        <button type="button" class="btn btn-primary btn-lg" Id="searchButton">Search</button>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingInputGridTreasury"
-                                            placeholder="12343215" value="">
-                                        <label for="floatingInputGridTreasury">Venue</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <div class="form-floating">
-                                        <button type="button" class="btn btn-primary btn-lg ">Search</rchbutton>
-                                    </div>
-                                </div>
+                                 <div class="form-group">
+			    <label for="venue">Venue Name:</label>
+			    <select id="venueDropdown" class="form-control"></select>
+            </div><div class="form-group" style="display: none;">
+    <label for="venue">Venue Id:</label>
+    <input type="text" class="form-control" id="venueId" name="venueId"  required>
+</div>
                             </div>
                         </form>
                     </div>
@@ -173,30 +360,30 @@
                             <div class="row">
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="traningType" placeholder="12343215"
+                                        <input type="text" class="form-control" id="trainingType" placeholder="12343215"
                                             value="">
-                                        <label for="traningType">Traning Type</label>
+                                        <label for="trainingType">Training Type</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="traningMode"
+                                        <input type="text" class="form-control" id="trainingMode"
                                             placeholder="99372257343" value="">
-                                        <label for="traningMode">Traning Mode</label>
+                                        <label for="trainingMode">Training Mode</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="traningMonth" placeholder="12343215"
+                                        <input type="text" class="form-control" id="trainingMonth" placeholder="12343215"
                                             value="">
-                                        <label for="traningMonth">Traning Month</label>
+                                        <label for="trainingMonth">Training Month</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="traningYear" placeholder="12343215"
+                                        <input type="text" class="form-control" id="trainingYear" placeholder="12343215"
                                             value="">
-                                        <label for="traningYear">Traning Year</label>
+                                        <label for="trainingYear">Training Year</label>
                                     </div>
                                 </div>
                             </div>
@@ -204,9 +391,9 @@
                             <div class="row mt-1">
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="traningName" placeholder="12343215"
+                                        <input type="text" class="form-control" id="trainingName" placeholder="12343215"
                                             value="">
-                                        <label for="traningName">Traning Name</label>
+                                        <label for="trainingName">Training Name</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
@@ -242,16 +429,16 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="Agency" placeholder="99372257343"
+                                        <input type="text" class="form-control" id="agency" placeholder="99372257343"
                                             value="">
-                                        <label for="Agency">Agency</label>
+                                        <label for="agency">Agency</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="coOrdinaterName"
+                                        <input type="text" class="form-control" id="coordinatorName"
                                             placeholder="12343215" value="">
-                                        <label for="coOrdinaterName">Co-Ordinater Name</label>
+                                        <label for="coordinatorName">Co-Ordinater Name</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
@@ -316,16 +503,16 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="traningSD" placeholder="12343215"
+                                        <input type="text" class="form-control" id="trainingSD" placeholder="12343215"
                                             value="">
-                                        <label for="traningSD">Traning Start Date</label>
+                                        <label for="trainingSD">Traning Start Date</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="traningED" placeholder="12343215"
+                                        <input type="text" class="form-control" id="trainingED" placeholder="12343215"
                                             value="">
-                                        <label for="traningED">Traning End date</label>
+                                        <label for="trainingED">Traning End date</label>
                                     </div>
                                 </div>
                             </div>
@@ -333,7 +520,7 @@
                                 <div class="col-md-3">
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-primary btn-lg ">Schedule</button>
+                                    <button type="button" class="btn btn-primary btn-lg " Id="saveSchedule">Schedule</button>
                                 </div>
                                 <div class="col-md-3">
                                     <button type="button" class="btn btn-danger btn-lg ">Clear</button>
@@ -356,46 +543,89 @@
             <!-- ################view Tranning  ######################### -->
             <div class="container mt-2 tab-content" id="tab3" style="display: none;">
 
-                <div class="card mt-2">
-                    <div class="card-header"><b>View Traning</b></div>
-                    <div class="card-body">
-                        <div id="viewTraning"></div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                // Replace 'example.xlsx' with the path to your Excel file
-                var excelFileURL = './file.xlsx';
+        <div class="card mt-2">
+    <button id="viewTrainingButton" class="btn btn-primary">View Training</button>
+    <div class="card-body">
+        <table border="1" id="trainingTable">
+            <tr>
+                <th>Training Ref Id</th>
+                <th>Venue</th>
+                <th>Training Mode</th>
+                <th>Module</th>
+                <th>Training Month</th>
+                <th>Training Year</th>
+                <th>Training Name</th>
+                <th>Description</th>
+                <th>Grade</th>
+                <th>Agency</th>
+                <th>Map Location</th>
+                <th>Coordinator Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>State</th>
+                <th>District</th>
+                <th>Mandal</th>
+                <th>Application Start Date</th>
+                <th>Application End Date</th>
+                <th>Training Start Date</th>
+                <th>Training End Date</th>
+            </tr>
+        </table>
+    </div>
+</div>
 
-                fetch(excelFileURL)
-                    .then(function (response) {
-                        return response.arrayBuffer();
-                    })
-                    .then(function (data) {
-                        var workbook = XLSX.read(data, { type: 'array' });
+<script>
+    $(document).ready(function() {
+        $("#viewTrainingButton").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/scheduledTrainings",
+                dataType: "json",
+                success: function(data) {
+                    displayTrainingData(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("API request error: " + error);
+                }
+            });
+        });
 
-                        // Assuming you want to display the first sheet's data
-                        var firstSheetName = workbook.SheetNames[0];
-                        var worksheet = workbook.Sheets[firstSheetName];
-                        var excelData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        function displayTrainingData(data) {
+            var trainings = data;
+            var table = document.getElementById("trainingTable");
 
-                        // Display the Excel data
-                        var tableHTML = '<table class="table table-striped table-bordered">';
-                        for (var i = 0; i < excelData.length; i++) {
-                            tableHTML += '<tr>';
-                            for (var j = 0; j < excelData[i].length; j++) {
-                                tableHTML += '<td>' + excelData[i][j] + '</td>';
-                            }
-                            tableHTML += '</tr>';
-                        }
-                        tableHTML += '</table>';
+            // Clear existing rows
+            table.innerHTML = "<tr><th>Training Ref Id</th><th>Venue</th><th>Training Mode</th><th>Module</th><th>Training Month</th><th>Training Year</th><th>Training Name</th><th>Description</th><th>Grade</th><th>Agency</th><th>Map Location</th><th>Coordinator Name</th><th>Email</th><th>Mobile</th><th>State</th><th>District</th><th>Mandal</th><th>Application Start Date</th><th>Application End Date</th><th>Training Start Date</th><th>Training End Date</th></tr>";
 
-                        document.getElementById('viewTraning').innerHTML = tableHTML;
-                    })
-                    .catch(function (error) {
-                        console.error('Error loading Excel file:', error);
-                    });
-            </script>
+            for (var i = 0; i < trainings.length; i++) {
+                var training = trainings[i];
+                var row = table.insertRow(i + 1);
+
+                row.insertCell(0).innerHTML = training.ref_planner_id;
+                row.insertCell(1).innerHTML = training.venue_id;
+                row.insertCell(2).innerHTML = training.tmode;
+                row.insertCell(3).innerHTML = training.tmodule;
+                row.insertCell(4).innerHTML = training.tmonth;
+                row.insertCell(5).innerHTML = training.tyear;
+                row.insertCell(6).innerHTML = training.tname;
+                row.insertCell(7).innerHTML = training.tdescription;
+                row.insertCell(8).innerHTML = training.tgrade;
+                row.insertCell(9).innerHTML = training.tagency;
+                row.insertCell(10).innerHTML = training.location;
+                row.insertCell(11).innerHTML = training.coordinatorname;
+                row.insertCell(12).innerHTML = training.coordinator_email;
+                row.insertCell(13).innerHTML = training.coordinator_mobile;
+                row.insertCell(14).innerHTML = training.tstate;
+                row.insertCell(15).innerHTML = training.tdistrict;
+                row.insertCell(16).innerHTML = training.tmandal;
+                row.insertCell(17).innerHTML = training.apply_start_dt;
+                row.insertCell(18).innerHTML = training.apply_end_dt;
+                row.insertCell(19).innerHTML = training.training_start_dt;
+                row.insertCell(20).innerHTML = training.training_end_dt;
+            }
+        }
+    });
+</script>
 
 
 

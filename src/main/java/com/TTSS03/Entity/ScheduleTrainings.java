@@ -32,6 +32,7 @@ public class ScheduleTrainings {
 	private String state;
 	private String district;
 	private String mandal;
+
 	private String coordinatorname;
 	private String coordinatoremailid;
 	private String coordinatormobileno;

@@ -9,7 +9,7 @@ public class TraineeController {
 	
 	@RequestMapping("/trainee")
 	public String traineeMenu() {
-		return "TraineeMenu";
+		return "Trainee_Dashboard";
 	}
 	
 	@RequestMapping("/apply")

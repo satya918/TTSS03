@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -75,61 +77,37 @@
             </nav>
             <!-- Page content-->
             <!-- ######################### View Achedemic calender #################### -->
-            <div class="container mt-2 tab-content" id="tab1">
+            <div class="container mt-2 tab-content" id="tab1" style="display: none;">
 
 
                 <div class=""><b>Dashboard</b>
                 </div>
-                <div class="container mt-5">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a href="#" class="card-link">
-                                <div class="card">
-                                    <img src="../images/2.jpg" class="card-img-top" alt="Placeholder Image">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card 1</h5>
-                                        <p class="card-text">Some quick example text for Card 1.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-            
-                        <div class="col-md-6">
-                            <a href="#" class="card-link">
-                                <div class="card">
-                                    <img src="../images/3.jpg" class="card-img-top" alt="Placeholder Image">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card 2</h5>
-                                        <p class="card-text">Some quick example text for Card 2.</p>
-                                    </div>
-                                </div>
-                            </a>
+                <div class="row mt-2">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident rem laboriosam
+                                    deserunt vel ex. Ipsum, perspiciatis. Nulla impedit animi inventore odit sit iure
+                                    ex? Praesentium aspernatur ratione autem sint error..</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
                         </div>
                     </div>
-            
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <a href="#" class="card-link">
-                                <div class="card">
-                                    <img src="../images/1.jpg" class="card-img-top" alt="Placeholder Image">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card 3</h5>
-                                        <p class="card-text">Some quick example text for Card 3.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-            
-                        <div class="col-md-6">
-                            <a href="#" class="card-link">
-                                <div class="card">
-                                    <img src="../images/2.jpg" class="card-img-top" alt="Placeholder Image">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card 4</h5>
-                                        <p class="card-text">Some quick example text for Card 4.</p>
-                                    </div>
-                                </div>
-                            </a>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione nisi, alias cum
+                                    dolorum minus quidem eius ab placeat quod! Quibusdam saepe culpa accusamus, nam
+                                    ratione voluptate vel? Minus, aliquid illum?
+                                </p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -168,70 +146,126 @@
 
             </div>
 
-
             <!-- Traning Schudule Form -->
-<div class="container tab-content" id="tab2" style="display: none;">
-    <button id="applyTrainingButton" class="btn btn-primary">Apply Training!</button>
-
-    <!-- Form Start  -->
-    <div class="mt-1"><b>Apply Training</b></div>
-    <div class="card mt-2">
-        <table class="table table-hover" id="trainingTable">
-            <thead>
-                            <tr>
-                                <th scope="col">Traning Name</th>
-                                <th scope="col">Traning Mode</th>
-                                <th scope="col">Traning description</th>
-                                <th scope="col">App start to end</th>
-                                <th scope="col">Venue Deatails</th>
-                                <th scope="col">Co-ordinater Deatails</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                       
-                    </table>
+            <div class="container tab-content " id="tab2" >
+                <!-- Form Start  -->
+                <div class="mt-1"><b>Apply Traning</b>
                 </div>
+                
 
-               
+                <div class="container mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="mb-2 col-5">
+                                <label for="exampleFormControlInput1" class="form-label text-danger">
+                                    *Goverment or Treasury Employee: </label>
+                            </div>
+                            <div class="mb-2 col-1">
+                            <input type="radio" name="options" value="enable" id="enableRadio"> Yes
+                            </div>
+                            <div class="mb-2 col-2">
+                                <input type="radio" name="options" value="disable" id="disableRadio"> No
+                            </div>
+                            
+                        </div>
+                        <form>
+                            <div class="row mt-3">
+                                <div class="mb-2 col-3">
+                                    <label for="targetField" class="form-label">Treasury
+                                        Id</label>
+                                        <input type="text" class="form-control" id="targetField" placeholder="jhon" disabled>
+                                    <!-- <input type="input" class="form-control"
+                                        id="exampleFormControlInput1" placeholder="jhon@example.com"> -->
+                                </div>
+                                <div class="mb-2 col-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Participant
+                                        Name</label>
+                                    <input type="input" class="form-control"
+                                        id="exampleFormControlInput1" placeholder="Jhon Doe">
+                                </div>
+                                <div class="mb-2 col-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">School
+                                        Complex Id</label>
+                                    <input type="input" class="form-control"
+                                        id="exampleFormControlInput1" placeholder="11089">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-2 col-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                    <input type="Email" class="form-control"
+                                        id="exampleFormControlInput1" placeholder="jhon@example.com">
+                                </div>
+                                <div class="mb-2 col-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Mobile
+                                        </label>
+                                    <input type="input" class="form-control"
+                                        id="exampleFormControlInput1" placeholder="99999999">
+                                </div>
+                                
+                            </div>
+                            <div class="row mt-2">
+
+                                <div class="mb-2 col-5">
+                                    <label for="tenable" class="form-label text-danger">
+                                        *Have you attened any Traning before: </label>
+                                </div>
+                                <div class="mb-2 col-1">
+                                <input type="radio" name="options" value="enable" id="enableRadioTrani"> Yes
+                                </div>
+                                <div class="mb-2 col-2">
+                                    <input type="radio" name="options" value="disable" id="disableRadioTrani"> No
+                                </div>
+                            </div>
+
+                            <div class="mb-2 col-3">
+                                    <!-- <label for="tenable">Traning Name(if Attened):</label> -->
+                                    <input type="text" id="tenable"  class="form-control" placeholder="Type something here" disabled>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                   </div>
+                   </div>
+                </div>    
+                
+                <!-- For *Goverment or Treasury Employee: -->
+                <script>
+                    // Get the radio buttons and the target field for *Goverment or Treasury Employee:
+                    const enableRadio = document.getElementById('enableRadio');
+                    const disableRadio = document.getElementById('disableRadio');
+                    const targetField = document.getElementById('targetField');
+            
+                    // Add event listeners to the radio buttons
+                    enableRadio.addEventListener('click', function () {
+                        targetField.disabled = false;
+                    });
+            
+                    disableRadio.addEventListener('click', function () {
+                        targetField.disabled = true;
+                    });
+                </script>
+
+                <!-- for  tranning -->
+
+                <script>
+                    // Get the radio buttons and the target field
+                    const enableRadiot = document.getElementById('enableRadioTrani');
+                    const disableRadiot = document.getElementById('disableRadioTrani');
+                    const targetFieldt = document.getElementById('tenable');
+            
+                    // Add event listeners to the radio buttons
+                    enableRadiot.addEventListener('click', function () {
+                        targetFieldt.disabled = false;
+                    });
+            
+                    disableRadiot.addEventListener('click', function () {
+                        targetFieldt.disabled = true;
+                    });
+                </script>
+                
 
             </div>
-            <script>
-    $(document).ready(function() {
-        $("#applyTrainingButton").click(function () {
-            $.ajax({
-                type: "GET",
-                url: "/api/scheduledTrainings",
-                dataType: "json",
-                success: function(data) {
-                    displayTrainingData(data);
-                },
-                error: function(xhr, status, error) {
-                    console.error("API request error: " + error);
-                }
-            });
-        });
-
-        function displayTrainingData(data) {
-            var trainings = data;
-            var table = document.getElementById("trainingTable");
-
-            // Clear existing rows
-            table.innerHTML = "<tr><th>Venue</th><th>Training Mode</th><th>Training Name</th><th>Description</th><th>Map Location</th><th>Coordinator Name</th><th>Application Start Date</th><th>Application End Date</th></tr>";
-
-            for (var i = 0; i < trainings.length; i++) {
-    var training = trainings[i];
-    var row = table.insertRow(i + 1);
-    
-    row.insertCell(0).innerHTML = training.tname;  // Corrected index
-    row.insertCell(1).innerHTML = training.tmode;
-    row.insertCell(2).innerHTML = training.tdescription;
-    row.insertCell(3).innerHTML = training.apply_start_dt;
-    row.insertCell(4).innerHTML = training.location;
-    row.insertCell(5).innerHTML = training.coordinatorname;
-}
-        }
-    });
-</script>
 
 
             <!-- ################view Tranning  ######################### -->

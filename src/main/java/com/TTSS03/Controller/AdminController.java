@@ -9,7 +9,7 @@ public class AdminController {
 
 	@RequestMapping("/admin")
 	public String traineeSide() {
-		return "AdminMenu";
+		return "Admin_dashboard";
 	}
 	
 	

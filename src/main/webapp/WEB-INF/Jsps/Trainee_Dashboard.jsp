@@ -9,12 +9,20 @@
     <title>TTSS</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.min.js"></script>
-    <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- xlsx.full.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+
+<!-- Bootstrap JavaScript with Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 </head>
 
 <body>
@@ -171,31 +179,27 @@
 
             <!-- Traning Schudule Form -->
 <div class="container tab-content" id="tab2" style="display: none;">
-    <button id="applyTrainingButton" class="btn btn-primary">Apply Training!</button>
+    <button id="applyTrainingButton" class="btn btn-primary">Click here For apply trainings</button>
 
     <!-- Form Start  -->
     <div class="mt-1"><b>Apply Training</b></div>
     <div class="card mt-2">
-        <table class="table table-hover" id="trainingTable">
-            <thead>
-                            <tr>
-                                <th scope="col">Traning Name</th>
-                                <th scope="col">Traning Mode</th>
-                                <th scope="col">Traning description</th>
-                                <th scope="col">App start to end</th>
-                                <th scope="col">Venue Deatails</th>
-                                <th scope="col">Co-ordinater Deatails</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                       
-                    </table>
+       <table class="table table-hover" id="trainingTable">
+    <thead>
+        <tr>
+            <th scope="col">Training Name</th>
+            <th scope="col">Training Mode</th>
+            <th scope="col">Training description</th>
+            <th scope="col">App start to end</th>
+            <th scope="col">Venue Details</th>
+            <th scope="col">Co-ordinater Details</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+</table>
                 </div>
-
-               
-
             </div>
-            <script>
+   <script>
     $(document).ready(function() {
         $("#applyTrainingButton").click(function () {
             $.ajax({
@@ -203,6 +207,7 @@
                 url: "/api/scheduledTrainings",
                 dataType: "json",
                 success: function(data) {
+                	console.log(data);
                     displayTrainingData(data);
                 },
                 error: function(xhr, status, error) {
@@ -213,10 +218,11 @@
 
         function displayTrainingData(data) {
             var trainings = data;
+            console.log(trainings);
             var table = document.getElementById("trainingTable");
 
             // Clear existing rows
-            table.innerHTML = "<tr><th>Venue</th><th>Training Mode</th><th>Training Name</th><th>Description</th><th>Map Location</th><th>Coordinator Name</th><th>Application Start Date</th><th>Application End Date</th></tr>";
+            table.innerHTML = "<tr><th>Training Name</th><th>Training Mode</th><th>Description</th><th>App start to end</th><th>Map Location</th><th>Co-ordinater Details</th><th>Action</th></tr>";
 
             for (var i = 0; i < trainings.length; i++) {
     var training = trainings[i];
@@ -228,11 +234,48 @@
     row.insertCell(3).innerHTML = training.apply_start_dt;
     row.insertCell(4).innerHTML = training.location;
     row.insertCell(5).innerHTML = training.coordinatorname;
+    
+        
+    
+    var applyNowButton = document.createElement("button");
+    applyNowButton.textContent = "Apply Now";
+    applyNowButton.className = "btn btn-success";
+    applyNowButton.onclick = function () {
+        var requestData = {
+            tname: training.tname,
+            tmode: training.tmode,
+            description: training.tdescription,
+            apply_start_to_end_date: training.apply_start_dt,
+            maplocation: training.location,
+            coordinator_details: training.coordinatorname
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/api/savetrainings",
+            contentType: "application/json", 
+            data: JSON.stringify(requestData), 
+            success: function (response) {
+                console.log("Apply Now successful:", response);
+                
+                window.location.href = "./apply_traning.html";
+
+
+
+            },
+            error: function (xhr, status, error) {
+                console.error("Apply Now request error: ", error);
+            }
+        });
+    };
+
+    var actionCell = row.insertCell(6);
+    actionCell.appendChild(applyNowButton);
 }
         }
     });
 </script>
-
+			
 
             <!-- ################view Tranning  ######################### -->
             <div class="container mt-2 tab-content" id="tab3" style="display: none;">
@@ -277,12 +320,6 @@
                         console.error('Error loading Excel file:', error);
                     });
             </script>
-
-
-
-
-
-
 
             <!--  script for show hide-->
             <script>
