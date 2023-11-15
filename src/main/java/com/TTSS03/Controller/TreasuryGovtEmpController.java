@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.TTSS03.Entity.TreasuryGovt;
 import com.TTSS03.Service.TreasuryGovtService;
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/TTSS03/api")
 public class TreasuryGovtEmpController {
 	
 	@Autowired

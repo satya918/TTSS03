@@ -17,7 +17,7 @@ public class SearchSchedule {
 	
 	private String tmonth;
 	private String tyear;
-	
+	private String tcategory;
 	private String tname;
 	private String tdescription;
 	
@@ -31,6 +31,9 @@ public class SearchSchedule {
 
 	private String tgrade;
 	private String tagency;
+	private String tsubjects;
+	
+	
 	public int getSl_no() {
 		return sl_no;
 	}
@@ -104,6 +107,18 @@ public class SearchSchedule {
 	}
 	public void setTraining_reg_end_dt(String training_reg_end_dt) {
 		this.training_reg_end_dt = training_reg_end_dt;
+	}
+	public String getTcategory() {
+		return tcategory;
+	}
+	public void setTcategory(String tcategory) {
+		this.tcategory = tcategory;
+	}
+	public String getT_subjects() {
+		return tsubjects;
+	}
+	public void setT_subjects(String t_subjects) {
+		this.tsubjects = t_subjects;
 	}
 	
 	

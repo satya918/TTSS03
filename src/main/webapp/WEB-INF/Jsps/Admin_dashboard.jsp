@@ -15,6 +15,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Add this in the head section of your HTML file -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    
     
     <script>
     $(document).ready(function () {
@@ -67,7 +72,7 @@
             var jsonString = JSON.stringify(formData);
 
 
-            fetch('/api/schedule', {
+            fetch('/TTSS03/api/schedule', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,6 +82,13 @@
             .then(response => response.json())
             .then(data => {
                 console.log("Schedule API response:", data);
+                //toastr.success('API request successful!', 'Success');
+                if (data.success) {
+                toastr.success('Schedule application successful');
+            } else {
+                toastr.error('Schedule application failed');
+            }
+
             })
             .catch(error => {
                 console.log("Error:", error);
@@ -91,7 +103,7 @@
  
             $.ajax({
                 type: "GET",
-                url: "/api/search/schedule?ref_planner_id=" + searchTerm,
+                url: "/TTSS03/api/search/schedule?ref_planner_id=" + searchTerm,
                 dataType: "json",
                 success: function (response) {
 					console.log(response);
@@ -104,6 +116,8 @@
                     //var tmodule = response[0].tmodule;
                     var tgrade = response[0].tgrade;
                     var tagency = response[0].tagency;
+                    var tcategory = response[0].tcategory;
+                    var module = response[0].t_subjects;
  
                    
  
@@ -117,7 +131,8 @@
                     $("#grade").val(tgrade);
                     $("#trainingMode").val(tmode);
                     $("#agency").val(tagency);
-                    $("#agency").val(tagency);
+                    $("#trainingType").val(tcategory);
+                    $("#module").val(module);
                 },
                 error: function (error) {
                     console.log("Error:", error);
@@ -138,7 +153,7 @@
    
     $(document).ready(function () {
         $.ajax({
-            url: "/api/search/venue",
+            url: "/TTSS03/api/search/venue",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -164,7 +179,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "/api/search/venueId?vid=" + selectedVenueId,
+                    url: "/TTSS03/api/search/venueId?vid=" + selectedVenueId,
                     dataType: "json",
                     success: function (response) {
                         var vid = response[0].vid;
@@ -489,28 +504,28 @@
                             <div class="row mt-1">
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="applicationSD"
+                                        <input type="Date" class="form-control" id="applicationSD"
                                             placeholder="12343215" value="">
                                         <label for="applicationSD">Application Start Date</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="applicationED"
+                                        <input type="Date" class="form-control" id="applicationED"
                                             placeholder="99372257343" value="">
                                         <label for="applicationED">Application End Date</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="trainingSD" placeholder="12343215"
+                                        <input type="Date" class="form-control" id="trainingSD" placeholder="12343215"
                                             value="">
                                         <label for="trainingSD">Traning Start Date</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="trainingED" placeholder="12343215"
+                                        <input type="Date" class="form-control" id="trainingED" placeholder="12343215"
                                             value="">
                                         <label for="trainingED">Traning End date</label>
                                     </div>

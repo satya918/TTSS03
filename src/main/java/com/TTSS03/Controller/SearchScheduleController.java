@@ -15,7 +15,7 @@ import com.TTSS03.Entity.SearchSchedule;
 import com.TTSS03.Service.SearchScheduleService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/TTSS03/api")
 public class SearchScheduleController {
 	@Autowired
 	SearchScheduleService searchScheduleService;

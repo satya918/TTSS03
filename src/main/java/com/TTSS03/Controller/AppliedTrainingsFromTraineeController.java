@@ -11,7 +11,7 @@ import com.TTSS03.Entity.AppliedTrainingsFromTrainee;
 import com.TTSS03.Service.AppliedTrainingsFromTraineeService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/TTSS03/api")
 public class AppliedTrainingsFromTraineeController {
 	@Autowired
 	AppliedTrainingsFromTraineeService appliedTrainingsFromTraineeService;
