@@ -594,7 +594,7 @@
         $("#viewTrainingButton").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/api/scheduledTrainings",
+                url: "/TTSS03/api/scheduledTrainings",
                 dataType: "json",
                 success: function(data) {
                     displayTrainingData(data);

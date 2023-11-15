@@ -204,7 +204,7 @@
         $("#applyTrainingButton").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/api/scheduledTrainings",
+                url: "/TTSS03/api/scheduledTrainings",
                 dataType: "json",
                 success: function(data) {
                 	console.log(data);
@@ -252,7 +252,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/api/savetrainings",
+            url: "/TTSS03/api/savetrainings",
             contentType: "application/json", 
             data: JSON.stringify(requestData), 
             success: function (response) {

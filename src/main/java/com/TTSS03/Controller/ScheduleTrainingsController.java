@@ -14,7 +14,7 @@ import com.TTSS03.Entity.ScheduleTrainings;
 import com.TTSS03.Service.ScheduleTrainingsService;
 
 @RestController
-@RequestMapping("/TTSS03/api")
+@RequestMapping("/api")
 public class ScheduleTrainingsController {
 
     @Autowired

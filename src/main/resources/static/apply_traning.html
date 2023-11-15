@@ -29,7 +29,7 @@
  
             $.ajax({
                 type: "GET",
-                url: "/api/findteacher?treasuryid=" + treasuryId,
+                url: "/TTSS03/api/findteacher?treasuryid=" + treasuryId,
                 dataType: "json",
                 success: function (response) {
                     var treasury_id = response[0].treasuryid;
@@ -208,35 +208,35 @@
                         <form>
                             <div class="row mt-3">
                                 <div class="mb-2 col-3">
-                                    <label for="targetField" class="form-label">Treasury Id</label>
-                                        <input type="text" class="form-control" id="treasuryId" placeholder="jhon" disabled>
+                                    <label for="treasuryId" class="form-label">Treasury Id</label>
+                                        <input type="text" class="form-control" id="treasuryId"  disabled>
                                     <!-- <input type="input" class="form-control"
                                         id="exampleFormControlInput1" placeholder="jhon@example.com"> -->
                                 </div>
                                 <div class="mb-2 col-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Participant
+                                    <label for="participantName" class="form-label">Participant
                                         Name</label>
                                     <input type="input" class="form-control"
-                                        id="participantName" placeholder="Jhon Doe">
+                                        id="participantName" >
                                 </div>
                                 <div class="mb-2 col-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">School
+                                    <label for="schoolComplexId" class="form-label">School
                                         Complex Id</label>
                                     <input type="input" class="form-control"
-                                        id="schoolComplexId" placeholder="11089">
+                                        id="schoolComplexId" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="mb-2 col-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                    <label for="email" class="form-label">Email</label>
                                     <input type="Email" class="form-control"
-                                        id="email" placeholder="jhon@example.com">
+                                        id="email" >
                                 </div>
                                 <div class="mb-2 col-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Mobile
+                                    <label for="mobile" class="form-label">Mobile
                                         </label>
                                     <input type="input" class="form-control"
-                                        id="mobile" placeholder="99999999">
+                                        id="mobile" >
                                 </div>
                                 
                             </div>

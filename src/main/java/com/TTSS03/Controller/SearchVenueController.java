@@ -13,7 +13,7 @@ import com.TTSS03.Entity.SearchVenue;
 import com.TTSS03.Service.SearchVenueService;
 
 @RestController
-@RequestMapping("/TTSS03/api")
+@RequestMapping("/api")
 public class SearchVenueController {
 	
 	
