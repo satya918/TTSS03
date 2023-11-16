@@ -23,7 +23,7 @@ public class ScheduleTrainingsController {
     @PostMapping("/schedule")
     public ResponseEntity<String> scheduleOneTraining(@RequestBody ScheduleTrainings scheduleTrainings) {
         scheduleTrainingsService.saveOneTraining(scheduleTrainings);
-        return ResponseEntity.ok("Data Saved Successfully");
+        return ResponseEntity.ok("saved Successfully");
     }
     
     

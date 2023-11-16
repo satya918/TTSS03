@@ -18,6 +18,11 @@ public class AppliedTrainingsFromTrainee {
 	private String Apply_start_to_end_date;
 	private String maplocation;
 	private String coordinator_details;
+	private String treasuryid;
+	private String schoolcomplexid;
+	private String participantname;
+	private String mobileofparticipant;
+	private String emailofparticipant;
 	public int getSlno() {
 		return slno;
 	}
@@ -60,7 +65,36 @@ public class AppliedTrainingsFromTrainee {
 	public void setCoordinator_details(String coordinator_details) {
 		this.coordinator_details = coordinator_details;
 	}
-	
+	public String getTreasuryid() {
+		return treasuryid;
+	}
+	public void setTreasuryid(String treasuryid) {
+		this.treasuryid = treasuryid;
+	}
+	public String getSchoolcomplexid() {
+		return schoolcomplexid;
+	}
+	public void setSchoolcomplexid(String schoolcomplexid) {
+		this.schoolcomplexid = schoolcomplexid;
+	}
+	public String getParticipantname() {
+		return participantname;
+	}
+	public void setParticipantname(String participantname) {
+		this.participantname = participantname;
+	}
+	public String getMobileofparticipant() {
+		return mobileofparticipant;
+	}
+	public void setMobileofparticipant(String mobileofparticipant) {
+		this.mobileofparticipant = mobileofparticipant;
+	}
+	public String getEmailofparticipant() {
+		return emailofparticipant;
+	}
+	public void setEmailofparticipant(String emailofparticipant) {
+		this.emailofparticipant = emailofparticipant;
+	}
 	
 
 }

@@ -33,12 +33,12 @@
                 <img src="./assets/logo.png" width="30" height="30">
             </div>
             <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
-                    onclick="showTab('tab1')">Dashboard</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
+               <!--    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
+                    onclick="showTab('tab1')">Dashboard</a>  -->
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" id="trId" href="#!"
                     onclick="showTab('tab2')">Apply Traning</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
-                    onclick="showTab('tab3')">View Traning</a>
+                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
+                    onclick="showTab('tab3')">View Traning</a>    
                 <!-- Master Setup  menu -->
             </div>
         </div>
@@ -83,7 +83,7 @@
             </nav>
             <!-- Page content-->
             <!-- ######################### View Achedemic calender #################### -->
-            <div class="container mt-2 tab-content" id="tab1">
+           <!--    <div class="container mt-2 tab-content" id="tab1">
 
 
                 <div class=""><b>Dashboard</b>
@@ -174,40 +174,39 @@
                 </div>
 
 
-            </div>
+            </div>   -->
 
 
             <!-- Traning Schudule Form -->
-<div class="container tab-content" id="tab2" style="display: none;">
-    <button id="applyTrainingButton" class="btn btn-primary">Click here For apply trainings</button>
+<div class="container tab-content" id="tab2" >
 
     <!-- Form Start  -->
-    <div class="mt-1"><b>Apply Training</b></div>
+    <div class="mt-1"><b></b></div>
     <div class="card mt-2">
-       <table class="table table-hover" id="trainingTable">
-    <thead>
+       <table class="table table-hover" id="trainingTable" >
+    
         <tr>
-            <th scope="col">Training Name</th>
-            <th scope="col">Training Mode</th>
-            <th scope="col">Training description</th>
-            <th scope="col">App start to end</th>
-            <th scope="col">Venue Details</th>
-            <th scope="col">Co-ordinater Details</th>
-            <th scope="col">Action</th>
+            <th >Training Name</th>
+            <th>Training Mode</th>
+            <th>Training description</th>
+            <th>App start to end</th>
+            <th>Venue Details</th>
+            <th>Co-ordinater Details</th>
+            <th>Action</th>
         </tr>
-    </thead>
+    
 </table>
                 </div>
             </div>
    <script>
     $(document).ready(function() {
-        $("#applyTrainingButton").click(function () {
+        $("#trId").click(function () {
             $.ajax({
                 type: "GET",
                 url: "/TTSS03/api/scheduledTrainings",
                 dataType: "json",
                 success: function(data) {
-                	console.log(data);
+                	
                     displayTrainingData(data);
                 },
                 error: function(xhr, status, error) {
@@ -218,17 +217,17 @@
 
         function displayTrainingData(data) {
             var trainings = data;
+            trainings.reverse();
             console.log(trainings);
             var table = document.getElementById("trainingTable");
 
-            // Clear existing rows
-            table.innerHTML = "<tr><th>Training Name</th><th>Training Mode</th><th>Description</th><th>App start to end</th><th>Map Location</th><th>Co-ordinater Details</th><th>Action</th></tr>";
+     table.innerHTML = "<tr><th>Training Name</th><th>Training Mode</th><th>Description</th><th>App start to end</th><th>Map Location</th><th>Co-ordinater Details</th><th>Action</th></tr>";
 
             for (var i = 0; i < trainings.length; i++) {
     var training = trainings[i];
     var row = table.insertRow(i + 1);
     
-    row.insertCell(0).innerHTML = training.tname;  // Corrected index
+    row.insertCell(0).innerHTML = training.tname;  
     row.insertCell(1).innerHTML = training.tmode;
     row.insertCell(2).innerHTML = training.tdescription;
     row.insertCell(3).innerHTML = training.apply_start_dt;
