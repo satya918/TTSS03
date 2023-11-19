@@ -30,7 +30,7 @@ public class SearchVenueController {
 	}
 	@GetMapping("/search/venueId")
 
-    public ResponseEntity<List<SearchVenue>>findVenue(@RequestParam int vid){
+    public ResponseEntity<List<SearchVenue>>findVenue(@RequestParam String vid){
 		
 		List<SearchVenue> venue = searchVenueService.findByVenueid(vid);
 		

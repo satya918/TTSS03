@@ -8,7 +8,8 @@ public interface SearchVenueService {
 	
 	List<SearchVenue>findAllVenue(SearchVenue searchVenue);
 
-	List<SearchVenue> findByVenueid(int vid);
+	List<SearchVenue> findByVenueid(String vid);
+
 	
 	
 

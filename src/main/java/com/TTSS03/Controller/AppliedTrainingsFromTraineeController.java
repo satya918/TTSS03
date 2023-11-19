@@ -29,13 +29,5 @@ public class AppliedTrainingsFromTraineeController {
 	}
 	
 	
-	@PutMapping("/updateCols")
-    public ResponseEntity<String> updateCols(@RequestParam String treasuryid) {
-        try {
-        	appliedTrainingsFromTraineeService.updateColsByMaxSlno(treasuryid);
-            return new ResponseEntity<>("Columns updated successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error updating columns: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    
 }

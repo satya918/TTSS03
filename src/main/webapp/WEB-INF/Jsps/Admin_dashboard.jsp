@@ -36,8 +36,8 @@ form {
 }
  
 </style> -->
-    
-    
+   
+   
     <script>
     $(document).ready(function () {
         $("#saveSchedule").click(function () {
@@ -100,7 +100,7 @@ form {
             .then(response => response.json())
             .then(data => {
                 console.log("Schedule API response:", data);
-                
+               
  
                
             })
@@ -109,7 +109,7 @@ form {
             });
         });
     });
-
+ 
     //script-2
     $(document).ready(function () {
         $("#searchButton").click(function () {
@@ -117,10 +117,10 @@ form {
  
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/search/schedule?ref_planner_id=" + searchTerm,
+                url: "/api/search/schedule?ref_planner_id=" + searchTerm,
                 dataType: "json",
                 success: function (response) {
-					console.log(response);
+                    console.log(response);
                     var tmonth = response[0].tmonth;
                     var tyear = response[0].tyear;
                     var tname = response[0].tname;
@@ -162,13 +162,13 @@ form {
         var day = String(date.getDate()).padStart(2, '0');
         return year + "-" + month + "-" + day;
     }
-    
-    
-                  
+   
+   
+                 
    
     $(document).ready(function () {
         $.ajax({
-            url: "/TTSS03/api/search/venue",
+            url: "/api/search/venue",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -194,7 +194,7 @@ form {
  
                 $.ajax({
                     type: "GET",
-                    url: "/TTSS03/api/search/venueId?vid=" + selectedVenueId,
+                    url: "/api/search/venueId?vid=" + selectedVenueId,
                     dataType: "json",
                     success: function (response) {
                         var vid = response[0].vid;
@@ -206,7 +206,7 @@ form {
                         var vcontactname = response[0].vcontactname;
                         var vcontactno = response[0].vcontactno;
                         var vcontactmailid = response[0].vcontactmailid;
-                        
+                       
                         $("#venueId").val(vid);
                         $("#mandal").val(vmandal);
                         $("#state").val(vstate);
@@ -234,7 +234,7 @@ form {
             }
         });
     });
-    
+   
  
     </script>
 </head>
@@ -244,7 +244,7 @@ form {
         <!-- Sidebar-->
         <div class="border-end bg-white" id="sidebar-wrapper">
             <div class="sidebar-heading border-bottom bg-light">
-                <img src="./assets/logo.png" width="30" height="30">
+                <img src="./assets/loggoo.png" width="110" height="68">
             </div>
             <div class="list-group list-group-flush">
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
@@ -259,7 +259,7 @@ form {
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
             <!-- Top navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="width: 180%;" >
                 <div class="container-fluid">
                     <div  id="sidebarToggle" >
                         <div style="width: 35px; height: 5px; background-color: black; margin: 6px 0;"></div>
@@ -271,25 +271,32 @@ form {
                         aria-expanded="false" aria-label="Toggle navigation"><span>
                             class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <a class="nav-link ms-auto text-center text-info" href="#!"> Teacher Traning Support System</a>
+                        <h1 class="nav-link ms-auto text-center text-info w-100" style="
+                          position: relative;
+                          top:-30px;
+                          right: -200px;
+                          font-size: 30px;
+                        justify-content: center;
+                        margin-top: 40px;
+ 
+                        color: blue;">Teacher Training Support System</h1> <br>
+                         <h2 class="nav-link ms-auto text-center text-info w-100" style=" position: relative;
+                         top:10px;
+                         right: 360px;
+                         font-size: 20px;
+                       justify-content: center;
+                       margin-top: 40px;
+                       color: Red;
+                       ">Govt Of AndhraPradesh</h2>
+ 
+                       
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                            
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-person-circle" viewBox="0 0 16 16">
-                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                        <path fill-rule="evenodd"
-                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                    </svg>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#!">Profile</a>
-                                    <a class="dropdown-item" href="#!">Setting</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#!">Logout</a>
-                                </div>
+                               
+                                   <img  src="./assets/logo.png" width="80" height="68"/>
+                               
+                             
                             </li>
                         </ul>
                     </div>
@@ -297,9 +304,9 @@ form {
             </nav>
             <!-- Page content-->
             <!-- ######################### View Achedemic calender #################### -->
-            <div class="container mt-2 tab-content" id="tab1">
+            <div class="container tab-content col-12" id="tab1" style="width: 168%;">
 <div class="card mt-2">
-<div class="card-header"><b>Academic Calendar</b></div>
+<div class="card-header" ><b>Academic Calendar</b></div>
 <div class="card-body">
 <div class="table-responsive w-100">
 <div id="excelData"></div>
@@ -342,7 +349,7 @@ form {
         });
 </script>
             <!-- Traning Schudule Form -->
-            <div class="container tab-content " id="tab2" style="display: none;">
+            <div class="container tab-content " id="tab2" style="display: none;width: 178%;" >
                 <!-- Form Start  -->
                 <div class="card mt-3">
                     <div class="card-header text-center">
@@ -556,8 +563,8 @@ form {
  
             </div>
               <!-- ################view Tranning  ######################### -->
-            <div class="container mt-2 tab-content" id="tab3" style="display: none;">
-    <div class="card mt-2">
+            <div class="container mt-2 tab-content" id="tab3" style="display: none;" >
+    <div class="card mt-2" style="width: 180%;" >
         <button id="viewTrainingButton" class="btn btn-primary">View Training</button>
         <div class="card-body">
         <div class="table-responsive">
@@ -592,13 +599,13 @@ form {
         </div>
     </div>
 </div>
-
+ 
 <script>
     $(document).ready(function () {
         $("#viewTraining").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/scheduledTrainings",
+                url: "/api/scheduledTrainings",
                 dataType: "json",
                 success: function (data) {
                     displayTrainingData(data);
@@ -608,19 +615,19 @@ form {
                 }
             });
         });
-
+ 
         function displayTrainingData(data) {
             var trainings = data;
             trainings.reverse();
             var tableBody = $("#trainingTable tbody");
-
+ 
             // Clear existing rows
             tableBody.empty();
-
+ 
             for (var i = 0; i < trainings.length; i++) {
                 var training = trainings[i];
                 var row = $("<tr></tr>");
-
+ 
                 row.append("<td>" + training.ref_planner_id + "</td>");
                 row.append("<td>" + training.venue_id + "</td>");
                 row.append("<td>" + training.tmode + "</td>");
@@ -642,29 +649,29 @@ form {
                 row.append("<td>" + training.apply_end_dt + "</td>");
                 row.append("<td>" + training.training_start_dt + "</td>");
                 row.append("<td>" + training.training_end_dt + "</td>");
-
+ 
                 tableBody.append(row);
             }
         }
     });
-    
-    
+   
+   
     function fun(){
-    	document.getElementById("top").reset();
-    	document.getElementById("middle").reset();
-
+        document.getElementById("top").reset();
+        document.getElementById("middle").reset();
+ 
     }
-    
+   
     function alertbox(){
-    	alert ('training scheduled successfully')
+        alert ('training scheduled successfully')
     }
 </script>
-
+ 
  <script>
     document.getElementById("saveSchedule").addEventListener("click", function () {
         // Display success message
         alert("Training Schedule Successfully ! ! !");
-
+ 
         // Wait for 1 second (1000 milliseconds)
         setTimeout(function () {
             // Redirect to another page (replace 'yourPage.html' with the actual page URL)

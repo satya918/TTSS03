@@ -15,7 +15,7 @@ public class SearchVenueServiceimpl implements SearchVenueService {
 	private SearchVenueRepository SearchVenueRepo;
 
 	@Override
-	public List<SearchVenue> findByVenueid(int vid) {
+	public List<SearchVenue> findByVenueid(String vid) {
 		List<SearchVenue> venue = SearchVenueRepo.findByVId(vid);
 		return venue;	}
 
@@ -24,5 +24,6 @@ public class SearchVenueServiceimpl implements SearchVenueService {
 		List<SearchVenue> allVenue = SearchVenueRepo.findAll();
 		return allVenue;
 	}
+
 
 }

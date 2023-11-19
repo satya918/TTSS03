@@ -29,7 +29,7 @@
  
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/findteacher?treasuryid=" + treasuryId,
+                url: "/api/findteacher?treasuryid=" + treasuryId,
                 dataType: "json",
                 success: function (response) {
                     var treasury_id = response[0].treasuryid;
@@ -60,7 +60,7 @@
         <!-- Sidebar-->
         <div class="border-end bg-white" id="sidebar-wrapper">
             <div class="sidebar-heading border-bottom bg-light">
-                <img src="./assets/logo.png" width="30" height="30">
+                <img src="./assets/loggoo.png"  width="110" height="68">
             </div>
             <div class="list-group list-group-flush">
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
@@ -75,9 +75,9 @@
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
             <!-- Top navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="width: 180%;" >
                 <div class="container-fluid">
-                    <div id="sidebarToggle">
+                    <div  id="sidebarToggle" >
                         <div style="width: 35px; height: 5px; background-color: black; margin: 6px 0;"></div>
                         <div style="width: 35px; height: 5px; background-color: black; margin: 6px 0;"></div>
                         <div style="width: 35px; height: 5px; background-color: black; margin: 6px 0;"></div>
@@ -87,25 +87,31 @@
                         aria-expanded="false" aria-label="Toggle navigation"><span>
                             class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <a class="nav-link ms-auto text-center text-info" href="#!"> Teacher Traning Support System</a>
-                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <h1 class="nav-link ms-auto text-center text-info w-100" style="
+                          position: relative;
+                          top:-30px;
+                          right: -200px;
+                          font-size: 25px;
+                        justify-content: center;
+                        margin-top: 40px;
  
+                        color: blue;">Teacher Training Support System</h1> <br>
+                         <h2 class="nav-link ms-auto text-center text-info w-100" style=" position: relative;
+                         top:10px;
+                         right: 330px;
+                         font-size: 25px;
+                       justify-content: center;
+                       margin-top: 40px;
+                       color:red;">Govt Of AndhraPradesh</h2>
+ 
+                       
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                           
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-person-circle" viewBox="0 0 16 16">
-                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                        <path fill-rule="evenodd"
-                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                    </svg>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#!">Profile</a>
-                                    <a class="dropdown-item" href="#!">Setting</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#!">Logout</a>
-                                </div>
+                               
+                                   <img  src="./assets/logo.png" width="80" height="68"/>
+                               
+                             
                             </li>
                         </ul>
                     </div>
@@ -181,9 +187,9 @@
  
  
             </div>
- 
+
             <!-- Traning Schudule Form -->
-            <div class="container tab-content " id="tab2" >
+            <div class="container tab-content " id="tab2"  style="position: relative; right:-220px; height: 100%;">
                 <!-- Form Start  -->
                 <div class="mt-1"><b>Apply Traning</b>
                 </div>
@@ -205,13 +211,12 @@
                             </div>
                             
                         </div>
-                        <form>
+                        <form >
                             <div class="row mt-3">
                                 <div class="mb-2 col-3">
                                     <label for="treasuryId" class="form-label">Treasury Id</label>
                                         <input type="text" class="form-control" id="treasuryId"  disabled>
-                                    <!-- <input type="input" class="form-control"
-                                        id="exampleFormControlInput1" placeholder="jhon@example.com"> -->
+                                    
                                 </div>
                                 <div class="mb-2 col-3">
                                     <label for="participantName" class="form-label">Participant
@@ -255,15 +260,74 @@
                             </div>
  
                             <div class="mb-2 col-3">
-                                    <!-- <label for="tenable">Traning Name(if Attened):</label> -->
+                                    <label for="tenable">Traning Name(if Attened):</label> 
                                     <input type="text" id="tenable"  class="form-control" placeholder="Type something here" disabled>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" id="form" >Submit</button>
                         </form>
                    </div>
                    </div>
                 </div>    
-                
+  <script>
+    $(document).ready(function() {
+        $("form").submit(function (event) {
+            event.preventDefault();
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var refPlannerId = urlParams.get('ref_planner_id');
+
+            var formData = {
+                treasuryid: $("#treasuryId").val(),
+                ref_planner_id: refPlannerId
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/savetrainings",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    console.log("POST request successful:", response);
+                    alert("Training Applied successfully ! ! !");
+
+                    // Make another AJAX request after the first one is successful
+                   
+
+                    $.ajax({
+    type: "POST",
+    url: "/api/processData",
+    data: { treasuryId: $("#treasuryId").val() },
+    success: function(anotherResponse) {
+        console.log("Second request successful:", anotherResponse);
+        // Handle the response of the second request
+    },
+    error: function(xhr, status, error) {
+        console.error("Second request error: ", error);
+        // Handle errors for the second request
+    }
+});
+
+                    // Redirect to another page after a delay
+                    setTimeout(function() {
+                        window.location.href = "./trainee?treasuryId=" + $("#treasuryId").val();
+                    }, 2000); 
+                },
+                error: function(xhr, status, error) {
+                    console.error("POST request error: ", error);
+                }
+            });
+        });
+
+        $("input[name='options']").change(function() {
+            if ($("#enableRadioTrani").is(":checked")) {
+                $("#tenable").prop("disabled", false);
+            } else {
+                $("#tenable").prop("disabled", true);
+            }
+        });
+    });
+</script>
+
                 <!-- For *Goverment or Treasury Employee: -->
                 <script>
                     // Get the radio buttons and the target field for *Goverment or Treasury Employee:
@@ -310,49 +374,74 @@
                     <div class="card-header"><b>View Traning</b></div>
                     <div class="card-body">
                         <div id="viewTraning"></div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                // Replace 'example.xlsx' with the path to your Excel file
-                var excelFileURL = './file.xlsx';
+                      <div class="table-responsive">
+            <table class="table table-hover" id="mytraining">
+                <thead>
+                    <tr>
+                        <th>Treasury Id</th>
+                        <th>Training Name</th>
+                        <th>Training Mode</th>
+                        <th>Training description</th>
+                        <th>Training start to end date</th>
+                        <th>Venue Name</th>
+                        <th>Venue Address</th>
+                        <th>Venue Contact</th>
+                        <th>Trainer Name</th>
+                        
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+ </div>
+ <script>
+    $(document).ready(function () {
+        $("#mytrainings").click(function () {
+           var urlParams = new URLSearchParams(window.location.search);
+            var searchTerm = urlParams.get('treasuryid');
+
+            $.ajax({
+                type: "GET",
+                url: "/api/mytrainings?treasuryid=" +searchTerm,
+                dataType: "json",
+                success: function (data) {
+                    displayTrainingData(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error("API request error: " + error);
+                }
+            });
+        });
  
-                fetch(excelFileURL)
-                    .then(function (response) {
-                        return response.arrayBuffer();
-                    })
-                    .then(function (data) {
-                        var workbook = XLSX.read(data, { type: 'array' });
+        function displayTrainingData(data) {
+            var trainings = data;
+            trainings.reverse();
+            var tableBody = $("#mytraining tbody");
  
-                        // Assuming you want to display the first sheet's data
-                        var firstSheetName = workbook.SheetNames[0];
-                        var worksheet = workbook.Sheets[firstSheetName];
-                        var excelData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+            // Clear existing rows
+            tableBody.empty();
  
-                        // Display the Excel data
-                        var tableHTML = '<table class="table table-striped table-bordered">';
-                        for (var i = 0; i < excelData.length; i++) {
-                            tableHTML += '<tr>';
-                            for (var j = 0; j < excelData[i].length; j++) {
-                                tableHTML += '<td>' + excelData[i][j] + '</td>';
-                            }
-                            tableHTML += '</tr>';
-                        }
-                        tableHTML += '</table>';
+            for (var i = 0; i < trainings.length; i++) {
+                var training = trainings[i];
+                var row = $("<tr></tr>");
  
-                        document.getElementById('viewTraning').innerHTML = tableHTML;
-                    })
-                    .catch(function (error) {
-                        console.error('Error loading Excel file:', error);
-                    });
-            </script>
- 
- 
- 
- 
- 
- 
- 
+                row.append("<td>" + training.treasuryid + "</td>");
+                row.append("<td>" + training.tname + "</td>");
+                row.append("<td>" + training.tmode + "</td>");
+                row.append("<td>" + training.tdescription + "</td>");
+                row.append("<td>" + training.startdate + "to" +training.enddate+ "</td>");     
+                row.append("<td>" + training.vname + "</td>");
+                row.append("<td>" + training.vaddress + "</td>");
+                row.append("<td>" + training.vcontact + "</td>");
+                row.append("<td>" + training.trainername + "</td>");
+               
+                tableBody.append(row);
+            }
+        }
+    });	
+ 	</script>         
             <!--  script for show hide-->
             <script>
                 function showTab(tabId) {
@@ -368,11 +457,9 @@
                 }
             </script>
  
- 
             <!-- Bootstrap core JS-->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
             <!-- Core theme JS-->
             <script src="js/scripts.js"></script>
 </body>
- 
 </html>

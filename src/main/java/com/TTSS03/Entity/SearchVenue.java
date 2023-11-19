@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 public class SearchVenue {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int vid;
+	private String vid;
 	private String vname;
 	private String vstate;
 	private String vmandal;
@@ -30,10 +30,10 @@ public class SearchVenue {
 	private String modifieddt;
 	private String recordstatus;
 	private String remarks;
-	public int getVid() {
+	public String getVid() {
 		return vid;
 	}
-	public void setVid(int vid) {
+	public void setVid(String vid) {
 		this.vid = vid;
 	}
 	public String getVname() {

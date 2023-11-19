@@ -120,13 +120,15 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 }
 
 h1, .h1 {
-  font-size: calc(1.375rem + 1.5vw);
+  font-size: calc(2.175rem + 1.5vw); /* Adjusted for h1 */
 }
+
 @media (min-width: 1200px) {
   h1, .h1 {
-    font-size: 2.5rem;
+    font-size: 4rem; /* Adjusted for larger screens */
   }
 }
+
 
 h2, .h2 {
   font-size: calc(1.325rem + 0.9vw);
@@ -10844,7 +10846,7 @@ textarea.form-control-lg {
 }
 
 #page-content-wrapper {
-  min-width: 100vw;
+ max-width: 700px;
 }
 
 body.sb-sidenav-toggled #wrapper #sidebar-wrapper {

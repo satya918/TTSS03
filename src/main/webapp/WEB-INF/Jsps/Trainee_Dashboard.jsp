@@ -21,6 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link href="css/styles.css" rel="stylesheet" />
 
 
 </head>
@@ -30,7 +31,7 @@
         <!-- Sidebar-->
         <div class="border-end bg-white" id="sidebar-wrapper">
             <div class="sidebar-heading border-bottom bg-light">
-                <img src="./assets/logo.png" width="30" height="30">
+                <img src="./assets/loggoo.png"  width="110" height="68">
             </div>
             <div class="list-group list-group-flush">
                <!--    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
@@ -38,16 +39,16 @@
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" id="trId" href="#!"
                     onclick="showTab('tab2')">Apply Traning</a>
                  <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
-                    onclick="showTab('tab3')">View Traning</a>    
+                    onclick="showTab('tab3')" id="mytrainings">My Traning</a>    
                 <!-- Master Setup  menu -->
             </div>
         </div>
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
             <!-- Top navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="width: 180%;" >
                 <div class="container-fluid">
-                    <div id="sidebarToggle">
+                    <div  id="sidebarToggle" >
                         <div style="width: 35px; height: 5px; background-color: black; margin: 6px 0;"></div>
                         <div style="width: 35px; height: 5px; background-color: black; margin: 6px 0;"></div>
                         <div style="width: 35px; height: 5px; background-color: black; margin: 6px 0;"></div>
@@ -57,25 +58,31 @@
                         aria-expanded="false" aria-label="Toggle navigation"><span>
                             class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <a class="nav-link ms-auto text-center text-info" href="#!"> Teacher Traning Support System</a>
+                        <h1 class="nav-link ms-auto text-center text-info w-100" style="
+                          position: relative;
+                          top:-30px;
+                          right: -200px;
+                          font-size: 25px;
+                        justify-content: center;
+                        margin-top: 40px;
+ 
+                        color: blue;">Teacher Training Support System</h1> <br>
+                         <h2 class="nav-link ms-auto text-center text-info w-100" style=" position: relative;
+                         top:10px;
+                         right: 330px;
+                         font-size: 25px;
+                       justify-content: center;
+                       margin-top: 40px;
+                       color:red;">Govt Of AndhraPradesh</h2>
+ 
+                       
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-
+                           
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-person-circle" viewBox="0 0 16 16">
-                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                        <path fill-rule="evenodd"
-                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                    </svg>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#!">Profile</a>
-                                    <a class="dropdown-item" href="#!">Setting</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#!">Logout</a>
-                                </div>
+                               
+                                   <img  src="./assets/logo.png" width="80" height="68"/>
+                               
+                             
                             </li>
                         </ul>
                     </div>
@@ -178,35 +185,36 @@
 
 
             <!-- Traning Schudule Form -->
-<div class="container tab-content" id="tab2" >
-
-    <!-- Form Start  -->
+<div class="container tab-content" id="tab2" style="width: 180%">
     <div class="mt-1"><b></b></div>
     <div class="card mt-2">
-       <table class="table table-hover" id="trainingTable" >
-    
-        <tr>
-            <th >Training Name</th>
-            <th>Training Mode</th>
-            <th>Training description</th>
-            <th>App start to end</th>
-            <th>Venue Details</th>
-            <th>Co-ordinater Details</th>
-            <th>Action</th>
-        </tr>
-    
-</table>
-                </div>
-            </div>
-   <script>
+        <div class="table-responsive">
+            <table class="table table-hover" id="trainingTable">
+                <thead>
+                    <tr>
+                        <th>Reference Id</th>
+                        <th>Training Name</th>
+                        <th>Training Mode</th>
+                        <th>Training description</th>
+                        <th>App start to end</th>
+                        <th>Venue Details</th>
+                        <th>Co-ordinater Details</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+ <script>
     $(document).ready(function() {
         $("#trId").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/scheduledTrainings",
+                url: "/api/scheduledTrainings",
                 dataType: "json",
                 success: function(data) {
-                	
                     displayTrainingData(data);
                 },
                 error: function(xhr, status, error) {
@@ -218,107 +226,132 @@
         function displayTrainingData(data) {
             var trainings = data;
             trainings.reverse();
-            console.log(trainings);
+            
             var table = document.getElementById("trainingTable");
 
-     table.innerHTML = "<tr><th>Training Name</th><th>Training Mode</th><th>Description</th><th>App start to end</th><th>Map Location</th><th>Co-ordinater Details</th><th>Action</th></tr>";
+            table.innerHTML = "<tr><th>Reference Id</th><th>Training Name</th><th>Training Mode</th><th>Description</th><th>App start to end</th><th>Map Location</th><th>Co-ordinater Details</th><th>Action</th></tr>";
 
             for (var i = 0; i < trainings.length; i++) {
-    var training = trainings[i];
-    var row = table.insertRow(i + 1);
-    
-    row.insertCell(0).innerHTML = training.tname;  
-    row.insertCell(1).innerHTML = training.tmode;
-    row.insertCell(2).innerHTML = training.tdescription;
-    row.insertCell(3).innerHTML = training.apply_start_dt;
-    row.insertCell(4).innerHTML = training.location;
-    row.insertCell(5).innerHTML = training.coordinatorname;
-    
-        
-    
-    var applyNowButton = document.createElement("button");
-    applyNowButton.textContent = "Apply Now";
-    applyNowButton.className = "btn btn-success";
-    applyNowButton.onclick = function () {
-        var requestData = {
-            tname: training.tname,
-            tmode: training.tmode,
-            description: training.tdescription,
-            apply_start_to_end_date: training.apply_start_dt,
-            maplocation: training.location,
-            coordinator_details: training.coordinatorname
-        };
+                var training = trainings[i];
+                var row = table.insertRow(i + 1);
 
-        $.ajax({
-            type: "POST",
-            url: "/TTSS03/api/savetrainings",
-            contentType: "application/json", 
-            data: JSON.stringify(requestData), 
-            success: function (response) {
-                console.log("Apply Now successful:", response);
-                
-                window.location.href = "./apply_traning.html";
+                row.insertCell(0).innerHTML = training.ref_planner_id;
+                row.insertCell(1).innerHTML = training.tname;  
+                row.insertCell(2).innerHTML = training.tmode;
+                row.insertCell(3).innerHTML = training.tdescription;
+                row.insertCell(4).innerHTML = training.apply_start_dt;
+                row.insertCell(5).innerHTML = training.location;
+                row.insertCell(6).innerHTML = training.coordinatorname;
 
+                var applyNowButton = document.createElement("button");
+                applyNowButton.textContent = "Apply Now";
+                applyNowButton.className = "btn btn-success";
 
+                // Use a function to capture the correct ref_planner_id
+                applyNowButton.onclick = createApplyButtonClickHandler(training.ref_planner_id);
 
-            },
-            error: function (xhr, status, error) {
-                console.error("Apply Now request error: ", error);
+                var actionCell = row.insertCell(7);
+                actionCell.appendChild(applyNowButton);
             }
-        });
-    };
+        }
 
-    var actionCell = row.insertCell(6);
-    actionCell.appendChild(applyNowButton);
-}
+        // Function to create a closure and capture the correct ref_planner_id
+        function createApplyButtonClickHandler(refPlannerId) {
+            return function () {
+                // Pass the ref_planner_id to the next page
+                redirectToApplyPage(refPlannerId);
+            };
+        }
+
+        // Function to redirect to the apply_training.html page with the ref_planner_id parameter
+        function redirectToApplyPage(refPlannerId) {
+            window.location.href = "./apply_traning.html?ref_planner_id=" + refPlannerId;
         }
     });
 </script>
+
+
 			
 
             <!-- ################view Tranning  ######################### -->
-            <div class="container mt-2 tab-content" id="tab3" style="display: none;">
+            <div class="container mt-2 tab-content" id="tab3" style="display: none; width: 180%;">
 
                 <div class="card mt-2">
-                    <div class="card-header"><b>View Traning</b></div>
+                    <div class="card-header"><b>My Trainings </b></div>
                     <div class="card-body">
-                        <div id="viewTraning"></div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                // Replace 'example.xlsx' with the path to your Excel file
-                var excelFileURL = './file.xlsx';
+                        <div id="myTrainings"></div>
+                         <div class="table-responsive">
+            <table class="table table-hover" id="mytraining">
+                <thead>
+                    <tr>
+                        <th>Treasury Id</th>
+                        <th>Training Name</th>
+                        <th>Training Mode</th>
+                        <th>Training description</th>
+                        <th>Training start to end date</th>
+                        <th>Venue Name</th>
+                        <th>Venue Address</th>
+                        <th>Venue Contact</th>
+                        <th>Trainer Name</th>
+                        
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+ </div>
+ 	<script>
+ 	
+ 	
+    $(document).ready(function () {
+        $("#mytrainings").click(function () {
+           var urlParams = new URLSearchParams(window.location.search);
+            var searchTerm = urlParams.get('treasuryId');
+            console.log(searchTerm);
 
-                fetch(excelFileURL)
-                    .then(function (response) {
-                        return response.arrayBuffer();
-                    })
-                    .then(function (data) {
-                        var workbook = XLSX.read(data, { type: 'array' });
+            $.ajax({
+                type: "GET",
+                url: "/api/mytrainings?treasuryId=" +searchTerm,
+                dataType: "json",
+                success: function (data) {
+                	console.log(data);
+                    displayTrainingData(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error("API request error: " + error);
+                }
+            });
+        });
+ 
+        function displayTrainingData(data) {
+            var trainings = data;
+            trainings.reverse();
+            var tableBody = $("#mytraining tbody");  // Corrected this line
 
-                        // Assuming you want to display the first sheet's data
-                        var firstSheetName = workbook.SheetNames[0];
-                        var worksheet = workbook.Sheets[firstSheetName];
-                        var excelData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+            // Clear existing rows
+            tableBody.empty();
 
-                        // Display the Excel data
-                        var tableHTML = '<table class="table table-striped table-bordered">';
-                        for (var i = 0; i < excelData.length; i++) {
-                            tableHTML += '<tr>';
-                            for (var j = 0; j < excelData[i].length; j++) {
-                                tableHTML += '<td>' + excelData[i][j] + '</td>';
-                            }
-                            tableHTML += '</tr>';
-                        }
-                        tableHTML += '</table>';
+            for (var i = 0; i < trainings.length; i++) {
+                var training = trainings[i];
+                var row = $("<tr></tr>");
 
-                        document.getElementById('viewTraning').innerHTML = tableHTML;
-                    })
-                    .catch(function (error) {
-                        console.error('Error loading Excel file:', error);
-                    });
-            </script>
+                row.append("<td>" + training.treasuryid + "</td>");
+                row.append("<td>" + training.tname + "</td>");
+                row.append("<td>" + training.tmode + "</td>");
+                row.append("<td>" + training.tdescription + "</td>");
+                row.append("<td>" + training.startdate + " to " + training.enddate + "</td>");
+                row.append("<td>" + training.vname + "</td>");
+                row.append("<td>" + training.vaddress + "</td>");
+                row.append("<td>" + training.vcontact + "</td>");
+                row.append("<td>" + training.trainername + "</td>");
+
+                tableBody.append(row);
+            }
+        }
+    });
+ 	</script>                
 
             <!--  script for show hide-->
             <script>
