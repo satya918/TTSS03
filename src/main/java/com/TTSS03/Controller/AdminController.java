@@ -28,5 +28,8 @@ public class AdminController {
 	public String viewsCalender() {
 		return "AcademicCalender";
 	}
-
+	@RequestMapping("/Authentication")
+	public String redirect() {
+		return "Authentication";
+	}
 }

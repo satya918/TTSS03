@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="ttrainingmaping")
+@Table(name="ttrainingmapping")
 public class AppliedTrainingsFromTrainee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

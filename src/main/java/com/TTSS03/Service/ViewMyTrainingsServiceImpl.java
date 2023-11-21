@@ -32,26 +32,21 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 
     @Override
     public void getdata(String treasuryid) {
-        // Step 2: Use treasuryId to get referenceId from tmapping table
         List<AppliedTrainingsFromTrainee> appliedTrainingsList = appliedTrainingsFromTraineeRepo.findByTreasuryId(treasuryid);
 
         for (AppliedTrainingsFromTrainee tMapping : appliedTrainingsList) {
             String ref_planner_id = tMapping.getRef_planner_id();
 
-            // Step 3: Use referenceId to retrieve data from table1
             List<ScheduleTrainings> scheduleTrainingsList = ScheduleTrainingsRepo.findByRefId(ref_planner_id);
 
             for (ScheduleTrainings table1 : scheduleTrainingsList) {
                 String venue_id = table1.getVenue_id();
 
-                // Step 4: Use venueId to retrieve data from venueMaster
                 List<SearchVenue> searchVenueList = SearchVenueRepo.findByVId1(venue_id);
 
                 for (SearchVenue venueMaster : searchVenueList) {
-                    // Step 5: Combine data and make a POST request to another table
                     ViewMyTrainings mytraining = new ViewMyTrainings();
 
-                    // Set data from table1, venueMaster, or any other sources
                     mytraining.setTreasuryid(treasuryid);
 
                     mytraining.setTname(table1.getTname());
@@ -64,9 +59,7 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
                     mytraining.setVname(venueMaster.getVname());
                     mytraining.setVaddress(venueMaster.getVaddress());
                     mytraining.setVcontact(venueMaster.getVcontact_no() + " " + venueMaster.getVcontactmailid());
-                    // Set other fields
 
-                    // Step 6: Save data to another table
                     ViewMyTrainingsRepo.save(mytraining);
                 }
             }

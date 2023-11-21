@@ -18,7 +18,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
+    <style>
+		body{
+			font-size: 14px;
+		}
+	</style>
      <script>
     $(document).ready(function () {
         // Add keyup event to the Treasury ID input field
@@ -29,7 +33,7 @@
  
             $.ajax({
                 type: "GET",
-                url: "/api/findteacher?treasuryid=" + treasuryId,
+                url: "/TTSS03/api/findteacher?treasuryid=" + treasuryId,
                 dataType: "json",
                 success: function (response) {
                     var treasury_id = response[0].treasuryid;
@@ -263,7 +267,7 @@
                                     <label for="tenable">Traning Name(if Attened):</label> 
                                     <input type="text" id="tenable"  class="form-control" placeholder="Type something here" disabled>
                             </div>
-                            <button type="submit" class="btn btn-primary" id="form" >Submit</button>
+                            <button type="submit" class="btn btn-primary" id="form" style="font-size: 14px;">Submit</button>
                         </form>
                    </div>
                    </div>
@@ -283,7 +287,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/api/savetrainings",
+                url: "/TTSS03/api/savetrainings",
                 contentType: "application/json",
                 data: JSON.stringify(formData),
                 success: function(response) {
@@ -293,9 +297,9 @@
                     // Make another AJAX request after the first one is successful
                    
 
-                    $.ajax({
+ $.ajax({
     type: "POST",
-    url: "/api/processData",
+    url: "/TTSS03/api/processData",
     data: { treasuryId: $("#treasuryId").val() },
     success: function(anotherResponse) {
         console.log("Second request successful:", anotherResponse);
@@ -309,8 +313,8 @@
 
                     // Redirect to another page after a delay
                     setTimeout(function() {
-                        window.location.href = "./trainee?treasuryId=" + $("#treasuryId").val();
-                    }, 2000); 
+                        window.location.href = "/TTSS03/Trenee_dashboard.html?treasuryId=" + $("#treasuryId").val();
+                    }, 1000); 
                 },
                 error: function(xhr, status, error) {
                     console.error("POST request error: ", error);
@@ -404,7 +408,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "/api/mytrainings?treasuryid=" +searchTerm,
+                url: "/TTSS03/api/mytrainings?treasuryid=" +searchTerm,
                 dataType: "json",
                 success: function (data) {
                     displayTrainingData(data);

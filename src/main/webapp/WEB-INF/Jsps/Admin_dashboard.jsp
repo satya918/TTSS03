@@ -89,7 +89,7 @@ form {
             var jsonString = JSON.stringify(formData);
  
  
-            fetch('/api/schedule', {
+            fetch('/TTSS03/api/schedule', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ form {
  
             $.ajax({
                 type: "GET",
-                url: "/api/search/schedule?ref_planner_id=" + searchTerm,
+                url: "/TTSS03/api/search/schedule?ref_planner_id=" + searchTerm,
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -168,7 +168,7 @@ form {
    
     $(document).ready(function () {
         $.ajax({
-            url: "/api/search/venue",
+            url: "/TTSS03/api/search/venue",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -194,7 +194,7 @@ form {
  
                 $.ajax({
                     type: "GET",
-                    url: "/api/search/venueId?vid=" + selectedVenueId,
+                    url: "/TTSS03/api/search/venueId?vid=" + selectedVenueId,
                     dataType: "json",
                     success: function (response) {
                         var vid = response[0].vid;
@@ -248,11 +248,11 @@ form {
             </div>
             <div class="list-group list-group-flush">
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
-                    onclick="showTab('tab1')">Achademic Calender</a>
+                    onclick="showTab('tab1')">Academic Calender</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
-                    onclick="showTab('tab2')">Schedule Traning</a>
+                    onclick="showTab('tab2')">Schedule Training</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" id="viewTraining" href="#!"
-                    onclick="showTab('tab3')">View Traning</a>
+                    onclick="showTab('tab3')">View Training</a>
                 <!-- Master Setup  menu -->
             </div>
         </div>
@@ -516,7 +516,7 @@ form {
 <div class="form-group col-md-3">
 <div class="form-floating">
 <input type="Date" class="form-control " id="applicationSD" required>
-<label for="applicationSD">Application Start Date</label>
+<label for="applicationSD" >Application Start Date</label>
 </div>
 </div>
 <div class="form-group col-md-3">
@@ -605,7 +605,7 @@ form {
         $("#viewTraining").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/api/scheduledTrainings",
+                url: "/TTSS03/api/scheduledTrainings",
                 dataType: "json",
                 success: function (data) {
                     displayTrainingData(data);

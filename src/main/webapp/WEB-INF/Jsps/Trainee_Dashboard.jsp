@@ -212,7 +212,7 @@
         $("#trId").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/api/scheduledTrainings",
+                url: "/TTSS03/api/scheduledTrainings",
                 dataType: "json",
                 success: function(data) {
                     displayTrainingData(data);
@@ -313,7 +313,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "/api/mytrainings?treasuryId=" +searchTerm,
+                url: "/TTSS03/api/mytrainings?treasuryId=" +searchTerm,
                 dataType: "json",
                 success: function (data) {
                 	console.log(data);
