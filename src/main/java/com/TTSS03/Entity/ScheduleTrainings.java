@@ -26,7 +26,8 @@ public class ScheduleTrainings {
 	private String modified_by;
 	private String modified_dt;
 	private String record_status;
-	//private String tstatus;
+	private String maplocation;
+	private String vaddress;
 	private String tmode;
 	private String tgrade;
 	private String state;
@@ -224,6 +225,18 @@ public class ScheduleTrainings {
 	}
 	public void setCoordinatormobileno(String coordinatormobileno) {
 		this.coordinatormobileno = coordinatormobileno;
+	}
+	public String getMaplocation() {
+		return maplocation;
+	}
+	public void setMaplocation(String maplocation) {
+		this.maplocation = maplocation;
+	}
+	public String getVaddress() {
+		return vaddress;
+	}
+	public void setVaddress(String vaddress) {
+		this.vaddress = vaddress;
 	}
 	
 	

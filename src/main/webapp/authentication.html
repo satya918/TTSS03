@@ -121,9 +121,9 @@
         // Determine the API URL based on the role
         var apiUrl = '';
         if (loginCredentials.loginAs === 'admin') {
-            apiUrl = '/TTSS03/api/admin/login';
+            apiUrl = '/api/admin/login';
         } else if (loginCredentials.loginAs === 'teacher') {
-            apiUrl = '/TTSS03/api/teacher/login';
+            apiUrl = '/api/teacher/login';
         }
  
         // AJAX Request
@@ -138,9 +138,9 @@
                 // Determine the dashboard based on the role
                 var dashboardUrl = '';
                 if (loginCredentials.loginAs === 'admin') {
-                    dashboardUrl = '/TTSS03/Admin_dashboard.html';
+                    dashboardUrl = '/Admin_dashboard.html';
                 } else if (loginCredentials.loginAs === 'teacher') {
-                    dashboardUrl = '/TTSS03/Trenee_dashboard.html';
+                    dashboardUrl = '/Trenee_dashboard.html';
                 }
  
                 showAlert('Login Successful', 'alert-success');

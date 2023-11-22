@@ -36,6 +36,20 @@ form {
 }
  
 </style> -->
+
+   <style>
+        /* Remove date format from input */
+        input[type=date]:required:invalid::-webkit-datetime-edit {
+            color: transparent;
+            font-size: 15px;
+        }
+
+        input[type=date]:focus::-webkit-datetime-edit {
+            color: black !important;
+            font-size: 15px;
+        }
+    </style>
+
    
    
     <script>
@@ -61,6 +75,8 @@ form {
             var aendDate = $("#applicationED").val();
             var tstartDate = $("#trainingSD").val();
             var tendDate = $("#trainingED").val();
+            var location = $("#maplocation").val();
+            var vaddress = $("#vaddress").val();
  
             // Construct the formData object
             var formData = {
@@ -83,13 +99,15 @@ form {
                 apply_start_dt: astartDate,
                 apply_end_dt: aendDate,
                 training_start_dt: tstartDate,
-                training_end_dt: tendDate
+                training_end_dt: tendDate,
+                maplocation: location,
+                vaddress: vaddress
             };
  
             var jsonString = JSON.stringify(formData);
  
  
-            fetch('/TTSS03/api/schedule', {
+            fetch('/api/schedule', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,7 +135,7 @@ form {
  
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/search/schedule?ref_planner_id=" + searchTerm,
+                url: "/api/search/schedule?ref_planner_id=" + searchTerm,
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -168,7 +186,7 @@ form {
    
     $(document).ready(function () {
         $.ajax({
-            url: "/TTSS03/api/search/venue",
+            url: "/api/search/venue",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -194,7 +212,7 @@ form {
  
                 $.ajax({
                     type: "GET",
-                    url: "/TTSS03/api/search/venueId?vid=" + selectedVenueId,
+                    url: "/api/search/venueId?vid=" + selectedVenueId,
                     dataType: "json",
                     success: function (response) {
                         var vid = response[0].vid;
@@ -202,19 +220,21 @@ form {
                         var vmandal = response[0].vmandal;
                         var vstate = response[0].vstate;
                         var vdistrict = response[0].vdistrict;
-                        var vlocation = response[0].vlocation;
+                        var vlocation = response[0].vaddress;
                         var vcontactname = response[0].vcontactname;
                         var vcontactno = response[0].vcontactno;
                         var vcontactmailid = response[0].vcontactmailid;
+                        var maplocation = response[0].maplocation;
                        
                         $("#venueId").val(vid);
                         $("#mandal").val(vmandal);
                         $("#state").val(vstate);
                         $("#district").val(vdistrict);
-                        $("#mapLocation").val(vlocation);
+                        $("#maplocation").val(maplocation);
                         $("#coordinatorName").val(vcontactname);
                         $("#mobile").val(vcontactno);
                         $("#email").val(vcontactmailid);
+                        $("#vaddress").val(vlocation);
                          
  
                     },
@@ -227,10 +247,12 @@ form {
                 $('#mandal').val('');
                 $('#state').val('');
                 $('#district').val('');
-                $('#mapLocation').val('');
+                $('#maplocation').val('');
                 $('#coordinatorName').val('');
                 $('#mobile').val('');
                 $('#email').val('');
+                $('#vaddress').val('');
+                
             }
         });
     });
@@ -361,16 +383,17 @@ form {
 <!-- <div class=""> -->
 <form class="card-body shadow-lg bg-body-tertiary rounded" id="top">
 <div class="row">
+ <div class="form-group col-md-3">
+	 <label for="trainingReferenceId" class="form-label">RefPlanner ID</label>
+            <div class="form-floating" >
+				        
+
+                <input type="text" class="form-control" id="trainingReferenceId" style="font-size: 20px;  ">
+            </div>
+        </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="trainingReferenceId"
-                                            placeholder="12343215" required>
-<label for="floatingInputGridTreasury">Training Ref Id</label>
-</div>
-</div>
-<div class="form-group col-md-3">
-<div class="form-floating">
-<button type="button" class="btn btn-primary btn-lg" Id="searchButton">Search</button>
+<button type="button" class="btn btn-primary btn-lg" Id="searchButton" style="position: relative; top:23px">Search</button>
 </div>
 </div>
 <div class="form-group col-md-3">
@@ -386,7 +409,6 @@ form {
 </div>
 </form>
 </div>
- 
                     <!-- ################################### -->
  
  
@@ -399,26 +421,26 @@ form {
 <div class="row">
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="trainingType" placeholder="12343215"  required>
+<input type="text" class="form-control" id="trainingType" placeholder="12343215"  required readonly>
 <label for="trainingType">Training Type</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
 <input type="text" class="form-control" id="trainingMode"
-                                            placeholder="99372257343"  required>
+                                            placeholder="99372257343"  required readonly>
 <label for="trainingMode">Training Mode</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="trainingMonth" placeholder="12343215" required>
+<input type="text" class="form-control" id="trainingMonth" placeholder="12343215" required readonly>
 <label for="trainingMonth">Training Month</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="trainingYear" placeholder="12343215" required>
+<input type="text" class="form-control" id="trainingYear" placeholder="12343215" required readonly>
 <label for="trainingYear">Training Year</label>
 </div>
 </div>
@@ -427,25 +449,31 @@ form {
 <div class="row mt-1">
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="trainingName" placeholder="12343215" required>
+<input type="text" class="form-control" id="trainingName" placeholder="12343215" required readonly>
 <label for="trainingName">Training Name</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="module" placeholder="99372257343" required>
+<input type="text" class="form-control" id="module" placeholder="99372257343" required readonly>
 <label for="module">Module</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="description" placeholder="12343215" required>
+<input type="text" class="form-control" id="description" placeholder="12343215" required readonly>
 <label for="description">Description</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="mapLocation" placeholder="12343215" required>
+<input type="text" class="form-control" id="vaddress" placeholder="12343215" required readonly>
+<label for="description">Venue Address</label>
+</div>
+</div>
+<div class="form-group col-md-3">
+<div class="form-floating">
+<input type="text" class="form-control" id="maplocation" placeholder="12343215" required readonly>
 <label for="mapLocation">Map Location</label>
 </div>
 </div>
@@ -454,26 +482,26 @@ form {
 <div class="row mt-1">
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="grade" placeholder="12343215" required>
+<input type="text" class="form-control" id="grade" placeholder="12343215" required readonly>
 <label for="grade">Grade</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="agency" placeholder="99372257343" required>
+<input type="text" class="form-control" id="agency" placeholder="99372257343" required readonly>
 <label for="agency">Agency</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
 <input type="text" class="form-control" id="coordinatorName"
-                                            placeholder="12343215" required>
+                                            placeholder="12343215" required readonly>
 <label for="coordinatorName">Co-Ordinater Name</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="email" placeholder="12343215" required>
+<input type="text" class="form-control" id="email" placeholder="12343215" required readonly>
 <label for="email">Email</label>
 </div>
 </div>
@@ -483,26 +511,26 @@ form {
 <div class="row mt-1">
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="mobile" placeholder="" required>
+<input type="text" class="form-control" id="mobile" placeholder="" required readonly>
 <label for="mobile">Mobile</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="state"   placeholder="" required>
+<input type="text" class="form-control" id="state"   placeholder="" required readonly>
 <label for="state">State</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
 <input type="text" class="form-control" id="district" placeholder="12343215"
-                                            required>
+                                            required readonly>
 <label for="district">District</label>
 </div>
 </div>
 <div class="form-group col-md-3">
 <div class="form-floating">
-<input type="text" class="form-control" id="mandal" placeholder="12343215" required>
+<input type="text" class="form-control" id="mandal" placeholder="12343215" required readonly>
 <label for="mandal">mandal</label>
 </div>
 </div>
@@ -581,6 +609,7 @@ form {
                         <th>Description</th>
                         <th>Grade</th>
                         <th>Agency</th>
+                        <th>Venue Address</th>
                         <th>Map Location</th>
                         <th>Coordinator Name</th>
                         <th>Email</th>
@@ -605,7 +634,7 @@ form {
         $("#viewTraining").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/scheduledTrainings",
+                url: "/api/scheduledTrainings",
                 dataType: "json",
                 success: function (data) {
                     displayTrainingData(data);
@@ -638,7 +667,9 @@ form {
                 row.append("<td>" + training.tdescription + "</td>");
                 row.append("<td>" + training.tgrade + "</td>");
                 row.append("<td>" + training.tagency + "</td>");
-                row.append("<td>" + training.location + "</td>");
+                row.append("<td>" + training.vaddress + "</td>");
+
+                row.append("<td>" + training.maplocation + "</td>");
                 row.append("<td>" + training.coordinatorname + "</td>");
                 row.append("<td>" + training.coordinator_email + "</td>");
                 row.append("<td>" + training.coordinator_mobile + "</td>");
@@ -675,7 +706,7 @@ form {
         // Wait for 1 second (1000 milliseconds)
         setTimeout(function () {
             // Redirect to another page (replace 'yourPage.html' with the actual page URL)
-            window.location.href = '/TTSS03/Admin_dashboard.html';
+            window.location.href = '/Admin_dashboard.html';
         }, 1000);
     });
 </script>

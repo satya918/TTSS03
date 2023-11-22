@@ -30,6 +30,7 @@ public class SearchVenue {
 	private String modifieddt;
 	private String recordstatus;
 	private String remarks;
+	private String maplocation;
 	public String getVid() {
 		return vid;
 	}
@@ -149,6 +150,12 @@ public class SearchVenue {
 	}
 	public void setVstate(String vstate) {
 		this.vstate = vstate;
+	}
+	public String getMaplocation() {
+		return maplocation;
+	}
+	public void setMaplocation(String maplocation) {
+		this.maplocation = maplocation;
 	}
 	
 	

@@ -195,9 +195,11 @@
                         <th>Reference Id</th>
                         <th>Training Name</th>
                         <th>Training Mode</th>
-                        <th>Training description</th>
-                        <th>App start to end</th>
+                        <th>Training Description</th>
+                        <th>Application start to end Date</th>
+                        <th>Training start to end Date</th>
                         <th>Venue Details</th>
+                        <th>Map Location</th>
                         <th>Co-ordinater Details</th>
                         <th>Action</th>
                     </tr>
@@ -212,7 +214,7 @@
         $("#trId").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/scheduledTrainings",
+                url: "/api/scheduledTrainings",
                 dataType: "json",
                 success: function(data) {
                     displayTrainingData(data);
@@ -229,7 +231,7 @@
             
             var table = document.getElementById("trainingTable");
 
-            table.innerHTML = "<tr><th>Reference Id</th><th>Training Name</th><th>Training Mode</th><th>Description</th><th>App start to end</th><th>Map Location</th><th>Co-ordinater Details</th><th>Action</th></tr>";
+            table.innerHTML = "<tr><th>Reference Id</th><th>Training Name</th><th>Training Mode</th><th>Description</th><th>Application start to end</th><th>Training start to end</th><th>venue Address</th><th>Map Location</th><th>Co-ordinater Details</th><th>Action</th></tr>";
 
             for (var i = 0; i < trainings.length; i++) {
                 var training = trainings[i];
@@ -239,9 +241,11 @@
                 row.insertCell(1).innerHTML = training.tname;  
                 row.insertCell(2).innerHTML = training.tmode;
                 row.insertCell(3).innerHTML = training.tdescription;
-                row.insertCell(4).innerHTML = training.apply_start_dt;
-                row.insertCell(5).innerHTML = training.location;
-                row.insertCell(6).innerHTML = training.coordinatorname;
+                row.insertCell(4).innerHTML = training.apply_start_dt +"to"+training.apply_end_dt;
+                row.insertCell(5).innerHTML = training.training_start_dt +"to"+training.training_end_dt;
+                row.insertCell(6).innerHTML = training.vaddress;
+                row.insertCell(7).innerHTML = training.maplocation;
+                row.insertCell(8).innerHTML = training.coordinatorname;
 
                 var applyNowButton = document.createElement("button");
                 applyNowButton.textContent = "Apply Now";
@@ -250,7 +254,7 @@
                 // Use a function to capture the correct ref_planner_id
                 applyNowButton.onclick = createApplyButtonClickHandler(training.ref_planner_id);
 
-                var actionCell = row.insertCell(7);
+                var actionCell = row.insertCell(9);
                 actionCell.appendChild(applyNowButton);
             }
         }
@@ -313,7 +317,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/mytrainings?treasuryId=" +searchTerm,
+                url: "/api/mytrainings?treasuryId=" +searchTerm,
                 dataType: "json",
                 success: function (data) {
                 	console.log(data);

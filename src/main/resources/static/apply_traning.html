@@ -33,7 +33,7 @@
  
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/findteacher?treasuryid=" + treasuryId,
+                url: "/api/findteacher?treasuryid=" + treasuryId,
                 dataType: "json",
                 success: function (response) {
                     var treasury_id = response[0].treasuryid;
@@ -287,7 +287,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/TTSS03/api/savetrainings",
+                url: "/api/savetrainings",
                 contentType: "application/json",
                 data: JSON.stringify(formData),
                 success: function(response) {
@@ -299,7 +299,7 @@
 
  $.ajax({
     type: "POST",
-    url: "/TTSS03/api/processData",
+    url: "/api/processData",
     data: { treasuryId: $("#treasuryId").val() },
     success: function(anotherResponse) {
         console.log("Second request successful:", anotherResponse);
@@ -313,7 +313,7 @@
 
                     // Redirect to another page after a delay
                     setTimeout(function() {
-                        window.location.href = "/TTSS03/Trenee_dashboard.html?treasuryId=" + $("#treasuryId").val();
+                        window.location.href = "/Trenee_dashboard.html?treasuryId=" + $("#treasuryId").val();
                     }, 1000); 
                 },
                 error: function(xhr, status, error) {
@@ -408,9 +408,10 @@
 
             $.ajax({
                 type: "GET",
-                url: "/TTSS03/api/mytrainings?treasuryid=" +searchTerm,
+                url: "/api/mytrainings?treasuryid=" +searchTerm,
                 dataType: "json",
                 success: function (data) {
+					console.log(data);
                     displayTrainingData(data);
                 },
                 error: function (xhr, status, error) {

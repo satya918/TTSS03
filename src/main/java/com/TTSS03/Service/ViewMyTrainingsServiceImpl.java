@@ -59,8 +59,13 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
                     mytraining.setVname(venueMaster.getVname());
                     mytraining.setVaddress(venueMaster.getVaddress());
                     mytraining.setVcontact(venueMaster.getVcontact_no() + " " + venueMaster.getVcontactmailid());
+                    
+                    boolean exists = ViewMyTrainingsRepo.existsByTreasuryidAndTnameAndStartDate(
+                            treasuryid, table1.getTname(), table1.getTraining_start_dt());
 
+                    if (!exists) {
                     ViewMyTrainingsRepo.save(mytraining);
+                    }
                 }
             }
         }
