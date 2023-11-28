@@ -1,14 +1,16 @@
-package com.TTSS03.Service;
+ package com.TTSS03.Service;
 
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.TTSS03.Entity.AppliedTrainingsFromTrainee;
-import com.TTSS03.Entity.ScheduleTrainings;
-import com.TTSS03.Entity.SearchVenue;
 import com.TTSS03.Entity.ViewMyTrainings;
 import com.TTSS03.Repository.AppliedTrainingsFromTraineeRepository;
 import com.TTSS03.Repository.ScheduleTrainingsRepository;
@@ -30,51 +32,88 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
     @Autowired
     SearchVenueRepository SearchVenueRepo;
 
-    @Override
-    public void getdata(String treasuryid) {
-        List<AppliedTrainingsFromTrainee> appliedTrainingsList = appliedTrainingsFromTraineeRepo.findByTreasuryId(treasuryid);
-
-        for (AppliedTrainingsFromTrainee tMapping : appliedTrainingsList) {
-            String ref_planner_id = tMapping.getRef_planner_id();
-
-            List<ScheduleTrainings> scheduleTrainingsList = ScheduleTrainingsRepo.findByRefId(ref_planner_id);
-
-            for (ScheduleTrainings table1 : scheduleTrainingsList) {
-                String venue_id = table1.getVenue_id();
-
-                List<SearchVenue> searchVenueList = SearchVenueRepo.findByVId1(venue_id);
-
-                for (SearchVenue venueMaster : searchVenueList) {
-                    ViewMyTrainings mytraining = new ViewMyTrainings();
-
-                    mytraining.setTreasuryid(treasuryid);
-
-                    mytraining.setTname(table1.getTname());
-                    mytraining.setDescription(table1.getTdescription());
-                    mytraining.setStartdate(table1.getTraining_start_dt());
-                    mytraining.setEnddate(table1.getTraining_end_dt());
-                    mytraining.setAgency(table1.getTagency());
-                    mytraining.setTrainername(table1.getCoordinatorname());
-                    mytraining.setTmode(table1.getTmode());
-                    mytraining.setVname(venueMaster.getVname());
-                    mytraining.setVaddress(venueMaster.getVaddress());
-                    mytraining.setVcontact(venueMaster.getVcontact_no() + " " + venueMaster.getVcontactmailid());
-                    
-                    boolean exists = ViewMyTrainingsRepo.existsByTreasuryidAndTnameAndStartDate(
-                            treasuryid, table1.getTname(), table1.getTraining_start_dt());
-
-                    if (!exists) {
-                    ViewMyTrainingsRepo.save(mytraining);
-                    }
-                }
-            }
-        }
-    }
-
+    
 	@Override
 	public List<ViewMyTrainings> findByTreasuryId(String treasuryid) {
-		return ViewMyTrainingsRepo.findByTreasuryId(treasuryid)	;	 
+	   
+
+	    return ViewMyTrainingsRepo.findByTreasuryId(treasuryid);
 	}
+	@Override
+	public List<ViewMyTrainings> savemyTrainings(String treasuryid) {
+	    List<Object[]> findTrainingDetailsByTreasuryId = ViewMyTrainingsRepo.findTrainingDetailsByTreasuryId(treasuryid);
+
+	 // Process and save the results to your target table (ViewMyTrainings)
+	    Set<ViewMyTrainings> uniqueTrainings = new HashSet<>();
+
+	    for (Object[] result : findTrainingDetailsByTreasuryId) {
+	        // Print the values at each index of the result array
+	        for (int i = 0; i < result.length; i++) {
+	            System.out.println("Index " + i + ": " + result[i]);
+	        }
+
+	        ViewMyTrainings viewMyTrainings = createViewMyTrainingsFromResultArray(result);
+
+	        uniqueTrainings.add(viewMyTrainings);
+	    }
+
+	    return ViewMyTrainingsRepo.saveAll(uniqueTrainings);
+	}
+
+	private ViewMyTrainings createViewMyTrainingsFromResultArray(Object[] result) {
+	    ViewMyTrainings viewMyTrainings = new ViewMyTrainings();
+	    
+	    viewMyTrainings.setTreasuryid(result[0].toString()); 
+	    viewMyTrainings.setTname(result[1].toString());
+	    viewMyTrainings.setVname(result[2].toString());
+	    viewMyTrainings.setTmode(result[3].toString());
+	    viewMyTrainings.setTdescription(result[4].toString());
+	    viewMyTrainings.setStartdate(result[5].toString());
+	    viewMyTrainings.setEnddate(result[6].toString());
+	    viewMyTrainings.setVaddress(result[7].toString());
+	    viewMyTrainings.setMaplocation(result[10].toString());
+	    viewMyTrainings.setVcontact(result[8].toString()+" "+result[9].toString());
+
+	    return viewMyTrainings;
+	}
+	
+	public List<Map<String, Object>> getCustomData() {
+		List<Object[]> result = ViewMyTrainingsRepo.findCustomData();
+ 
+		return result.stream().map(row -> {
+			Map<String, Object> rowData = new HashMap<>();
+			rowData.put("TrainingName", row[0]);
+			rowData.put("TrainingMode", row[1]);
+			rowData.put("TreasuryId", row[2]);
+			rowData.put("Description", row[3]);
+			rowData.put("vaddress", row[4]);
+			rowData.put("MobileNumber", row[5]);
+			rowData.put("Designation", row[6]);
+			rowData.put("DOB", row[7]);
+			rowData.put("FullName", row[8] + " " + row[9]);
+			rowData.put("SchoolUdiseCode", row[10]);
+			rowData.put("District", row[11]);
+			return rowData;
+		}).collect(Collectors.toList());
+	}
+	
 }
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+	
+
+	
+
 
 

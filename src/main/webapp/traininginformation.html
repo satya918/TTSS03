@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Training Information</title>
+	<style>
+		table {
+			font-family: Arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+			margin-top: 20px;
+		}
+ 
+		th,
+		td {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+ 
+		th {
+			background-color: #f2f2f2;
+		}
+ 
+		tr:nth-child(even) {
+			background-color: #f9f9f9;
+		}
+ 
+		@media (max-width: 768px) {
+ 
+			th,
+			td {
+				font-size: 14px;
+			}
+		}
+	</style>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+ 
+</head>
+ 
+<body>
+ 
+	<h1>Training Information</h1>
+ 
+	<table id="trainingTable">
+		<thead>
+			<tr>
+				<th>Training Name</th>
+				<th>Training Mode</th>
+				<th>Resource Type</th>
+				<th>State</th>
+				<th>Number of Days</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+ 
+			<!-- Add more rows as needed -->
+		</tbody>
+	</table>
+	<script>
+		$(window).on('load', function () {
+			// Function to check if an element exists
+			function elementExists(selector) {
+				return $(selector).length > 0;
+			}
+ 
+			// Get treasuryId from URL
+			var urlParams = new URLSearchParams(window.location.search);
+			var treasuryId = urlParams.get('treasuryId');
+ 
+			// Check if the table body element exists
+			if (elementExists('#trainingTable tbody')) {
+				// Check if treasuryId is not null or empty
+				if (treasuryId) {
+					// Make an AJAX request to the API endpoint
+					$.ajax({
+						url: '/api/training/previous?treasuryId=' + treasuryId,
+						type: 'GET',
+						dataType: 'json',
+						success: function (data) {
+							// Populate the table with the received data
+							var tableBody = $('#trainingTable tbody');
+							tableBody.empty();
+ 
+							for (var i = 0; i < data.length; i++) {
+								var training = data[i];
+								var row = $('<tr></tr>');
+ 
+								// Populate the row with data from the 'training' object
+								row.append('<td>' + training.trainingname + '</td>');
+								row.append('<td>' + training.trainingmode + '</td>');
+								row.append('<td>' + training.resourcetype + '</td>');
+								row.append('<td>' + training.state + '</td>');
+								row.append('<td>' + training.numberofdays + '</td>');
+								row.append('<td>' + training.status + '</td>');
+ 
+								// Add the row to the table
+								tableBody.append(row);
+							}
+						},
+						error: function (error) {
+							// Handle the error (e.g., display an error message)
+							console.error('Error:', error);
+						}
+					});
+				} else {
+					console.error('TreasuryId is null or empty.');
+				}
+			} else {
+				console.error('Table body element does not exist.');
+			}
+		});
+	</script>
+ 
+</body>
+ 
+</html>

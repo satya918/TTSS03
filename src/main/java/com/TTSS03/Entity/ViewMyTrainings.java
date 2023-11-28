@@ -22,12 +22,21 @@ public class ViewMyTrainings {
 	private String trainername;
 	private String vname;
 	private String vaddress;
+	private String maplocation;
 	private String vcontact;
+	private String status="Waiting For Approval";
+	
 	public int getSlno() {
 		return slno;
 	}
 	public void setSlno(int slno) {
 		this.slno = slno;
+	}
+	public String getTreasuryid() {
+		return treasuryid;
+	}
+	public void setTreasuryid(String treasuryid) {
+		this.treasuryid = treasuryid;
 	}
 	public String getTname() {
 		return tname;
@@ -35,12 +44,11 @@ public class ViewMyTrainings {
 	public void setTname(String tname) {
 		this.tname = tname;
 	}
-	
-	public String getDescription() {
+	public String getTdescription() {
 		return tdescription;
 	}
-	public void setDescription(String description) {
-		this.tdescription = description;
+	public void setTdescription(String tdescription) {
+		this.tdescription = tdescription;
 	}
 	public String getTmode() {
 		return tmode;
@@ -60,11 +68,11 @@ public class ViewMyTrainings {
 	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
-	public String getAgency() {
+	public String getTagency() {
 		return tagency;
 	}
-	public void setAgency(String agency) {
-		this.tagency = agency;
+	public void setTagency(String tagency) {
+		this.tagency = tagency;
 	}
 	public String getTrainername() {
 		return trainername;
@@ -84,32 +92,26 @@ public class ViewMyTrainings {
 	public void setVaddress(String vaddress) {
 		this.vaddress = vaddress;
 	}
+	public String getMaplocation() {
+		return maplocation;
+	}
+	public void setMaplocation(String maplocation) {
+		this.maplocation = maplocation;
+	}
+	
+	
 	public String getVcontact() {
 		return vcontact;
 	}
 	public void setVcontact(String vcontact) {
 		this.vcontact = vcontact;
 	}
-	public String getTreasuryid() {
-		return treasuryid;
+	public String getStatus() {
+		return status;
 	}
-	public void setTreasuryid(String treasuryid) {
-		this.treasuryid = treasuryid;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	public String getTdescription() {
-		return tdescription;
-	}
-	public void setTdescription(String tdescription) {
-		this.tdescription = tdescription;
-	}
-	public String getTagency() {
-		return tagency;
-	}
-	public void setTagency(String tagency) {
-		this.tagency = tagency;
-	}
+	  
 	
-	
-	
-
 }

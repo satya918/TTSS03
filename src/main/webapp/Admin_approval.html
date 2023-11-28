@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<style>
+		.maindiv {
+			display: flex;
+			justify-content: center;
+		}
+ 
+		.content {
+			background-color: #fff;
+			border: 1px solid;
+			border-radius: 20px;
+			height: auto;
+			width: 100%;
+			overflow-x: auto;
+			/* Add horizontal scroll if needed */
+		}
+ 
+		.formheading {
+			display: flex;
+			justify-content: center;
+			background-image: linear-gradient(to top, #0077BD, #8AC6D1);
+			color: white;
+			padding: 20px;
+			width: 115%;
+			
+			/* Add padding to the form heading */
+		}
+ 
+		.table-container {
+			margin-top: 20px;
+			/* Add margin to the table container */
+		}
+ 
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+ 
+		td,
+		th {
+			border: 1px solid black;
+			text-align: left;
+			padding: 8px;
+		}
+ 
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+ 
+		@media (max-width: 768px) {
+ 
+			/* Adjust styles for smaller screens */
+			.content {
+				border-radius: 0;
+			}
+		}
+	</style>
+ 
+	<script>
+		$(document).ready(function () {
+			// Retrieve the stored data from sessionStorage
+			var storedData = sessionStorage.getItem('trainingData');
+ 
+			if (storedData) {
+				var trainings = JSON.parse(storedData);
+				displayTrainingData(trainings);
+			} else {
+				console.error("No stored data found.");
+			}
+ 
+	function displayTrainingData(data) {
+    var tableBody = $("#admintid tbody");
+ 
+    // Clear existing rows
+    tableBody.empty();
+ 
+    for (var i = 0; i < data.length; i++) {
+        var training = data[i];
+        var row = $("<tr></tr>");
+ 
+        // Populate the row with data from the 'training' object
+        row.append('<td><input type="checkbox" class="action-checkbox"></td>');
+        row.append("<td>" + training.TreasuryId + "</td>");
+        row.append("<td>" + training.MobileNumber + "</td>");
+        row.append("<td>" + training.FullName + "</td>");
+        row.append("<td>" + training.Designation + "</td>");
+        row.append("<td>" + training.DOB + "</td>");
+        row.append("<td>" + training.resourceType + "</td>");
+        row.append("<td>" + training.District + "</td>");
+        row.append("<td>" + training.SchoolUdiseCode + "</td>");
+        row.append("<td>" + training.TrainingName + "</td>");
+        row.append("<td>" + training.TrainingMode + "</td>");
+        row.append("<td>" + training.Description + "</td>");
+        row.append("<td>" + training.vaddress + "</td>");
+        row.append("<td>" + training.ApplyDate + "</td>");
+        row.append("<td>" + training.trainingBefore + "</td>");
+        row.append("<td>" + training.remarks + "</td>");
+        
+        // Add a button with a link to the next page, passing the treasury ID in the URL
+        var button = $('<td><button style="background-color: blue; color: white;">Previous Training</button></td>');
+        var link = $('<a href="/traininginformation.html?treasuryId=' + training.TreasuryId + '"></a>');
+        link.append(button);
+        row.append(link);
+ 
+        // Add a checkbox in the "Action" column
+        tableBody.append(row);
+    }
+}
+		});
+	</script>
+ 
+</head>
+ 
+<body>
+	<div class="maindiv">
+		<div class="content">
+			<div class="formheading">
+				<h1>Training Approval</h1>
+			</div>
+			<div class="table-container" style="">
+				<table id="admintid">
+					<thead>
+						<tr>
+							<th>Action</th>
+							<th>Treasury Id</th>
+							<th>Mobile No</th>
+							<th>Teacher Name</th>
+							<th>Designation</th>
+							<th>Age as per the DOB</th>
+							<th>Resource Type</th>
+							<th>District</th>
+							<th>School Udise</th>
+							<th>Training Name</th>
+							<th>Training Mode</th>
+							<th>Training Description</th>
+							<th>Venue details</th>
+							<th>Apply Date</th>
+							<th>Have you attended any training before</th>
+							<th>Remark</th>
+							<th>Previous Training</th>
+						
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Data will be populated dynamically here -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+ 
+</html>

@@ -1,12 +1,14 @@
 package com.TTSS03.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +25,11 @@ public class ViewMyTrainingsController {
 	
 	
 	@PostMapping("/processData")
-    public ResponseEntity<String> processData(@RequestParam String treasuryId) {
-		viewMyTrainingsService.getdata(treasuryId);
-        return new ResponseEntity<>("Data processed successfully", HttpStatus.OK);
+    public ResponseEntity<List<ViewMyTrainings>> processData(@RequestParam String treasuryId) {
+		
+		List<ViewMyTrainings> savemyTrainings = viewMyTrainingsService.savemyTrainings(treasuryId);
+		
+        return ResponseEntity.ok(savemyTrainings);
     }
 	
 	@GetMapping("/mytrainings")
@@ -33,5 +37,11 @@ public class ViewMyTrainingsController {
 		List<ViewMyTrainings> mytrainings = viewMyTrainingsService.findByTreasuryId(treasuryId);
 		return ResponseEntity.ok(mytrainings);
 	}
+	
+	@GetMapping("/waiting-for-approval")
+	 public ResponseEntity<List<Map<String, Object>>> getCustomData() {
+	        List<Map<String, Object>> customData = viewMyTrainingsService.getCustomData();
+	        return ResponseEntity.ok(customData);
+	    }
 
 }

@@ -14,6 +14,7 @@ public class AppliedTrainingsFromTrainee {
 	private int slno;
 	private String ref_planner_id;
 	private String treasuryid;
+	private String venueid;
 	public int getSlno() {
 		return slno;
 	}
@@ -31,6 +32,12 @@ public class AppliedTrainingsFromTrainee {
 	}
 	public void setTreasuryid(String treasuryid) {
 		this.treasuryid = treasuryid;
+	}
+	public String getVenueid() {
+		return venueid;
+	}
+	public void setVenueid(String venueid) {
+		this.venueid = venueid;
 	}
 	
 	
