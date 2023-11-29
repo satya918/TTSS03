@@ -1,6 +1,7 @@
 package com.TTSS03.Service;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,26 @@ public class AppliedTrainingsFromTraineeServiceImpl implements AppliedTrainingsF
 
 	@Override
 	public AppliedTrainingsFromTrainee saveEmployeeTrainings(AppliedTrainingsFromTrainee appliedTrainingsFromTrainee) {
-		// TODO Auto-generated method stub
-		return appliedTrainingsFromTraineeRepository.save(appliedTrainingsFromTrainee);
+	    // Check if data with the same treasuryId and plannerId already exists
+	    java.util.List<AppliedTrainingsFromTrainee> existingData = appliedTrainingsFromTraineeRepository
+	            .findByTreasuryIdAndPlannerId(appliedTrainingsFromTrainee.getTreasuryid(), appliedTrainingsFromTrainee.getRef_planner_id());
+
+	    if (!existingData.isEmpty()) {
+	        // Data exists, update it
+	        AppliedTrainingsFromTrainee existingTraining = existingData.get(0);
+
+	        // Update existingTraining with new values from appliedTrainingsFromTrainee
+	        existingTraining.setTreasuryid(appliedTrainingsFromTrainee.getTreasuryid());
+	        existingTraining.setRef_planner_id(appliedTrainingsFromTrainee.getRef_planner_id());
+	        existingTraining.setVenueid(appliedTrainingsFromTrainee.getVenueid());
+	        // Update other fields as needed
+
+	        // Then save the updated data
+	        return appliedTrainingsFromTraineeRepository.save(existingTraining);
+	    } else {
+	        // Data does not exist, save it
+	        return appliedTrainingsFromTraineeRepository.save(appliedTrainingsFromTrainee);
+	    }
 	}
-
-
-	
 
 }

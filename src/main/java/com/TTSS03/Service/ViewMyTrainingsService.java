@@ -13,5 +13,7 @@ public interface ViewMyTrainingsService {
 	List<ViewMyTrainings>findByTreasuryId(String treasuryid );
 	
 	List<Map<String, Object>> getCustomData();
+	
+	void updateStatusToApproved(String treasuryId,String trainingName);
 
 }

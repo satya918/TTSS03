@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,5 +44,11 @@ public class ViewMyTrainingsController {
 	        List<Map<String, Object>> customData = viewMyTrainingsService.getCustomData();
 	        return ResponseEntity.ok(customData);
 	    }
+	
+	@PutMapping("/update-status")
+    public ResponseEntity<String> updateStatusToApproved(@RequestParam String treasuryId,@RequestParam String trainingName) {
+	 viewMyTrainingsService.updateStatusToApproved(treasuryId,trainingName);
+        return new ResponseEntity<>("Status updated to 'approved' for treasuryId: " + treasuryId+','+trainingName, HttpStatus.OK);
+    }
 
 }

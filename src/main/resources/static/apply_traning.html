@@ -34,6 +34,7 @@
 				$.ajax({
 					type: "GET",
 					url: "/api/findteacher?treasuryid=" + treasuryId,
+					//url: "/TTSS03/api/findteacher?treasuryid=" + treasuryId,
 					dataType: "json",
 					success: function (response) {
 						var treasury_id = response[0].treasuryid;
@@ -679,6 +680,7 @@
 					$.ajax({
 						type: "POST",
 						url: "/api/savetrainings",
+						//url: "/TTSS03/api/savetrainings",
 						contentType: "application/json",
 						data: JSON.stringify(formData),
 						success: function (response) {
@@ -691,6 +693,7 @@
 							$.ajax({
 								type: "POST",
 								url: "/api/processData",
+								//url: "/TTSS03/api/processData",
 								data: {treasuryId: treasuryId},
 								success: function (additionalResponse) {
 									console.log("Additional POST request successful:", additionalResponse);
@@ -718,6 +721,7 @@
 								$.ajax({
 									type: "POST",
 									url: "/api/save/previoustrainings",
+									//url: "/TTSS03/api/save/previoustrainings",
 									contentType: "application/json",
 									data: JSON.stringify(formData2),
 									success: function (secondResponse) {
@@ -725,6 +729,7 @@
 
 										// Redirect to another page after the second request
 										window.location.href = "/Trenee_dashboard.html";
+										//window.location.href = "/TTSS03/Trenee_dashboard.html";
 									},
 									error: function (xhr, status, error) {
 										console.error("Second POST request error: ", error);
@@ -827,6 +832,7 @@
 				$.ajax({
 					type: "GET",
 					url: "/api/mytrainings?treasuryid=" + searchTerm,
+					//url: "/TTSS03/api/mytrainings?treasuryid=" + searchTerm,
 					dataType: "json",
 					success: function (data) {
 						console.log(data);

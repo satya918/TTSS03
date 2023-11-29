@@ -17,6 +17,8 @@ import com.TTSS03.Repository.ScheduleTrainingsRepository;
 import com.TTSS03.Repository.SearchVenueRepository;
 import com.TTSS03.Repository.ViewMyTrainingsRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 
@@ -43,7 +45,7 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 	public List<ViewMyTrainings> savemyTrainings(String treasuryid) {
 	    List<Object[]> findTrainingDetailsByTreasuryId = ViewMyTrainingsRepo.findTrainingDetailsByTreasuryId(treasuryid);
 
-	 // Process and save the results to your target table (ViewMyTrainings)
+	    // Process and save the results to your target table (ViewMyTrainings)
 	    Set<ViewMyTrainings> uniqueTrainings = new HashSet<>();
 
 	    for (Object[] result : findTrainingDetailsByTreasuryId) {
@@ -54,11 +56,42 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 
 	        ViewMyTrainings viewMyTrainings = createViewMyTrainingsFromResultArray(result);
 
-	        uniqueTrainings.add(viewMyTrainings);
+	        // Check if the combination of treasuryid and tname already exists
+	        List<ViewMyTrainings> existingData = ViewMyTrainingsRepo.findByTreasuryIdAndTname(viewMyTrainings.getTreasuryid(), viewMyTrainings.getTname());
+
+	        if (!existingData.isEmpty()) {
+	            // Data exists, update it
+	            ViewMyTrainings existingRecord = existingData.get(0); // Assuming there's only one record, adjust if needed
+
+	            // Update existingRecord with new values from viewMyTrainings
+	            // You may need to implement the update logic based on your requirements
+	            existingRecord.setTname(viewMyTrainings.getTname());
+	            existingRecord.setTmode(viewMyTrainings.getTmode());
+	            existingRecord.setTdescription(viewMyTrainings.getTdescription());
+	            existingRecord.setMaplocation(viewMyTrainings.getMaplocation());
+	            existingRecord.setEnddate(viewMyTrainings.getEnddate());
+	            existingRecord.setResourcetype(viewMyTrainings.getResourcetype());
+	            existingRecord.setStartdate(viewMyTrainings.getStartdate());
+	            existingRecord.setTagency(viewMyTrainings.getTagency());
+	            existingRecord.setTrainername(viewMyTrainings.getTrainername());
+	            existingRecord.setTreasuryid(viewMyTrainings.getTreasuryid());
+	            existingRecord.setVaddress(viewMyTrainings.getVaddress());
+	            existingRecord.setVcontact(viewMyTrainings.getVcontact());
+	            existingRecord.setVname(viewMyTrainings.getVname());
+	            // Update other fields as needed
+
+	            // Then save the updated data
+	            ViewMyTrainingsRepo.save(existingRecord);
+	        } else {
+	            // Data does not exist, add it to the set
+	            uniqueTrainings.add(viewMyTrainings);
+	        }
 	    }
 
+	    // Save all unique records in the set
 	    return ViewMyTrainingsRepo.saveAll(uniqueTrainings);
 	}
+
 
 	private ViewMyTrainings createViewMyTrainingsFromResultArray(Object[] result) {
 	    ViewMyTrainings viewMyTrainings = new ViewMyTrainings();
@@ -73,6 +106,7 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 	    viewMyTrainings.setVaddress(result[7].toString());
 	    viewMyTrainings.setMaplocation(result[10].toString());
 	    viewMyTrainings.setVcontact(result[8].toString()+" "+result[9].toString());
+	    viewMyTrainings.setResourcetype(result[11].toString());
 
 	    return viewMyTrainings;
 	}
@@ -93,8 +127,17 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 			rowData.put("FullName", row[8] + " " + row[9]);
 			rowData.put("SchoolUdiseCode", row[10]);
 			rowData.put("District", row[11]);
+			rowData.put("Applydate", row[12]);
+			rowData.put("ResourceType", row[13]);
 			return rowData;
 		}).collect(Collectors.toList());
+	}
+	@Override
+	@Transactional
+	public void updateStatusToApproved(String treasuryId, String trainingName) {
+		
+			ViewMyTrainingsRepo.updateStatusByTreasuryId(treasuryId,trainingName);
+			
 	}
 	
 }

@@ -39,6 +39,7 @@ public class ScheduleTrainings {
 	private String coordinatormobileno;
 	private String tagency;
 	private String tmodule;
+	private String resourcetype;
 	public int getSl_no() {
 		return sl_no;
 	}
@@ -237,6 +238,12 @@ public class ScheduleTrainings {
 	}
 	public void setVaddress(String vaddress) {
 		this.vaddress = vaddress;
+	}
+	public String getResourcetype() {
+		return resourcetype;
+	}
+	public void setResourcetype(String resourcetype) {
+		this.resourcetype = resourcetype;
 	}
 	
 	

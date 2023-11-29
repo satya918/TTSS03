@@ -203,7 +203,7 @@
 						</div>
 					</div>
 					<div class="carousel-item">
-						<img src="./assets/download.jpg" class="d-block w-100" 
+						<img src="./assets/MicrosoftTeams-image (1).png" class="d-block w-100" 
 							alt="...">
 						<div class="carousel-caption d-none d-md-block">
 							<h5>Second slide label</h5>
@@ -249,6 +249,7 @@
 						$.ajax({
 							type: "GET",
 							url: "/api/scheduledTrainings",
+							//url: "/TTSS03/api/scheduledTrainings",
 							dataType: "json",
 							success: function (data) {
 								displayTrainingData(data);
@@ -265,7 +266,7 @@
 
 						var table = document.getElementById("trainingTable");
 
-						table.innerHTML = "<tr><th>Reference Id</th><th>Training Name</th><th>Training Mode</th><th>Description</th><th>Application start to end</th><th>Training start to end</th><th>Venue Id</th><th>venue Address</th><th>Map Location</th><th>Co-ordinater Details</th><th>Action</th></tr>";
+						table.innerHTML = "<tr><th>Reference Id</th><th>Training Name</th><th>Training Mode</th><th>Description</th><th>Application start to end</th><th>Training start to end</th><th>Venue Id</th><th>venue Address</th><th>Map Location</th><th>Co-ordinater Details</th><th>Resource Type</th><th>Action</th></tr>";
 
 						for (var i = 0; i < trainings.length; i++) {
 							var training = trainings[i];
@@ -281,6 +282,7 @@
 							row.insertCell(7).innerHTML = training.vaddress;
 							row.insertCell(8).innerHTML = training.maplocation;
 							row.insertCell(9).innerHTML = training.coordinatorname;
+							row.insertCell(10).innerHTML = training.resourcetype;
 
 							var applyNowButton = document.createElement("button");
 							applyNowButton.textContent = "Apply Now";
@@ -289,7 +291,7 @@
 							// Use a function to capture the correct ref_planner_id
 							applyNowButton.onclick = createApplyButtonClickHandler(training.ref_planner_id, training.venue_id);
 
-							var actionCell = row.insertCell(10);
+							var actionCell = row.insertCell(11);
 							actionCell.appendChild(applyNowButton);
 						}
 					}
@@ -302,14 +304,11 @@
 						};
 					}
 
-					// Function to redirect to the apply_training.html page with the ref_planner_id parameter
 					function redirectToApplyPage(refPlannerId, venueId) {
-						// Your logic to redirect to the apply page, passing both IDs
-						// For example, using window.location.href:
-						var applyPageUrl = './apply_traning.html';
+						var applyPageUrl = '/apply_traning.html';
+						//var applyPageUrl = '/TTSS03/apply_traning.html';
 						applyPageUrl += '?ref_planner_id=' + encodeURIComponent(refPlannerId);
 
-						// Check if venueId is provided and not null or undefined
 						if (venueId !== null && venueId !== undefined) {
 							applyPageUrl += '&venue_id=' + encodeURIComponent(venueId);
 						}
@@ -386,6 +385,7 @@
 						$.ajax({
 							type: "GET",
 							url: "/api/mytrainings?treasuryId=" + treasuryId,
+							//url: "/TTSS03/api/mytrainings?treasuryId=" + treasuryId,
 							dataType: "json",
 							success: function (data) {
 								console.log(data);

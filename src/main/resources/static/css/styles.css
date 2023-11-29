@@ -103,7 +103,6 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -10846,7 +10845,7 @@ textarea.form-control-lg {
 }
 
 #page-content-wrapper {
- max-width: 700px;
+ max-width: 600px;
 }
 
 body.sb-sidenav-toggled #wrapper #sidebar-wrapper {

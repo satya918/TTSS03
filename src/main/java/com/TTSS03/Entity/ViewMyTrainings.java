@@ -1,5 +1,6 @@
 package com.TTSS03.Entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class ViewMyTrainings {
 	private String maplocation;
 	private String vcontact;
 	private String status="Waiting For Approval";
+	private String resourcetype;
 	
 	public int getSlno() {
 		return slno;
@@ -112,6 +114,14 @@ public class ViewMyTrainings {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getResourcetype() {
+		return resourcetype;
+	}
+	public void setResourcetype(String resourcetype) {
+		this.resourcetype = resourcetype;
+	}
+	
+	
 	  
 	
 }
