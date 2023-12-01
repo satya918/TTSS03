@@ -50,8 +50,8 @@ form {
 			color: black !important;
 			font-size: 15px;
 		}
-		
- 
+
+
 		.custom-card-body {
 			background-color: #f8f9fa;
 			/* Example background color */
@@ -63,29 +63,38 @@ form {
 			padding: 80px;
 			/* Example box shadow */
 		}
- 
 	</style>
 
-<script>
-     	function hitApi() {
-            $.ajax({
-                type: "GET",
-                url: "/api/waiting-for-approval",
-               // url: "/TTSS03/api/waiting-for-approval",
-                dataType: "json",
-                success: function (data) {
-                    // Store the response data in sessionStorage
-                    sessionStorage.setItem('trainingData', JSON.stringify(data));
-                    
-                    // Redirect to another page
-                    window.location.href = "./Admin_approval.html";
-                },
-                error: function (xhr, status, error) {
-                    console.error("API request error: " + error);
-                }
-            });
-    }
-</script>
+	<!-- <script>
+		function hitApi() {
+			$.ajax({
+				type: "GET",
+				url: "/api/waiting-for-approval",
+				// url: "/TTSS03/api/waiting-for-approval",
+				dataType: "json",
+				success: function (data) {
+					// Store the response data in sessionStorage
+					sessionStorage.setItem('trainingData', JSON.stringify(data));
+
+					// Redirect to another page
+					window.location.href = "./Admin_approval.html";
+				},
+				error: function (xhr, status, error) {
+					console.error("API request error: " + error);
+				}
+			});
+		}
+	</script> -->
+	<script>
+		function hitApi() {
+		window.location.href = "/TTSS03/Admin_approval.html";
+		}
+	</script>
+	<script>
+		function approvedApi() {
+		window.location.href = "/TTSS03/ApprovedTrainings.html";
+		}
+	</script>
 
 	<script>
 		$(document).ready(function () {
@@ -117,7 +126,7 @@ form {
 				// Construct the formData object
 				var formData = {
 					ref_planner_id: trainingRefId,
-					venue_id: tvenueId,            
+					venue_id: tvenueId,
 					resourcetype: r_type,
 					tmode: trainingMode,
 					tmonth: trainingMonth,
@@ -143,8 +152,8 @@ form {
 
 				var jsonString = JSON.stringify(formData);
 
-// '/TTSS03/api/schedule'
-				fetch('/api/schedule', {
+				// '/TTSS03/api/schedule'
+				fetch('/TTSS03/api/schedule', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -172,7 +181,7 @@ form {
 
 				$.ajax({
 					type: "GET",
-					url: "/api/search/schedule?ref_planner_id=" + searchTerm,
+					url: "/TTSS03/api/search/schedule?ref_planner_id=" + searchTerm,
 					//url: "/TTSS03/api/search/schedule?ref_planner_id=" + searchTerm,
 					dataType: "json",
 					success: function (response) {
@@ -224,7 +233,7 @@ form {
 
 		$(document).ready(function () {
 			$.ajax({
-				url: "/api/search/venue",
+				url: "/TTSS03/api/search/venue",
 				//url: "/TTSS03/api/search/venue",
 				type: "GET",
 				dataType: "json",
@@ -251,7 +260,7 @@ form {
 
 					$.ajax({
 						type: "GET",
-						url: "/api/search/venueId?vid=" + selectedVenueId,
+						url: "/TTSS03/api/search/venueId?vid=" + selectedVenueId,
 						//url: "/TTSS03/api/search/venueId?vid=" + selectedVenueId,
 						dataType: "json",
 						success: function (response) {
@@ -296,30 +305,30 @@ form {
 				}
 			});
 		});
-		
+
 		$.ajax({
-				url: "/api/search/resource",
-				//url: "/TTSS03/api/search/resource",
-				type: "GET",
-				dataType: "json",
-				success: function (data) {
-					var resDropdown = $("#resourceDropdown");
-					resDropdown.empty();
-					resDropdown.append($("<option>").val("").text("----Select Resource----"));
-					$.each(data, function (index, item) {
-						var optionText = item.resourcetype;
-						resDropdown.append($("<option>").val(item.resourcetype).text(optionText));
-					});
-				},
-				error: function (error) {
-					console.log("Error fetching venue data:", error);
-				}
-			});
+			url: "/TTSS03/api/search/resource",
+			//url: "/TTSS03/api/search/resource",
+			type: "GET",
+			dataType: "json",
+			success: function (data) {
+				var resDropdown = $("#resourceDropdown");
+				resDropdown.empty();
+				resDropdown.append($("<option>").val("").text("----Select Resource----"));
+				$.each(data, function (index, item) {
+					var optionText = item.resourcetype;
+					resDropdown.append($("<option>").val(item.resourcetype).text(optionText));
+				});
+			},
+			error: function (error) {
+				console.log("Error fetching venue data:", error);
+			}
+		});
 
 
 
 	</script>
-			 
+
 
 </head>
 
@@ -336,9 +345,9 @@ form {
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
 					onclick="showTab('tab2')">Academic Calender</a>
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
-					onclick="showTab('tab3')">Schedule Traning</a>
+					onclick="showTab('tab3')">Schedule Training</a>
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" id="viewTraining" href="#!"
-					onclick="showTab('tab4')">View Traning</a>
+					onclick="showTab('tab4')">View Training</a>
 				<!-- Master Setup  menu -->
 			</div>
 		</div>
@@ -368,12 +377,12 @@ form {
                         color: blue;">Teacher Training Support System</h1> <br>
 						<h2 class="nav-link ms-auto text-center text-info w-100" style=" position: relative;
                          top:10px;
-                         right: 360px;
+                         right: 250px;
                          font-size: 20px;
                        justify-content: center;
                        margin-top: 40px;
                        color: Red;
-                       ">Govt Of AndhraPradesh</h2>
+                       ">Govt Of Andhra Pradesh</h2>
 
 
 						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -394,21 +403,22 @@ form {
 				<div class=""><b>Dashboard</b></div>
 				<div class="container mt-5">
 					<div class="row">
-						<div class="col-md-6" text-center  >
-   							 <button onclick="hitApi()" class="card-link" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer;">
-								
+						<div class="col-md-6" text-center>
+							<button onclick="hitApi()" class="card-link"
+								style="background: none; border: none; padding: 0; font: inherit; cursor: pointer;">
+
 								<div>
-									<div class="card-body custom-card-body" id="adminId"  
+									<div class="card-body custom-card-body" id="adminId"
 										style="background-image: linear-gradient(to top, #1D852E, #84EB44); color: white;float: right; margin-left: 120px;">
 										<h3 style="position: absolute;">Waiting For Approval</h3>
 										<!--<p class="card-text">Some quick example text for Card 1.</p>  -->
 									</div>
 								</div>
-							</a>
+								</a>
 						</div>
 
 						<div class="col-md-6">
-							<a href="#" class="card-link">
+							<button onclick="approvedApi()" class="card-link" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer;">
 								<div>
 									<div class="card-body custom-card-body"
 										style="background-image: linear-gradient(to top, #0077BD, #8AC6D1); color: white;float:right ;margin-right: 80px;">
@@ -533,8 +543,8 @@ form {
 									<label for="venue">Venue Id:</label>
 									<input type="text" class="form-control" id="venueId" name="venueId" required>
 								</div>
-								 
-								 
+
+
 							</div>
 						</form>
 					</div>
@@ -780,7 +790,7 @@ form {
 						$("#viewTraining").click(function () {
 							$.ajax({
 								type: "GET",
-								url: "/api/scheduledTrainings",
+								url: "/TTSS03/api/scheduledTrainings",
 								//url: "/TTSS03/api/scheduledTrainings",
 								dataType: "json",
 								success: function (data) {
@@ -854,7 +864,7 @@ form {
 						// Wait for 1 second (1000 milliseconds)
 						setTimeout(function () {
 							// Redirect to another page (replace 'yourPage.html' with the actual page URL)
-							window.location.href = '/Admin_dashboard.html';
+							window.location.href = '/TTSS03/Admin_dashboard.html';
 							//window.location.href = '/TTSS03/Admin_dashboard.html';
 						}, 1000);
 					});

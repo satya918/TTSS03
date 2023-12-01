@@ -9,13 +9,13 @@ public class AdminController {
 
 	@RequestMapping("/admin")
 	public String traineeSide() {
-		return "Admin_dashboard";
+		return "MainFrame";
 	}
 	
 	
 	@RequestMapping("/schedule")
 	public String scheduleTraining() {
-		return "Schedule1";
+		return "SchoolMonitoring";
 	}
 	
 	@RequestMapping("/view")

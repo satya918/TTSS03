@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,10 +44,22 @@ public class ViewMyTrainingsController {
 	        return ResponseEntity.ok(customData);
 	    }
 	
+	@GetMapping("/approved")
+	public ResponseEntity<List<Map<String, Object>>> getApprovedDataList() {
+		List<Map<String, Object>> approvedData = viewMyTrainingsService.getAppovedData();
+		return ResponseEntity.ok(approvedData);
+	}
+	
 	@PutMapping("/update-status")
     public ResponseEntity<String> updateStatusToApproved(@RequestParam String treasuryId,@RequestParam String trainingName) {
 	 viewMyTrainingsService.updateStatusToApproved(treasuryId,trainingName);
         return new ResponseEntity<>("Status updated to 'approved' for treasuryId: " + treasuryId+','+trainingName, HttpStatus.OK);
     }
+	@PutMapping("/reject-status")
+	 public ResponseEntity<String> rejectStatusToApproved(@RequestParam String treasuryId,@RequestParam String trainingName) {
+		 viewMyTrainingsService.rejectStatusToApproved(treasuryId,trainingName);
+		 return new ResponseEntity<>("Status updated to 'reject' for treasuryId: " + treasuryId+','+trainingName, HttpStatus.OK);
+	 }
+
 
 }

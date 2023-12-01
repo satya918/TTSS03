@@ -33,7 +33,7 @@
 				// Use the retrieved treasuryId in the AJAX request
 				$.ajax({
 					type: "GET",
-					url: "/api/findteacher?treasuryid=" + treasuryId,
+					url: "/TTSS03/api/findteacher?treasuryid=" + treasuryId,
 					//url: "/TTSS03/api/findteacher?treasuryid=" + treasuryId,
 					dataType: "json",
 					success: function (response) {
@@ -96,9 +96,9 @@
 				<!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
                     onclick="showTab('tab1')">Dashboard</a>  -->
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
-					onclick="showTab('tab2')">Apply Traning</a>
+					onclick="showTab('tab2')">Apply Training</a>
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
-					onclick="showTab('tab3')">My Traning</a>
+					onclick="showTab('tab3')">My Training</a>
 				<!-- Master Setup  menu -->
 			</div>
 		</div>
@@ -128,11 +128,11 @@
                         color: blue;">Teacher Training Support System</h1> <br>
 						<h2 class="nav-link ms-auto text-center text-info w-100" style=" position: relative;
                          top:10px;
-                         right: 330px;
+                         right: 250px;
                          font-size: 25px;
                        justify-content: center;
                        margin-top: 40px;
-                       color:red;">Govt Of AndhraPradesh</h2>
+                       color:red;">Govt Of Andhra Pradesh</h2>
 
 
 						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -243,74 +243,88 @@
 								<div class="row mt-3">
 									<div class="mb-2 col-3">
 										<label for="treasuryId" class="form-label">Treasury Id</label>
-										<input type="text" class="form-control" id="treasuryId" disabled readonly style="font-size: 13px;">
+										<input type="text" class="form-control" id="treasuryId" disabled readonly
+											style="font-size: 13px;">
 
 									</div>
 									<div class="mb-2 col-3">
 										<label for="participantName" class="form-label">Participant
 											Name</label>
-										<input type="input" class="form-control" id="participantName" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="participantName" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="schoolComplexId" class="form-label">School
 											Complex Id</label>
-										<input type="input" class="form-control" id="schoolComplexId" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="schoolComplexId" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="district" class="form-label">Working District
 										</label>
-										<input type="input" class="form-control" id="district" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="district" readonly
+											style="font-size: 13px;">
 									</div>
 								</div>
 								<div class="row">
 									<div class="mb-2 col-3">
 										<label for="email" class="form-label">Email</label>
-										<input type="Email" class="form-control" id="email" readonly style="font-size: 13px;"> 
+										<input type="Email" class="form-control" id="email" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="mobile" class="form-label">Mobile
 										</label>
-										<input type="input" class="form-control" id="mobile" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="mobile" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="mobile" class="form-label">Workplace
 										</label>
-										<input type="input" class="form-control" id="workplace" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="workplace" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="mobile" class="form-label">Father Name
 										</label>
-										<input type="input" class="form-control" id="fathername" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="fathername" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="mobile" class="form-label">DOB
 										</label>
-										<input type="input" class="form-control" id="dob" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="dob" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="mobile" class="form-label">Marital Status
 										</label>
-										<input type="input" class="form-control" id="maritalstatus" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="maritalstatus" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="mobile" class="form-label">Religion
 										</label>
-										<input type="input" class="form-control" id="religion" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="religion" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="mobile" class="form-label">Mother Tounge
 										</label>
-										<input type="input" class="form-control" id="mothertounge" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="mothertounge" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="mobile" class="form-label">Adhaar No
 										</label>
-										<input type="input" class="form-control" id="adhaarno" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="adhaarno" readonly
+											style="font-size: 13px;">
 									</div>
 									<div class="mb-2 col-3">
 										<label for="mobile" class="form-label">Disability
 										</label>
-										<input type="input" class="form-control" id="disability" readonly style="font-size: 13px;">
+										<input type="input" class="form-control" id="disability" readonly
+											style="font-size: 13px;">
 									</div>
 
 
@@ -336,7 +350,7 @@
 										<div class="row mt-3">
 											<div class="mb-2 col-3">
 												<label for="trainingName">Training Name:</label>
-												<select id="trainingName" class="form-control" style="font-size: 13px;">
+												<select id="trainingName" class="form-control" style="font-size: 13px;" onchange="showOtherField()">
 													<option value="default" selected>--Select-- </option>
 													<option value="post_flc_activities">POST FLS ACTIVITIES AT DISTRICT
 														LEVEL GUIDANCE BY UNICEF</option>
@@ -541,6 +555,10 @@
 													<!-- Add more options as needed -->
 												</select>
 											</div>
+											<div id="otherField" class="hidden">
+												<label for="otherTraining">Specify Other Training:</label>
+												<input type="text" id="otherTraining" name="otherTraining">
+											</div>
 											<div class="mb-2 col-3">
 												<label for="trainingMode">Training Mode:</label>
 												<select id="trainingMode" class="form-control" style="font-size: 13px;">
@@ -565,7 +583,7 @@
 											</div>
 											<div class="mb-2 col-3">
 												<label for="state">State:</label>
-												<select id="state" class="form-control" style="font-size: 13px;" >
+												<select id="state" class="form-control" style="font-size: 13px;">
 													<option>--Select-- </option>
 													<option value="andhra_pradesh">Andhra Pradesh</option>
 													<option value="arunachal_pradesh">Arunachal Pradesh</option>
@@ -603,7 +621,7 @@
 												<label for="numberOfDays">Number of Days:</label>
 												<input type="text" id="numberOfDays" name="numberofdays"
 													class="form-control" required style="font-size: 13px;">
-													  <span id="numberofdaysError" class="error"></span>
+												<span id="numberofdaysError" class="error"></span>
 											</div>
 										</div>
 										<div class="mb-2 col-1">
@@ -625,7 +643,18 @@
 				</div>
 			</div>
 		</div>
+<script>
+    function showOtherField() {
+      var trainingDropdown = document.getElementById("trainingName");
+      var otherField = document.getElementById("otherField");
 
+      if (trainingDropdown.value === "other") {
+        otherField.classList.remove("hidden");
+      } else {
+        otherField.classList.add("hidden");
+      }
+    }
+  </script>
 		<script>
 			function showForm() {
 				document.getElementById('trainingForm').classList.remove('hidden');
@@ -651,13 +680,13 @@
 		<script>
 			$(document).ready(function () {
 				function fun() {
-					
-				document.getElementById('numberofdaysError').innerHTML = '';
-				var numberofdays = document.getElementById('numberOfDays').value;
-				 if (numberofdays === '') {
-      document.getElementById('numberofdaysError').innerHTML = 'numberofdays is required';
-      return false;
-    }
+
+					document.getElementById('numberofdaysError').innerHTML = '';
+					var numberofdays = document.getElementById('numberOfDays').value;
+					if (numberofdays === '') {
+						document.getElementById('numberofdaysError').innerHTML = 'numberofdays is required';
+						return false;
+					}
 					var urlParams = new URLSearchParams(window.location.search);
 					var refPlannerId = urlParams.get('ref_planner_id');
 					var venueId = urlParams.get('venue_id');
@@ -679,7 +708,7 @@
 					// First AJAX request
 					$.ajax({
 						type: "POST",
-						url: "/api/savetrainings",
+						url: "/TTSS03/api/savetrainings",
 						//url: "/TTSS03/api/savetrainings",
 						contentType: "application/json",
 						data: JSON.stringify(formData),
@@ -692,7 +721,7 @@
 							// Additional AJAX POST request to api/processData with dynamic treasuryId
 							$.ajax({
 								type: "POST",
-								url: "/api/processData",
+								url: "/TTSS03/api/processData",
 								//url: "/TTSS03/api/processData",
 								data: {treasuryId: treasuryId},
 								success: function (additionalResponse) {
@@ -720,7 +749,7 @@
 								// Second AJAX request
 								$.ajax({
 									type: "POST",
-									url: "/api/save/previoustrainings",
+									url: "/TTSS03/api/save/previoustrainings",
 									//url: "/TTSS03/api/save/previoustrainings",
 									contentType: "application/json",
 									data: JSON.stringify(formData2),
@@ -728,7 +757,7 @@
 										console.log("Second POST request successful:", secondResponse);
 
 										// Redirect to another page after the second request
-										window.location.href = "/Trenee_dashboard.html";
+										window.location.href = "/TTSS03/Trenee_dashboard.html";
 										//window.location.href = "/TTSS03/Trenee_dashboard.html";
 									},
 									error: function (xhr, status, error) {
@@ -831,7 +860,7 @@
 
 				$.ajax({
 					type: "GET",
-					url: "/api/mytrainings?treasuryid=" + searchTerm,
+					url: "/TTSS03/api/mytrainings?treasuryid=" + searchTerm,
 					//url: "/TTSS03/api/mytrainings?treasuryid=" + searchTerm,
 					dataType: "json",
 					success: function (data) {

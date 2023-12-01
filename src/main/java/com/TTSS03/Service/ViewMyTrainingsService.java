@@ -14,6 +14,10 @@ public interface ViewMyTrainingsService {
 	
 	List<Map<String, Object>> getCustomData();
 	
+	List<Map<String, Object>> getAppovedData();
+	
 	void updateStatusToApproved(String treasuryId,String trainingName);
+	
+	void rejectStatusToApproved(String treasuryId,String trainingName);
 
 }

@@ -18,6 +18,7 @@ public class PreviousTrainings {
 	private String resourcetype;
 	private String state;
 	private String numberofdays;
+	private String status="Attended";
 	public int getSlno() {
 		return slno;
 	}
@@ -59,6 +60,12 @@ public class PreviousTrainings {
 	}
 	public void setTreasuryid(String treasuryid) {
 		this.treasuryid = treasuryid;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 

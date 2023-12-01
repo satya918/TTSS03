@@ -132,12 +132,46 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 			return rowData;
 		}).collect(Collectors.toList());
 	}
+	
+	@Override
+
+	public List<Map<String, Object>> getAppovedData() {
+
+		List<Object[]> result = ViewMyTrainingsRepo.findApprovedData();
+
+ 
+
+		return result.stream().map(row -> {
+			Map<String, Object> rowData = new HashMap<>();
+			rowData.put("TrainingName", row[0]);
+			rowData.put("TrainingMode", row[1]);
+			rowData.put("TreasuryId", row[2]);
+			rowData.put("Description", row[3]);
+			rowData.put("vaddress", row[4]);
+			rowData.put("MobileNumber", row[5]);
+			rowData.put("Designation", row[6]);
+			rowData.put("DOB", row[7]);
+			rowData.put("FullName", row[8] + " " + row[9]);
+			rowData.put("SchoolUdiseCode", row[10]);
+			rowData.put("District", row[11]);
+			rowData.put("Applydate", row[12]);
+			rowData.put("ResourceType", row[13]);
+			return rowData;
+		}).collect(Collectors.toList());
+
+	}
 	@Override
 	@Transactional
 	public void updateStatusToApproved(String treasuryId, String trainingName) {
 		
 			ViewMyTrainingsRepo.updateStatusByTreasuryId(treasuryId,trainingName);
 			
+	}
+	
+	@Override
+	@Transactional
+	public void rejectStatusToApproved(String treasuryId,String trainingName) {
+		ViewMyTrainingsRepo.rejectStatusByTreasuryId(treasuryId,trainingName);
 	}
 	
 }

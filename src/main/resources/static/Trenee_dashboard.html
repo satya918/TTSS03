@@ -38,9 +38,9 @@
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
 					onclick="showTab('tab1')">Dashboard</a>
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" id="trId" href="#!"
-					onclick="showTab('tab2')">Apply Traning</a>
+					onclick="showTab('tab2')">Apply Training</a>
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"
-					onclick="showTab('tab3')" id="mytrainings">My Traning</a>
+					onclick="showTab('tab3')" id="mytrainings">My Training</a>
 				<!-- Master Setup  menu -->
 			</div>
 		</div>
@@ -70,11 +70,11 @@
                         color: blue;">Teacher Training Support System</h1> <br>
 						<h2 class="nav-link ms-auto text-center text-info w-100" style=" position: relative;
                          top:10px;
-                         right: 330px;
+                         right: 250px;
                          font-size: 25px;
                        justify-content: center;
                        margin-top: 40px;
-                       color:red;">Govt Of AndhraPradesh</h2>
+                       color:red;">Govt Of Andhra Pradesh</h2>
 
 
 						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -234,7 +234,7 @@
 
 
 
-			<!-- Traning Schudule Form -->
+			<!-- Training Schudule Form -->
 			<div class="container tab-content" id="tab2" style="width: 180%; font-size: 14px; display: 
 			none;">
 				<div class="mt-1"><b></b></div>
@@ -248,7 +248,7 @@
 					$("#trId").click(function () {
 						$.ajax({
 							type: "GET",
-							url: "/api/scheduledTrainings",
+							url: "/TTSS03/api/scheduledTrainings",
 							//url: "/TTSS03/api/scheduledTrainings",
 							dataType: "json",
 							success: function (data) {
@@ -305,7 +305,7 @@
 					}
 
 					function redirectToApplyPage(refPlannerId, venueId) {
-						var applyPageUrl = '/apply_traning.html';
+						var applyPageUrl = '/TTSS03/apply_traning.html';
 						//var applyPageUrl = '/TTSS03/apply_traning.html';
 						applyPageUrl += '?ref_planner_id=' + encodeURIComponent(refPlannerId);
 
@@ -384,7 +384,7 @@
 
 						$.ajax({
 							type: "GET",
-							url: "/api/mytrainings?treasuryId=" + treasuryId,
+							url: "/TTSS03/api/mytrainings?treasuryId=" + treasuryId,
 							//url: "/TTSS03/api/mytrainings?treasuryId=" + treasuryId,
 							dataType: "json",
 							success: function (data) {

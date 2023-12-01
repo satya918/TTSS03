@@ -36,5 +36,6 @@ public class PreviousTrainingsController {
 			return new ResponseEntity<List<PreviousTrainings>>(allPreviousData,HttpStatus.OK);
 			
 		}
-
+	 
+	 
 }
