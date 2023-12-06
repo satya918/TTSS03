@@ -17,8 +17,8 @@ public interface ViewMyTrainingsRepository extends JpaRepository<ViewMyTrainings
 	@Query("SELECT  mt.treasuryid,tm.tname, vm.vname, tm.tmode, tm.tdescription, tm.training_start_dt, tm.training_end_dt, vm.vaddress, vm.vcontactno, vm.vcontactmailid, vm.maplocation,tm.resourcetype "
 			+ "FROM AppliedTrainingsFromTrainee mt "
 			+ "JOIN ScheduleTrainings tm ON mt.ref_planner_id = tm.ref_planner_id "
-			+ "JOIN SearchVenue vm ON mt.venueid = vm.vid " + "WHERE mt.treasuryid = :treasuryid")
-	List<Object[]> findTrainingDetailsByTreasuryId(@Param("treasuryid") String treasuryid);
+			+ "JOIN SearchVenue vm ON mt.venueid = vm.vid " + "WHERE mt.treasuryid = :treasuryid and mt.ref_planner_id = tm.ref_planner_id and mt.venueid = vm.vid")
+	List<Object[]> findTrainingDetailsByTreasuryId(@Param("treasuryid") String treasuryid );
 
 	@Query(value = "SELECT mt.tname, mt.tmode, mt.treasuryid, mt.tdescription,mt.vaddress,tm.mobilenumberteacher,tm.designation,tm.dob,tm.username, tm.surname,tm.schcd,tm.districtnamewrk,mt.applydateandtime,mt.resourcetype "
 			+ "FROM mytrainings mt " + "JOIN ttreasurymaster tm ON mt.treasuryid = tm.treasuryid "

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +58,7 @@
 	</div>
 	<div class="container">
 		<div class="container2">
-			<p><a href="/TTSS03/authentication.html">Login</a></p>
+			<p><a href="/authentication.jsp">Login</a></p>
 			<!-- <p><a href="/TTSS03/authentication.html">Login</a></p>-->
 		</div>
 	</div>

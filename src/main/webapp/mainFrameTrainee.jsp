@@ -18,7 +18,12 @@ body {
 	color: #101012;
 	padding: 0px;
 	text-align: center;
-	position: relative;
+	 top: 0;
+  width: 100%;
+  z-index: 1000;
+	  position: fixed;
+	 
+	  
 }
 
 
@@ -49,6 +54,7 @@ body {
 	position: fixed;
 	height: 100%;
 	box-sizing: border-box;
+	top:120px;
 }
 
 #navbar a {
@@ -72,7 +78,7 @@ body {
 }
 
 #iframeContainer {
-	margin-top: 50px; /* Adjust based on the height of the banner */
+	margin-top: 100px; /* Adjust based on the height of the banner */
 }
 
 iframe {
@@ -97,17 +103,15 @@ iframe {
 	</div>
 
 	<div id="navbar">
-		<a href="dashboard.jsp" target="mainFrame">Dashboard</a> <a
-			href="AcademicCalender.jsp" target="mainFrame">Academic Calendar</a>
-		<a href="Schedule1.jsp" target="mainFrame">Schedule Training</a> 
-		<a href="viewTrainings.jsp" target="mainFrame" onclick="callapi()">View Trainings</a>
+		<a href="Tdashboard.jsp" target="mainFrame">Dashboard</a> 
+			<a href="ApplyTraining.jsp" target="mainFrame">Apply Trainings</a>
+		<a href="MyTraining.jsp" target="mainFrame">My Trainings</a> 
 		
 	</div>
 
 	<div id="content">
 		<div id="iframeContainer">
-			<iframe src="dashboard.jsp" name="mainFrame" id="mainFrame"
-				style="width: 100%; height: 500px;"></iframe>
+			<iframe src="Tdashboard.jsp" name="mainFrame" id="mainFrame" style="width: 100%; height: 400px;"></iframe>
 		</div>
 	</div>
 

@@ -20,4 +20,11 @@ public interface ViewMyTrainingsService {
 	
 	void rejectStatusToApproved(String treasuryId,String trainingName);
 
+	/**
+	 * @param treasuryid
+	 * @param ref_planner_id
+	 * @param vid
+	 * @return
+	 */
+
 }

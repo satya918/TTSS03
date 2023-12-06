@@ -1,6 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -23,65 +24,7 @@
 			font-size: 14px;
 		}
 	</style>
-	<script>
-		$(document).ready(function () {
-			// Retrieve the treasuryId from session storage
-			var treasuryId = sessionStorage.getItem("treasuryId");
-			// Check if treasuryId is present in session storage
-			if (treasuryId) {
-				// Use the retrieved treasuryId in the AJAX request
-				$.ajax({
-					type: "GET",
-					url: "/api/findteacher?treasuryid=" + treasuryId,
-					//url: "/TTSS03/api/findteacher?treasuryid=" + treasuryId,
-					dataType: "json",
-					success: function (response) {
-						var treasury_id = response[0].treasuryid;
-						var participant_name = response[0].username + ' ' + response[0].surname;
-						var school_complex_id = response[0].workplace;
-						var wrkdistrict = response[0].districtnamewrk;
-						var email = response[0].teacher_email;
-						var mobile = response[0].mobilenumberteacher;
-						var gender = response[0].gender;
-						var designation = response[0].designation;
-						var workplace = response[0].workplace;
-						var fathername = response[0].fathername;
-						var dob = response[0].dob;
-						var maritalstatus = response[0].maritalstatus;
-						var religion = response[0].religion;
-						var mothertounge = response[0].mothertongue;
-						var adharno = response[0].aadhar;
-						var disability = response[0].disability;
-
-						$("#treasuryId").val(treasury_id);
-						$("#participantName").val(participant_name);
-						$("#schoolComplexId").val(school_complex_id);
-						$("#district").val(wrkdistrict);
-						$("#email").val(email);
-						$("#mobile").val(mobile);
-						$("#gender").val(gender);
-						$("#designation").val(designation);
-						$("#workplace").val(workplace);
-						$("#fathername").val(fathername);
-						$("#dob").val(dob);
-						$("#maritalstatus").val(maritalstatus);
-						$("#religion").val(religion);
-						$("#adhaarno").val(adharno);
-						$("#mothertounge").val(mothertounge);
-						$("#disability").val(disability);
-
-					},
-					error: function (error) {
-						console.log("Error:", error);
-					}
-				});
-			} else {
-				console.log("Treasury Id not found in session storage");
-				// Handle the case where treasuryId is not present in session storage
-			}
-		});
-	</script>
-
+	
 </head>
 
 <body>
@@ -510,7 +453,67 @@
 
 				</div>
 			</div>
-		</div>
+		
+		
+		<script>
+		$(document).ready(function () {
+			// Retrieve the treasuryId from session storage
+			var treasuryId = sessionStorage.getItem("treasuryId");
+			// Check if treasuryId is present in session storage
+			if (treasuryId) {
+				// Use the retrieved treasuryId in the AJAX request
+				$.ajax({
+					type: "GET",
+					url: "/api/findteacher?treasuryid=" + treasuryId,
+					//url: "/TTSS03/api/findteacher?treasuryid=" + treasuryId,
+					dataType: "json",
+					success: function (response) {
+						var treasury_id = response[0].treasuryid;
+						var participant_name = response[0].username + ' ' + response[0].surname;
+						var school_complex_id = response[0].workplace;
+						var wrkdistrict = response[0].districtnamewrk;
+						var email = response[0].teacher_email;
+						var mobile = response[0].mobilenumberteacher;
+						var gender = response[0].gender;
+						var designation = response[0].designation;
+						var workplace = response[0].workplace;
+						var fathername = response[0].fathername;
+						var dob = response[0].dob;
+						var maritalstatus = response[0].maritalstatus;
+						var religion = response[0].religion;
+						var mothertounge = response[0].mothertongue;
+						var adharno = response[0].aadhar;
+						var disability = response[0].disability;
+
+						$("#treasuryId").val(treasury_id);
+						$("#participantName").val(participant_name);
+						$("#schoolComplexId").val(school_complex_id);
+						$("#district").val(wrkdistrict);
+						$("#email").val(email);
+						$("#mobile").val(mobile);
+						$("#gender").val(gender);
+						$("#designation").val(designation);
+						$("#workplace").val(workplace);
+						$("#fathername").val(fathername);
+						$("#dob").val(dob);
+						$("#maritalstatus").val(maritalstatus);
+						$("#religion").val(religion);
+						$("#adhaarno").val(adharno);
+						$("#mothertounge").val(mothertounge);
+						$("#disability").val(disability);
+
+					},
+					error: function (error) {
+						console.log("Error:", error);
+					}
+				});
+			} else {
+				console.log("Treasury Id not found in session storage");
+				// Handle the case where treasuryId is not present in session storage
+			}
+		});
+	</script>
+		
 <script>
     function showOtherField() {
       var trainingDropdown = document.getElementById("trainingName");
@@ -688,100 +691,11 @@
 		</script>
 
 
-	</div>
+	
 
 
-	<!-- ################view Tranning  ######################### -->
-	<div class="container mt-2 tab-content" id="tab3" style="display: none;">
-
-		<div class="card mt-2">
-			<div class="card-header"><b>View Traning</b></div>
-			<div class="card-body">
-				<div id="viewTraning"></div>
-				<div class="table-responsive">
-					<table class="table table-hover" id="mytraining">
-						<thead>
-							<tr>
-								<th>Treasury Id</th>
-								<th>Training Name</th>
-								<th>Training Mode</th>
-								<th>Training description</th>
-								<th>Training start to end date</th>
-								<th>Venue Name</th>
-								<th>Venue Address</th>
-								<th>Venue Contact</th>
-								<th>Trainer Name</th>
-
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script>
-		$(document).ready(function () {
-			$("#mytrainings").click(function () {
-				var urlParams = new URLSearchParams(window.location.search);
-				var searchTerm = urlParams.get('treasuryid');
-
-				$.ajax({
-					type: "GET",
-					url: "/api/mytrainings?treasuryid=" + searchTerm,
-					//url: "/TTSS03/api/mytrainings?treasuryid=" + searchTerm,
-					dataType: "json",
-					success: function (data) {
-						console.log(data);
-						displayTrainingData(data);
-					},
-					error: function (xhr, status, error) {
-						console.error("API request error: " + error);
-					}
-				});
-			});
-
-			function displayTrainingData(data) {
-				var trainings = data;
-				trainings.reverse();
-				var tableBody = $("#mytraining tbody");
-
-				// Clear existing rows
-				tableBody.empty();
-
-				for (var i = 0; i < trainings.length; i++) {
-					var training = trainings[i];
-					var row = $("<tr></tr>");
-
-					row.append("<td>" + training.treasuryid + "</td>");
-					row.append("<td>" + training.tname + "</td>");
-					row.append("<td>" + training.tmode + "</td>");
-					row.append("<td>" + training.tdescription + "</td>");
-					row.append("<td>" + training.startdate + "to" + training.enddate + "</td>");
-					row.append("<td>" + training.vname + "</td>");
-					row.append("<td>" + training.vaddress + "</td>");
-					row.append("<td>" + training.vcontact + "</td>");
-					row.append("<td>" + training.trainername + "</td>");
-
-					tableBody.append(row);
-				}
-			}
-		});	
-	</script>
 	<!--  script for show hide-->
-	<script>
-		function showTab(tabId) {
-			var tabs = document.querySelectorAll('.tab-content');
-			for (var i = 0; i < tabs.length; i++) {
-				tabs[i].style.display = 'none';
-			}
-
-			var tabToShow = document.getElementById(tabId);
-			if (tabToShow) {
-				tabToShow.style.display = 'block';
-			}
-		}
-	</script>
+	
 
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

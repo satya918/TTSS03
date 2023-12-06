@@ -86,10 +86,10 @@ form {
 		}
 
 		.maindiv {
-			width: 185%;
+			width: 100%;
 			padding: 20px;
 			display: flex;
-			justify-content:space-between;
+			justify-content: space-between;
 		}
 
 		.content {
@@ -97,7 +97,7 @@ form {
 			border: 1px solid;
 			overflow-x: auto;
 			font-size: 10px;
-			width: 185%;
+			width: 100%;
 			/* Add horizontal scroll if needed */
 		}
 
@@ -110,9 +110,12 @@ form {
 			padding: 10px;
 			/* Add padding to the form heading */
 		}
-		.maindiv2{
-			width: 30%;
-		}
+
+		.maindiv2 {
+width: 100%;
+			padding: 20px;
+			display: flex;
+			justify-content: space-between;		}
 
 		.table-container {
 			overflow-x: auto;
@@ -165,172 +168,166 @@ form {
 </head>
 
 <body>
-	
 
-			<script>
-				$(document).ready(function () {
-					// Retrieve the stored data from sessionStorage
+
+	<script>
+		$(document).ready(function () {
+			// Retrieve the stored data from sessionStorage
+			$.ajax({
+				type: "GET",
+				url: "/api/waiting-for-approval",
+				dataType: "json",
+				success: function (data) {
+
+					// Display training data in the table
+					displayTrainingData(data);
+				},
+				error: function (xhr, status, error) {
+					console.error("API request error: " + error);
+				}
+			});
+
+
+			function displayTrainingData(data) {
+				var tableBody = $("#admintid tbody");
+
+				// Clear existing rows
+				tableBody.empty();
+
+				for (var i = 0; i < data.length; i++) {
+					var training = data[i];
+					var row = $("<tr></tr>");
+
+					// Populate the row with data from the 'training' object
+					row.append('<td><input type="checkbox" class="approveCheckbox" data-treasuryid="' + training.TreasuryId + '" data-trainingname="' + training.TrainingName + '"></td>');
+					row.append("<td>" + training.TreasuryId + "</td>");
+					row.append("<td>" + training.MobileNumber + "</td>");
+					row.append("<td>" + training.FullName + "</td>");
+					row.append("<td>" + training.Designation + "</td>");
+
+					// Parse DOB string to create a Date object
+					var dobParts = training.DOB.split("-");
+					var dob = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]);
+
+					// Calculate age based on DOB
+					var today = new Date();
+					var age = today.getFullYear() - dob.getFullYear();
+
+					// Adjust age if birthday hasn't occurred yet this year
+					if (today.getMonth() < dob.getMonth() ||
+						(today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
+						age--;
+					}
+
+					row.append("<td>" + age + " years</td>");
+					row.append("<td>" + training.ResourceType + "</td>");
+					row.append("<td>" + training.District + "</td>");
+					row.append("<td>" + training.SchoolUdiseCode + "</td>");
+					row.append("<td>" + training.TrainingName + "</td>");
+					row.append("<td>" + training.TrainingMode + "</td>");
+					row.append("<td>" + training.Description + "</td>");
+					row.append("<td>" + training.vaddress + "</td>");
+					row.append("<td>" + training.Applydate + "</td>");
+					row.append("<td>" + training.trainingBefore + "</td>");
+					row.append("<td>" + training.remarks + "</td>");
+
+					// Add a button with a link to the next page, passing the treasury ID in the URL
+					var button = $('<button class="btn btn-primary">Previous Trainings</button>');
+					button.click(function () {
+						window.location.href = "/traininginformation.html?treasuryId=" + training.TreasuryId;
+					});
+					var buttonCell = $("<td></td>").append(button);
+					row.append(buttonCell);
+
+					// Add a checkbox in the "Action" column
+					tableBody.append(row);
+				}
+			}
+		});
+
+
+
+		function approveTraining() {
+			toastr.options = {
+				"positionClass": "toast-top-right",
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+			};
+			var selectedCheckboxes = $('.approveCheckbox:checked');
+
+			if (selectedCheckboxes.length > 0) {
+				selectedCheckboxes.each(function () {
+					var treasuryId = $(this).attr('data-treasuryid');
+					var trainingName = $(this).attr('data-trainingname');
+
 					$.ajax({
-						type: "GET",
-						url: "/api/waiting-for-approval",
-						dataType: "json",
-						success: function (data) {
-
-							// Display training data in the table
-							displayTrainingData(data);
+						type: 'PUT',
+						url: '/TTSS03/api/update-status',
+						data: {
+							treasuryId: treasuryId,
+							trainingName: trainingName
 						},
-						error: function (xhr, status, error) {
-							console.error("API request error: " + error);
+						success: function (response) {
+							console.log('Status updated successfully:', response);
+							toastr.success('Approved Training successfully');
+
+							setTimeout(function () {
+								window.location.href = '/TTSS03/Admin_approval.html'; // Replace with your target page
+							}, 1000);
+						},
+						error: function (error) {
+							console.error('Error updating status:', error);
+							toastr.error('Error for training status');
+
 						}
 					});
-
-
-					function displayTrainingData(data) {
-						var tableBody = $("#admintid tbody");
-
-						// Clear existing rows
-						tableBody.empty();
-
-						for (var i = 0; i < data.length; i++) {
-							var training = data[i];
-							var row = $("<tr></tr>");
-
-							// Populate the row with data from the 'training' object
-							row.append('<td><input type="checkbox" class="approveCheckbox" data-treasuryid="' + training.TreasuryId + '" data-trainingname="' + training.TrainingName + '"></td>');
-							row.append("<td>" + training.TreasuryId + "</td>");
-							row.append("<td>" + training.MobileNumber + "</td>");
-							row.append("<td>" + training.FullName + "</td>");
-							row.append("<td>" + training.Designation + "</td>");
-
-							// Parse DOB string to create a Date object
-							var dobParts = training.DOB.split("-");
-							var dob = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]);
-
-							// Calculate age based on DOB
-							var today = new Date();
-							var age = today.getFullYear() - dob.getFullYear();
-
-							// Adjust age if birthday hasn't occurred yet this year
-							if (today.getMonth() < dob.getMonth() ||
-								(today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
-								age--;
-							}
-
-							row.append("<td>" + age + " years</td>");
-							row.append("<td>" + training.ResourceType + "</td>");
-							row.append("<td>" + training.District + "</td>");
-							row.append("<td>" + training.SchoolUdiseCode + "</td>");
-							row.append("<td>" + training.TrainingName + "</td>");
-							row.append("<td>" + training.TrainingMode + "</td>");
-							row.append("<td>" + training.Description + "</td>");
-							row.append("<td>" + training.vaddress + "</td>");
-							row.append("<td>" + training.Applydate + "</td>");
-							row.append("<td>" + training.trainingBefore + "</td>");
-							row.append("<td>" + training.remarks + "</td>");
-
-							// Add a button with a link to the next page, passing the treasury ID in the URL
-							var button = $('<button class="btn btn-primary">Previous Trainings</button>');
-							button.click(function () {
-								window.location.href = "/traininginformation.html?treasuryId=" + training.TreasuryId;
-							});
-							var buttonCell = $("<td></td>").append(button);
-							row.append(buttonCell);
-
-							// Add a checkbox in the "Action" column
-							tableBody.append(row);
-						}
-					}
 				});
+			} else {
+				console.log('No checkbox selected');
+				toastr.warning('Please select a training to update status');
+			}
+		}
+	</script>
+	<script>
+		$(document).ready(function () {
+			// Handle input events on the first search bar
+			$("#searchBar").on("input", function () {
+				var searchText = $(this).val().toLowerCase();
+				filterTableRows(searchText, 9); // 9 is the index for "Training Name" column
+			});
 
+			// Handle input events on the second search bar
+			$("#searchBar1").on("input", function () {
+				var searchText = $(this).val().toLowerCase();
+				filterTableRows(searchText, 7); // 7 is the index for "District" column
+			});
 
+			// Initial filtering for both search bars
+			filterTableRows("", 9); // Initialize with empty search text for "Training Name"
+			filterTableRows("", 7); // Initialize with empty search text for "District"
+		});
 
-				function approveTraining() {
-					toastr.options = {
-						"positionClass": "toast-top-right",
-						"showDuration": "300",
-						"hideDuration": "1000",
-						"timeOut": "5000",
-						"extendedTimeOut": "1000",
-					};
-					var selectedCheckboxes = $('.approveCheckbox:checked');
+		// Function to filter table rows based on search text and column index
+		function filterTableRows(searchText, columnIndex) {
+			$("#admintid tbody tr").filter(function () {
+				var cellText = $(this).find("td:eq(" + columnIndex + ")").text().toLowerCase();
+				$(this).toggle(cellText.indexOf(searchText) > -1);
+			});
+		}
+	</script>
 
-					if (selectedCheckboxes.length > 0) {
-						selectedCheckboxes.each(function () {
-							var treasuryId = $(this).attr('data-treasuryid');
-							var trainingName = $(this).attr('data-trainingname');
+	</head>
 
-							$.ajax({
-								type: 'PUT',
-								url: '/TTSS03/api/update-status',
-								data: {
-									treasuryId: treasuryId,
-									trainingName: trainingName
-								},
-								success: function (response) {
-									console.log('Status updated successfully:', response);
-									toastr.success('Approved Training successfully');
-
-									setTimeout(function () {
-										window.location.href = '/TTSS03/Admin_approval.html'; // Replace with your target page
-									}, 1000);
-								},
-								error: function (error) {
-									console.error('Error updating status:', error);
-									toastr.error('Error for training status');
-
-								}
-							});
-						});
-					} else {
-						console.log('No checkbox selected');
-						toastr.warning('Please select a training to update status');
-					}
-				}
-			</script>
-			<script>
-				$(document).ready(function () {
-					// Handle input events on the search bar
-					$("#searchBar").on("input", function () {
-						var searchText = $(this).val().toLowerCase();
-						filterTableRows(searchText);
-					});
-				});
-
-				// Function to filter table rows based on search text
-				function filterTableRows(searchText) {
-					$("#admintid tbody tr").filter(function () {
-						var trainingName = $(this).find("td:eq(9)").text().toLowerCase(); // Index 1 is the "Training Name" column
-						$(this).toggle(trainingName.indexOf(searchText) > -1);
-					});
-				}
-			</script>
-			<script>
-				$(document).ready(function () {
-					// Handle input events on the search bar
-					$("#searchBar1").on("input", function () {
-						var searchText = $(this).val().toLowerCase();
-						filterTableRows(searchText);
-					});
-				});
-
-				// Function to filter table rows based on search text
-				function filterTableRows(searchText) {
-					$("#admintid tbody tr").filter(function () {
-						var District = $(this).find("td:eq(7)").text().toLowerCase(); // Index 1 is the "Training Name" column
-						$(this).toggle(District.indexOf(searchText) > -1);
-					});
-				}
-			</script>
-			</head>
-
-			<body>
-				<div class="maindiv">
-					<div class="maindiv2">
-						<input type=" text" class="form-control" placeholder="Search Training Name..." id="searchBar"/>
-				</div>
-				<div class="maindiv2">
-					<input type="text" class="form-control" placeholder="Search District Name..." id="searchBar1" />
-				</div>
+	<body>
+		<div class="maindiv">
+			<div class="maindiv2">
+				<input type=" text" class="form-control" placeholder="Search Training Name..." id="searchBar" />
+			</div>
+			<div class="maindiv2">
+				<input type="text" class="form-control" placeholder="Search District Name..." id="searchBar1" />
+			</div>
 		</div>
 
 		<div class="content">
@@ -394,8 +391,8 @@ form {
 								console.log('Training Rejected Successfully:', response);
 								toastr.success('Training Rejected Successfully');
 								setTimeout(function () {
-										window.location.href = '/TTSS03/Admin_approval.html'; // Replace with your target page
-									}, 1000);
+									window.location.href = '/TTSS03/Admin_approval.html'; // Replace with your target page
+								}, 1000);
 							},
 							error: function (error) {
 								console.error('Error For Training Rejected :', error);
@@ -414,6 +411,6 @@ form {
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 		<!-- Core theme JS-->
 		<script src="js/scripts.js"></script>
-</body>
+	</body>
 
 </html>

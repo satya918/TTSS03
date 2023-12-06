@@ -32,106 +32,165 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </head>
 <body>
-	<div class="container mt-2 tab-content" id="tab4">
-		<div class="card mt-2" style="width: 180%;">
-			<button id="viewTrainingButton" class="btn btn-primary">View
-				Training</button>
-			<div class="card-body">
-				<div class="table-responsive">
-					<table class="table table-bordered" id="trainingTable"
-						style="font-size: 14px;">
-						<thead>
-							<tr>
-								<th>Training Ref Id</th>
-								<th>Venue</th>
-								<th>Resource Type</th>
-								<th>Training Mode</th>
-								<th>Module</th>
-								<th>Training Month</th>
-								<th>Training Year</th>
-								<th>Training Name</th>
-								<th>Description</th>
-								<th>Grade</th>
-								<th>Agency</th>
-								<th>Venue Address</th>
-								<th>Map Location</th>
-								<th>Coordinator Name</th>
-								<th>Email</th>
-								<th>Mobile</th>
-								<th>State</th>
-								<th>District</th>
-								<th>Mandal</th>
-								<th>Application Start Date</th>
-								<th>Application End Date</th>
-								<th>Training Start Date</th>
-								<th>Training End Date</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-				</div>
+	<div class="card mt-2" style="width: 100%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="trainingTable"
+					style="font-size: 14px;">
+					<!-- Table headers go here -->
+					<thead>
+						<tr>
+							<th>Training Ref Id</th>
+							<th>Venue</th>
+							<th>Resource Type</th>
+							<th>Training Mode</th>
+							<th>Module</th>
+							<th>Training Month</th>
+							<th>Training Year</th>
+							<th>Training Name</th>
+							<th>Description</th>
+							<th>Grade</th>
+							<th>Agency</th>
+							<th>Venue Address</th>
+							<th>Map Location</th>
+							<th>Coordinator Name</th>
+							<th>Email</th>
+							<th>Mobile</th>
+							<th>State</th>
+							<th>District</th>
+							<th>Mandal</th>
+							<th>Application Start Date</th>
+							<th>Application End Date</th>
+							<th>Training Start Date</th>
+							<th>Training End Date</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+
 	<script>
-	function callapi() {
-        // Make API call
-        $.ajax({
-            type: "GET",
-            url: "/api/scheduledTrainings",
-            dataType: "json",
-            success: function (data) {
-                displayTrainingData(data);
-            },
-            error: function (xhr, status, error) {
-                console.error("API request error: " + error);
-                toastr.error("Failed to load data. Please try again.");
-            }
-        });
-    }
+		$(document).ready(function() {
 
+			// Execute the function on page load
 
-		function displayTrainingData(data) {
-			var trainings = data;
-			trainings.reverse();
-			var tableBody = $("#trainingTable tbody");
+			fetchDataAndDisplay();
 
-			// Clear existing rows
-			tableBody.empty();
+			function fetchDataAndDisplay() {
 
-			for (var i = 0; i < trainings.length; i++) {
-				var training = trainings[i];
-				var row = $("<tr></tr>");
+				$.ajax({
 
-				row.append("<td>" + training.ref_planner_id + "</td>");
-				row.append("<td>" + training.venue_id + "</td>");
-				row.append("<td>" + training.resourcetype + "</td>");
-				row.append("<td>" + training.tmode + "</td>");
-				row.append("<td>" + training.tmodule + "</td>");
-				row.append("<td>" + training.tmonth + "</td>");
-				row.append("<td>" + training.tyear + "</td>");
-				row.append("<td>" + training.tname + "</td>");
-				row.append("<td>" + training.tdescription + "</td>");
-				row.append("<td>" + training.tgrade + "</td>");
-				row.append("<td>" + training.tagency + "</td>");
-				row.append("<td>" + training.vaddress + "</td>");
-				row.append("<td>" + training.maplocation + "</td>");
-				row.append("<td>" + training.coordinatorname + "</td>");
-				row.append("<td>" + training.coordinator_email + "</td>");
-				row.append("<td>" + training.coordinator_mobile + "</td>");
-				row.append("<td>" + training.tstate + "</td>");
-				row.append("<td>" + training.tdistrict + "</td>");
-				row.append("<td>" + training.tmandal + "</td>");
-				row.append("<td>" + training.apply_start_dt + "</td>");
-				row.append("<td>" + training.apply_end_dt + "</td>");
-				row.append("<td>" + training.training_start_dt + "</td>");
-				row.append("<td>" + training.training_end_dt + "</td>");
+					type : "GET",
 
-				tableBody.append(row);
+					url : "/api/scheduledTrainings",
+
+					dataType : "json",
+
+					success : function(data) {
+
+						displayTrainingData(data);
+
+					},
+
+					error : function(xhr, status, error) {
+
+						console.error("API request error: " + error);
+
+						toastr.error("Failed to fetch training data");
+
+					}
+
+				});
+
 			}
 
+			function displayTrainingData(data) {
+
+				var trainings = data;
+
+				trainings.reverse();
+
+				var tableBody = $("#trainingTable tbody");
+
+				// Clear existing rows
+
+				tableBody.empty();
+
+				for (var i = 0; i < trainings.length; i++) {
+
+					var training = trainings[i];
+
+					var row = $("<tr></tr>");
+
+					row.append("<td>" + training.ref_planner_id + "</td>");
+
+					row.append("<td>" + training.venue_id + "</td>");
+
+					row.append("<td>" + training.resourcetype + "</td>");
+
+					row.append("<td>" + training.tmode + "</td>");
+
+					row.append("<td>" + training.tmodule + "</td>");
+
+					row.append("<td>" + training.tmonth + "</td>");
+
+					row.append("<td>" + training.tyear + "</td>");
+
+					row.append("<td>" + training.tname + "</td>");
+
+					row.append("<td>" + training.tdescription + "</td>");
+
+					row.append("<td>" + training.tgrade + "</td>");
+
+					row.append("<td>" + training.tagency + "</td>");
+
+					row.append("<td>" + training.vaddress + "</td>");
+
+					row.append("<td>" + training.maplocation + "</td>");
+
+					row.append("<td>" + training.coordinatorname + "</td>");
+
+					row.append("<td>" + training.coordinator_email + "</td>");
+
+					row.append("<td>" + training.coordinator_mobile + "</td>");
+
+					row.append("<td>" + training.tstate + "</td>");
+
+					row.append("<td>" + training.tdistrict + "</td>");
+
+					row.append("<td>" + training.tmandal + "</td>");
+
+					row.append("<td>" + training.apply_start_dt + "</td>");
+
+					row.append("<td>" + training.apply_end_dt + "</td>");
+
+					row.append("<td>" + training.training_start_dt + "</td>");
+
+					row.append("<td>" + training.training_end_dt + "</td>");
+
+					tableBody.append(row);
+
+				}
+
+			}
+
+		});
+
+		function fun() {
+
+			document.getElementById("top").reset();
+
+			document.getElementById("middle").reset();
+
 		}
-);
+
+		function alertbox() {
+
+			alert('training scheduled successfully')
+
+		}
 	</script>
 </body>
 </html>

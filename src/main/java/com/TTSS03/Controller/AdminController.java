@@ -9,7 +9,7 @@ public class AdminController {
 
 	@RequestMapping("/admin")
 	public String traineeSide() {
-		return "MainFrame";
+		return "MainFrameAdmin";
 	}
 	
 	

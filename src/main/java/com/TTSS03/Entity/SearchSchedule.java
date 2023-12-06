@@ -1,6 +1,7 @@
 package com.TTSS03.Entity;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +13,8 @@ import jakarta.persistence.Table;
 public class SearchSchedule {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int sl_no;
+	private int slno;
+	@Column(name="refplannerid")
 	private String ref_planner_id;
 	
 	private String tmonth;
@@ -21,8 +23,10 @@ public class SearchSchedule {
 	private String tname;
 	private String tdescription;
 	
-	
+	@Column(name="trainingregstartdt")
 	private String training_reg_start_dt;
+	
+	@Column(name="trainingregenddt")
 	private String training_reg_end_dt;
 	
 	
@@ -31,14 +35,16 @@ public class SearchSchedule {
 
 	private String tgrade;
 	private String tagency;
+	@Column(name="tsubject")
+
 	private String tsubjects;
 	
 	
 	public int getSl_no() {
-		return sl_no;
+		return slno;
 	}
 	public void setSl_no(int sl_no) {
-		this.sl_no = sl_no;
+		this.slno = sl_no;
 	}
 	public String getRef_planner_id() {
 		return ref_planner_id;

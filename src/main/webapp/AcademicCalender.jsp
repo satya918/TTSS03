@@ -32,58 +32,147 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </head>
 <body>
-	<div class="container tab-content col-12">
-		<div class="card mt-2">
-			<div class="card-header">
-				<b>Academic Calendar</b>
-			</div>
-			<div class="card-body">
-				<div class="table-responsive w-100" id="excelData"
-					style="font-size: 14px;"></div>
+
+	<a href="AddNewTraining.jsp" class="btn btn-success mt-2">Add
+		NewTraining</a>
+
+	<div class="card mt-2" style="width: 100%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped" id="trainingTable"
+					style="font-size: 14px;">
+					<!-- Table headers go here -->
+					<thead class="thead-dark"
+						style="background-color: #337ab7; color: white;">
+
+						<tr>
+							<th>Sl.no.</th>
+							<th>Training Ref Id</th>
+							<th>Training Subject</th>
+							<th>Training Category</th>
+							<th>Training Mode</th>
+							<th>Target Group</th>
+							<th>Training Month</th>
+							<th>Training Year</th>
+							<th>Training Name</th>
+							<th>Description</th>
+							<th>Grade</th>
+							<th>Agency</th>
+							<th>Training Spell</th>
+							<th>Preferred Location</th>
+							<th>No. Of Stakeholders</th>
+							<th>No. Of Day Needed</th>
+							<th>Hours per Day</th>
+							<th>Total Hours</th>
+							<th>Tentative Start Date</th>
+							<th>Tentative End Date</th>
+							<th>Training Status</th>
+							<th>Action</th>
+
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 			</div>
 		</div>
 	</div>
 
+
+
 	<script>
-    function displayExcelData() {
-        var excelFileURL = './actualTable.csv';
+    // Declare the editTraining function in the global scope
+    function editTraining(training) {
+    // Construct the URL with parameters
+    var editUrl = "editTrainingPage.jsp" +
+        "?refplannerid=" + training.refplannerid +
+        "&tsubject=" + (training.tsubject) +
+        "&tcategory=" + (training.tcategory) +
+        "&tmode=" + (training.tmode) +
+        "&ttargetgroup=" + (training.ttargetgroup) +
+        "&tmonth=" + (training.tmonth) +
+        "&tyear=" + (training.tyear) +
+        "&tname=" + (training.tname) +
+        "&tdescription=" + (training.tdescription) +
+        "&tgrade=" + (training.tgrade) +
+        "&tagency=" + (training.tagency) +
+        "&tspell=" + (training.tspell) +
+        "&preferdlocation=" + (training.preferdlocation) +
+        "&numberofstakeholder=" + (training.numberofstakeholder) +
+        "&numberdayneeded=" + (training.numberdayneeded) +
+        "&thoursperday=" + (training.thoursperday) +
+        "&totalhours=" + (training.totalhours) +
+        "&trainingregstartdt=" + (training.trainingregstartdt) +
+        "&trainingregenddt=" + (training.trainingregenddt) +
+        "&tstatus=" + (training.tstatus);
 
-        // Fetch and display Excel data
-        fetch(excelFileURL)
-            .then(function (response) {
-                console.log('Response Status:', response.status);
-                if (!response.ok) {
-                    throw new Error('Failed to load Excel file');
+    // Redirect to the edit page
+    window.location.href = editUrl;
+}
+
+    $(document).ready(function() {
+        // Execute the function on page load
+        fetchDataAndDisplay();
+
+        function fetchDataAndDisplay() {
+            $.ajax({
+                type: "GET",
+                url: "api/getdata",
+                dataType: "json",
+                success: function(data) {
+                    displayTrainingData(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("API request error: " + error);
+                    toastr.error("Failed to fetch training data");
                 }
-                return response.arrayBuffer();
-            })
-            .then(function (data) {
-                var workbook = XLSX.read(data, { type: 'array' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-                var excelData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
-                // Display the Excel data
-                var tableHTML = '<table class="table table-striped table-bordered table-hover w-100">';
-                for (var i = 0; i < excelData.length; i++) {
-                    tableHTML += '<tr>';
-                    for (var j = 0; j < excelData[i].length; j++) {
-                        tableHTML += '<td>' + excelData[i][j] + '</td>';
-                    }
-                    tableHTML += '</tr>';
-                }
-                tableHTML += '</table>';
-
-                document.getElementById('excelData').innerHTML = tableHTML;
-            })
-            .catch(function (error) {
-                console.error('Error loading Excel file:', error);
-                toastr.error('Failed to load Excel file. Please try again.');
             });
-    }
+        }
 
-    // Call the function to display Excel data
-    displayExcelData();
+        function displayTrainingData(data) {
+            var trainings = data;
+            var tableBody = $("#trainingTable tbody");
+
+            // Clear existing rows
+            tableBody.empty();
+
+            for (var i = 0; i < trainings.length; i++) {
+                var training = trainings[i];
+                var row = $("<tr></tr>");
+
+                row.append("<td>" + training.slno + "</td>");
+                row.append("<td>" + training.refplannerid + "</td>");
+                row.append("<td>" + training.tsubject + "</td>");
+                row.append("<td>" + training.tcategory + "</td>");
+                row.append("<td>" + training.tmode + "</td>");
+                row.append("<td>" + training.ttargetgroup + "</td>");
+                row.append("<td>" + training.tmonth + "</td>");
+                row.append("<td>" + training.tyear + "</td>");
+                row.append("<td>" + training.tname + "</td>");
+                row.append("<td>" + training.tdescription + "</td>");
+                row.append("<td>" + training.tgrade + "</td>");
+                row.append("<td>" + training.tagency + "</td>");
+                row.append("<td>" + training.tspell + "</td>");
+                row.append("<td>" + training.preferdlocation + "</td>");
+                row.append("<td>" + training.numberofstakeholder + "</td>");
+                row.append("<td>" + training.numberdayneeded + "</td>");
+                row.append("<td>" + training.thoursperday + "</td>");
+                row.append("<td>" + training.totalhours + "</td>");
+                row.append("<td>" + training.trainingregstartdt + "</td>");
+                row.append("<td>" + training.trainingregenddt + "</td>");
+                row.append("<td>" + training.tstatus + "</td>");
+
+                row.append("<td><button class='btn btn-primary btn-sm' onclick='editTraining(" + JSON.stringify(training) + ")'>Edit</button><button class='btn btn-danger btn-sm' onclick='deleteTraining(" + training.refplannerid + ")'>Delete</button></td>");
+
+                tableBody.append(row);
+            }
+        }
+
+        // Sample functions for edit and delete
+        function deleteTraining(refplannerid) {
+            alert("Delete Training with ID: " + refplannerid);
+            // Implement your delete logic here
+        }
+    });
 </script>
 
 
