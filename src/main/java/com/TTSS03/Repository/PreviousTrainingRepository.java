@@ -13,4 +13,5 @@ public interface PreviousTrainingRepository extends JpaRepository<PreviousTraini
 	@Query("SELECT sv FROM PreviousTrainings sv WHERE sv.treasuryid = :treasuryid")
 	List<PreviousTrainings> findByTreasuryId(@Param ("treasuryid")String treasuryId);
 
+	
 }

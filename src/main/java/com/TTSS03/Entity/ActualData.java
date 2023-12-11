@@ -33,6 +33,7 @@ public class ActualData {
 	private String thoursperday;
 	private String totalhours;
 	private String tstatus;
+	
 	public int getSlno() {
 		return slno;
 	}
@@ -159,5 +160,6 @@ public class ActualData {
 	public void setTstatus(String tstatus) {
 		this.tstatus = tstatus;
 	}
+	
 	
 }

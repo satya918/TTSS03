@@ -15,6 +15,8 @@ public interface ActualDataService {
 	
 	ActualData updateOne(int refplannerid,ActualData actualData);
 	
+	public void deactivateTraining(String refplannerid);
+	
 	
 
 }

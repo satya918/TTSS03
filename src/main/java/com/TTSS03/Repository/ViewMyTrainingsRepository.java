@@ -19,7 +19,7 @@ public interface ViewMyTrainingsRepository extends JpaRepository<ViewMyTrainings
 			+ "JOIN ScheduleTrainings tm ON mt.ref_planner_id = tm.ref_planner_id "
 			+ "JOIN SearchVenue vm ON mt.venueid = vm.vid " + "WHERE mt.treasuryid = :treasuryid and mt.ref_planner_id = tm.ref_planner_id and mt.venueid = vm.vid")
 	List<Object[]> findTrainingDetailsByTreasuryId(@Param("treasuryid") String treasuryid );
-
+	    
 	@Query(value = "SELECT mt.tname, mt.tmode, mt.treasuryid, mt.tdescription,mt.vaddress,tm.mobilenumberteacher,tm.designation,tm.dob,tm.username, tm.surname,tm.schcd,tm.districtnamewrk,mt.applydateandtime,mt.resourcetype "
 			+ "FROM mytrainings mt " + "JOIN ttreasurymaster tm ON mt.treasuryid = tm.treasuryid "
 			+ "WHERE mt.status = 'waiting for approval'", nativeQuery = true)
@@ -41,5 +41,7 @@ public interface ViewMyTrainingsRepository extends JpaRepository<ViewMyTrainings
 	@Modifying
 	@Query("UPDATE ViewMyTrainings v SET v.status = 'rejected' WHERE v.treasuryid = :treasuryId  AND v.tname = :trainingName")
 	void rejectStatusByTreasuryId(@Param("treasuryId") String treasuryId, @Param("trainingName") String trainingName);
+
+	
 
 }

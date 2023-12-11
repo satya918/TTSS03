@@ -10,7 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -115,9 +114,9 @@ public class ComplexMonitoring {
     @Column(name = "remark")
     private String remark;
 
-    @Lob
+  
     @Column(name = "uploadimage")
-    private byte[] uploadimage;
+    private String uploadimage;
 
 	public int getSlno() {
 		return slno;
@@ -360,13 +359,15 @@ public class ComplexMonitoring {
 	
 	}
 
-	public byte[] getUploadimage() {
+	public String getUploadimage() {
 		return uploadimage;
 	}
 
-	public void setUploadimage(byte[] uploadimage) {
-		this.uploadimage = uploadimage;
+	public void setUploadimage(String imageData) {
+		this.uploadimage = imageData;
 	}
+
+	
 
 	
 

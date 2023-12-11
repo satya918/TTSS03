@@ -440,6 +440,8 @@
 					for (var i = 0; i < data.length; i++) {
 						var trainings = data[i];
 						var row = $("<tr></tr>");
+						row.append("<td class='serial-column'>" + (i + 1) + "</td>");
+
 						row.append("<td>" + trainings.TreasuryId + "</td>");
 						console.log(trainings);
 						row.append("<td>" + trainings.MobileNumber + "</td>");

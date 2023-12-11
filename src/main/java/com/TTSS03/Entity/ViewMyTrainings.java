@@ -14,8 +14,8 @@ public class ViewMyTrainings {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int slno;
 	private String treasuryid;
-	private String ref_planner_id;
-	private String vid;
+
+
 	private String tname;
 	private String tdescription;
 	private String tmode;
@@ -29,7 +29,6 @@ public class ViewMyTrainings {
 	private String vcontact;
 	private String status="Waiting For Approval";
 	private String resourcetype;
-	
 	public int getSlno() {
 		return slno;
 	}
@@ -42,6 +41,7 @@ public class ViewMyTrainings {
 	public void setTreasuryid(String treasuryid) {
 		this.treasuryid = treasuryid;
 	}
+	
 	public String getTname() {
 		return tname;
 	}
@@ -102,8 +102,6 @@ public class ViewMyTrainings {
 	public void setMaplocation(String maplocation) {
 		this.maplocation = maplocation;
 	}
-	
-	
 	public String getVcontact() {
 		return vcontact;
 	}
@@ -122,20 +120,5 @@ public class ViewMyTrainings {
 	public void setResourcetype(String resourcetype) {
 		this.resourcetype = resourcetype;
 	}
-	public String getRef_planner_id() {
-		return ref_planner_id;
-	}
-	public void setRef_planner_id(String ref_planner_id) {
-		this.ref_planner_id = ref_planner_id;
-	}
-	public String getVid() {
-		return vid;
-	}
-	public void setVid(String vid) {
-		this.vid = vid;
-	}
-	
-	
-	  
 	
 }

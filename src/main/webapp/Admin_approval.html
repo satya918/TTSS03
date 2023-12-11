@@ -199,6 +199,8 @@ width: 100%;
 					var row = $("<tr></tr>");
 
 					// Populate the row with data from the 'training' object
+				    row.append("<td class='serial-column'>" + (i + 1) + "</td>");
+
 					row.append('<td><input type="checkbox" class="approveCheckbox" data-treasuryid="' + training.TreasuryId + '" data-trainingname="' + training.TrainingName + '"></td>');
 					row.append("<td>" + training.TreasuryId + "</td>");
 					row.append("<td>" + training.MobileNumber + "</td>");
@@ -297,6 +299,10 @@ width: 100%;
 				var searchText = $(this).val().toLowerCase();
 				filterTableRows(searchText, 9); // 9 is the index for "Training Name" column
 			});
+			
+			 $("#downloadButton").on("click", function () {
+                downloadTableToExcel();
+            });
 
 			// Handle input events on the second search bar
 			$("#searchBar1").on("input", function () {
@@ -316,6 +322,18 @@ width: 100%;
 				$(this).toggle(cellText.indexOf(searchText) > -1);
 			});
 		}
+		 function downloadTableToExcel() {
+            var tableHtml = $("#admintid").prop("outerHTML");
+            var blob = new Blob([tableHtml], {
+                type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+            });
+            var link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "table_data.xlsx";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 	</script>
 
 	</head>
@@ -328,6 +346,9 @@ width: 100%;
 			<div class="maindiv2">
 				<input type="text" class="form-control" placeholder="Search District Name..." id="searchBar1" />
 			</div>
+			<div class="fixed-buttons">
+        <button class="btn btn-primary" id="downloadButton" style="margin-left: 100%;">Download Excel</button>
+    </div>
 		</div>
 
 		<div class="content">
@@ -339,6 +360,7 @@ width: 100%;
 					<table id="admintid" class="table">
 						<thead>
 							<tr>
+								<th>slno</th>
 								<th>Action</th>
 								<th>Treasury Id</th>
 								<th>Mobile No</th>
@@ -370,6 +392,7 @@ width: 100%;
 			<button class="btn btn-success" id="approveButton" onclick="approveTraining()">Approve</button>
 			<button class="btn btn-danger" id="cancelButton" onclick="rejectTraining()"> Reject </button>
 		</div>
+		
 		<script>
 			function rejectTraining() {
 

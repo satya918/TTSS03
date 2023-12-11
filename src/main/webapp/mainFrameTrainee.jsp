@@ -87,6 +87,24 @@ iframe {
 	/* Set an initial height for the iframe, adjust as needed */
 	border: none;
 }
+
+#logoutButton {
+            position: absolute;
+            top: 80%;
+            transform: translateY(-50%);
+            right: 20px;
+            cursor: pointer;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: blue;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        #logoutButton:hover {
+            background-color: #bbb;
+        }
 </style>
 </head>
 <body>
@@ -97,9 +115,12 @@ iframe {
 		<div id="leftLogo">
 			<img src="./assets/logo.png" alt="Left Logo">
 		</div>
+		
 		<div id="rightLogo">
 			<img src="./assets/loggoo.png" alt="Right Logo">
 		</div>
+		        <button id="logoutButton" onclick="logout()">Logout</button>
+		
 	</div>
 
 	<div id="navbar">
@@ -114,6 +135,33 @@ iframe {
 			<iframe src="Tdashboard.jsp" name="mainFrame" id="mainFrame" style="width: 100%; height: 400px;"></iframe>
 		</div>
 	</div>
+	<script>
+ function logout() {
+	    // Perform session logout logic
+	    <%-- Assuming session is available in your JSP environment --%>
+	    <% session.invalidate(); %>
+
+	    // Clear browser history and redirect
+	    window.location.href = "index.jsp";
+	    window.location.replace("index.jsp"); // For some browsers
+
+	    // Additional history manipulation
+	    if (window.history && window.history.pushState) {
+	        // Use replaceState to clear the existing history
+	        window.history.replaceState(null, null, "index.jsp");
+
+	        // Add a dummy entry to the history to replace current entry
+	        window.history.pushState(null, null, "index.jsp");
+
+	        // Prevent users from navigating back to the previous state
+	        window.onpopstate = function (event) {
+	            window.history.go(1);
+	        };
+	    }
+	}
+
+
+	</script>
 
 </body>
 </html>

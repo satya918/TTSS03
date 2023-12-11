@@ -24,8 +24,7 @@ public class PreviousTrainingsController {
 	
 	
 	@PostMapping("/save/previoustrainings")
-	public ResponseEntity<PreviousTrainings>savePreviousTrainings(@RequestBody PreviousTrainings previousTrainings){
-		
+	public ResponseEntity<PreviousTrainings>savePreviousTrainings(@RequestBody List<PreviousTrainings> previousTrainings){
 		PreviousTrainings saveonetraining = previousTrainingsService.saveonetraining(previousTrainings);
 		return ResponseEntity.ok(saveonetraining);
 	}

@@ -66,24 +66,39 @@
 </head>
 <body>
 
-<!-- Navigation Bar -->
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">TTSS Dashboard</a>
-        </div>
-        <!-- You can add more navigation items here -->
-    </div>
-</nav>
+<!-- Bootstrap Carousel -->
+<div id="imageCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#imageCarousel" data-slide-to="1"></li>
+        <li data-target="#imageCarousel" data-slide-to="2"></li>
+        <!-- Add more indicators if needed -->
+    </ol>
 
-<!-- Dashboard Content -->
-<div class="dashboard-container">
-    <!-- Placeholder Card -->
-    <div class="dashboard-card">
-        <h4>Card Title</h4>
-        <p>Dashboard content goes here...</p>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="image1.jpg" alt="Image 1">
+        </div>
+        <div class="item">
+            <img src="../assets/bg-2.webp" alt="Image 2">
+        </div>
+        <div class="item">
+            <img src="image3.jpg" alt="Image 3">
+        </div>
+        <!-- Add more slides if needed -->
     </div>
-    <!-- You can add more dashboard cards here -->
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#imageCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#imageCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
 
 </body>

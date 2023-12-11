@@ -42,74 +42,74 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 	    return ViewMyTrainingsRepo.findByTreasuryId(treasuryid);
 	}
 	@Override
-	public List<ViewMyTrainings> savemyTrainings(String treasuryid) {
-	    List<Object[]> findTrainingDetailsByTreasuryId = ViewMyTrainingsRepo.findTrainingDetailsByTreasuryId(treasuryid);
-
-	    // Process and save the results to your target table (ViewMyTrainings)
-	    Set<ViewMyTrainings> uniqueTrainings = new HashSet<>();
-
-	    for (Object[] result : findTrainingDetailsByTreasuryId) {
-	        // Print the values at each index of the result array
-	        for (int i = 0; i < result.length; i++) {
-	            System.out.println("Index " + i + ": " + result[i]);
-	        }
-
-	        ViewMyTrainings viewMyTrainings = createViewMyTrainingsFromResultArray(result);
-
-	        // Check if the combination of treasuryid and tname already exists
-	        List<ViewMyTrainings> existingData = ViewMyTrainingsRepo.findByTreasuryIdAndTname(viewMyTrainings.getTreasuryid(), viewMyTrainings.getTname());
-
-	        if (!existingData.isEmpty()) {
-	            // Data exists, update it
-	            ViewMyTrainings existingRecord = existingData.get(0); // Assuming there's only one record, adjust if needed
-
-	            // Update existingRecord with new values from viewMyTrainings
-	            // You may need to implement the update logic based on your requirements
-	            existingRecord.setTname(viewMyTrainings.getTname());
-	            existingRecord.setTmode(viewMyTrainings.getTmode());
-	            existingRecord.setTdescription(viewMyTrainings.getTdescription());
-	            existingRecord.setMaplocation(viewMyTrainings.getMaplocation());
-	            existingRecord.setEnddate(viewMyTrainings.getEnddate());
-	            existingRecord.setResourcetype(viewMyTrainings.getResourcetype());
-	            existingRecord.setStartdate(viewMyTrainings.getStartdate());
-	            existingRecord.setTagency(viewMyTrainings.getTagency());
-	            existingRecord.setTrainername(viewMyTrainings.getTrainername());
-	            existingRecord.setTreasuryid(viewMyTrainings.getTreasuryid());
-	            existingRecord.setVaddress(viewMyTrainings.getVaddress());
-	            existingRecord.setVcontact(viewMyTrainings.getVcontact());
-	            existingRecord.setVname(viewMyTrainings.getVname());
-	            // Update other fields as needed
-
-	            // Then save the updated data
-	            ViewMyTrainingsRepo.save(existingRecord);
-	        } else {
-	            // Data does not exist, add it to the set
-	            uniqueTrainings.add(viewMyTrainings);
-	        }
-	    }
-
-	    // Save all unique records in the set
-	    return ViewMyTrainingsRepo.saveAll(uniqueTrainings);
-	}
-
-
-	private ViewMyTrainings createViewMyTrainingsFromResultArray(Object[] result) {
-	    ViewMyTrainings viewMyTrainings = new ViewMyTrainings();
-	    
-	    viewMyTrainings.setTreasuryid(result[0].toString()); 
-	    viewMyTrainings.setTname(result[1].toString());
-	    viewMyTrainings.setVname(result[2].toString());
-	    viewMyTrainings.setTmode(result[3].toString());
-	    viewMyTrainings.setTdescription(result[4].toString());
-	    viewMyTrainings.setStartdate(result[5].toString());
-	    viewMyTrainings.setEnddate(result[6].toString());
-	    viewMyTrainings.setVaddress(result[7].toString());
-	    viewMyTrainings.setMaplocation(result[10].toString());
-	    viewMyTrainings.setVcontact(result[8].toString()+" "+result[9].toString());
-	    viewMyTrainings.setResourcetype(result[11].toString());
-
-	    return viewMyTrainings;
-	}
+		public List<ViewMyTrainings> savemyTrainings(String treasuryid) {
+		    List<Object[]> findTrainingDetailsByTreasuryId = ViewMyTrainingsRepo.findTrainingDetailsByTreasuryId(treasuryid);
+	 
+		    // Process and save the results to your target table (ViewMyTrainings)
+		    Set<ViewMyTrainings> uniqueTrainings = new HashSet<>();
+	 
+		    for (Object[] result : findTrainingDetailsByTreasuryId) {
+		        // Print the values at each index of the result array
+		        for (int i = 0; i < result.length; i++) {
+		            System.out.println("Index " + i + ": " + result[i]);
+		        }
+	 
+		        ViewMyTrainings viewMyTrainings = createViewMyTrainingsFromResultArray(result);
+	 
+		        // Check if the combination of treasuryid and tname already exists
+		        List<ViewMyTrainings> existingData = ViewMyTrainingsRepo.findByTreasuryIdAndTname(viewMyTrainings.getTreasuryid(), viewMyTrainings.getTname());
+	 
+		        if (!existingData.isEmpty()) {
+		            // Data exists, update it
+		            ViewMyTrainings existingRecord = existingData.get(0); // Assuming there's only one record, adjust if needed
+	 
+		            // Update existingRecord with new values from viewMyTrainings
+		            // You may need to implement the update logic based on your requirements
+		            existingRecord.setTname(viewMyTrainings.getTname());
+		            existingRecord.setTmode(viewMyTrainings.getTmode());
+		            existingRecord.setTdescription(viewMyTrainings.getTdescription());
+		            existingRecord.setMaplocation(viewMyTrainings.getMaplocation());
+		            existingRecord.setEnddate(viewMyTrainings.getEnddate());
+		            existingRecord.setResourcetype(viewMyTrainings.getResourcetype());
+		            existingRecord.setStartdate(viewMyTrainings.getStartdate());
+		            existingRecord.setTagency(viewMyTrainings.getTagency());
+		            existingRecord.setTrainername(viewMyTrainings.getTrainername());
+		            existingRecord.setTreasuryid(viewMyTrainings.getTreasuryid());
+		            existingRecord.setVaddress(viewMyTrainings.getVaddress());
+		            existingRecord.setVcontact(viewMyTrainings.getVcontact());
+		            existingRecord.setVname(viewMyTrainings.getVname());
+		            // Update other fields as needed
+	 
+		            // Then save the updated data
+		            ViewMyTrainingsRepo.save(existingRecord);
+		        } else {
+		            // Data does not exist, add it to the set
+		            uniqueTrainings.add(viewMyTrainings);
+		        }
+		    }
+	 
+		    // Save all unique records in the set
+		    return ViewMyTrainingsRepo.saveAll(uniqueTrainings);
+		}
+	 
+	 
+		private ViewMyTrainings createViewMyTrainingsFromResultArray(Object[] result) {
+		    ViewMyTrainings viewMyTrainings = new ViewMyTrainings();
+		    
+		    viewMyTrainings.setTreasuryid(result[0].toString());
+		    viewMyTrainings.setTname(result[1].toString());
+		    viewMyTrainings.setVname(result[2].toString());
+		    viewMyTrainings.setTmode(result[3].toString());
+		    viewMyTrainings.setTdescription(result[4].toString());
+		    viewMyTrainings.setStartdate(result[5].toString());
+		    viewMyTrainings.setEnddate(result[6].toString());
+		    viewMyTrainings.setVaddress(result[7].toString());
+		    viewMyTrainings.setMaplocation(result[10].toString());
+		    viewMyTrainings.setVcontact(result[8].toString()+" "+result[9].toString());
+		    viewMyTrainings.setResourcetype(result[11].toString());
+	 
+		    return viewMyTrainings;
+		}
 	
 	public List<Map<String, Object>> getCustomData() {
 		List<Object[]> result = ViewMyTrainingsRepo.findCustomData();
@@ -173,6 +173,14 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 	public void rejectStatusToApproved(String treasuryId,String trainingName) {
 		ViewMyTrainingsRepo.rejectStatusByTreasuryId(treasuryId,trainingName);
 	}
+
+//
+//	@Override
+//	public List<ViewMyTrainings> savemyTrainings(String treasuryid) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	
 	
 }
 

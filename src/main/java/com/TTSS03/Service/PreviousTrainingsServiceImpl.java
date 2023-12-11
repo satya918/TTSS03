@@ -14,9 +14,15 @@ public class PreviousTrainingsServiceImpl implements PreviousTrainingsService {
 	PreviousTrainingRepository PreviousTrainingRepo;
 
 	@Override
-	public PreviousTrainings saveonetraining(PreviousTrainings previousTrainings) {
-		return PreviousTrainingRepo.save(previousTrainings)	;	 
+	public PreviousTrainings saveonetraining(List<PreviousTrainings> previousTrainings) {
+		
+	 for (PreviousTrainings previousTrainings2 : previousTrainings) {
+		 PreviousTrainingRepo.save(previousTrainings2);
 	}
+	return null;
+	}
+			 
+	
 	@Override
 	public List<PreviousTrainings> getAllPreviousData(String treasuryId) {
 		return PreviousTrainingRepo.findByTreasuryId(treasuryId);

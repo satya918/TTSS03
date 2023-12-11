@@ -192,6 +192,8 @@ form {
 								var row = $('<tr></tr>');
 
 								// Populate the row with data from the 'training' object
+						        row.append("<td class='serial-column'>" + (i + 1) + "</td>");
+
 								row.append('<td>' + training.trainingname + '</td>');
 								row.append('<td>' + training.trainingmode + '</td>');
 								row.append('<td>' + training.resourcetype + '</td>');

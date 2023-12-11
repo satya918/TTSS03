@@ -11,25 +11,35 @@
 <title>TTSS</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<style>
-.container {
-	width: 180%;
-	font-size: 14px;
+   <style>
+        .container {
+            width: 100%;
+            font-size: 14px;
+        }
+
+        #tab2 {
+            display: none;
+        }
+
+        .table {
+            height: "100px";
+        }
+
+       .table thead th {
+	background-color: blue; /* Blue color for the table heading */
+	color: white; /* White text for the table heading */
 }
 
-#tab2 {
-	display: none;
-}
- 
- 
- .table{
-    height: "5  0px"
- 
- }
-
-
-
-</style>
+        .serial-column {
+            width: 50px; /* Adjust the width of the serial number column as needed */
+        }
+        #noTrainingsMessage {
+            font-size: 18px;
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -46,38 +56,44 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-	<div class="container mt-2 tab-content" id="tab3"
-				style=" width: 170%; position: relative; top: 52px;">
-				<div class="input-group mb-3" style="width: 50%;">
-					<input type="text" class="form-control" placeholder="Search..." id="searchBar">
-				</div>
-				<div class="card mt-2" style="font-size: 14px;">
-					<div class="card-header"><b>My Trainings </b></div>
-					<div class="card-body">
-						<div id="myTrainings"></div>
-						<div class="table-responsive w-100%">
-							<table class="table table-hover" id="mytraining">
-								<thead>
-									<tr>
-										<th>Treasury Id</th>
-										<th>Training Name</th>
-										<th>Training Mode</th>
-										<th>Training description</th>
-										<th>Training start to end date</th>
-										<th>Venue Name</th>
-										<th>Venue Address</th>
-										<th>Venue Contact</th>
-										<th>Trainer Name</th>
-										<th>Map Location</th>
-										<th>Status</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
+	<div class="container mt-2 tab-content" id="tab3" style="width: 170%; position: relative; top: 52px;">
+    <div class="input-group mb-3" style="width: 50%;">
+        <input type="text" class="form-control" placeholder="Search..." id="searchBar">
+    </div>
+    
+    <div class="card mt-2" style="font-size: 14px;">
+        <div class="card-header"><b>My Trainings </b></div>
+        <div class="card-body">
+            <div id="myTrainings"></div>
+            <div class="table-responsive">
+                <table class="table table-hover" id="mytraining">
+                    <thead>
+                    
+                        <tr>
+                            <th scope="col">slno</th>
+                            <th scope="col">Treasury Id</th>
+                            <th scope="col">Training Name</th>
+                            <th scope="col">Training Mode</th>
+                            <th scope="col">Training description</th>
+                            <th scope="col">Training start to end date</th>
+                            <th scope="col">Venue Name</th>
+                            <th scope="col">Venue Address</th>
+                            <th scope="col">Venue Contact</th>
+                            <th scope="col">Trainer Name</th>
+                            <th scope="col">Map Location</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                                            <div id="noTrainingsMessage"></div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 			<script>
 				$(document).ready(function () {
 					// Handle input events on the search bar
@@ -118,7 +134,11 @@
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    displayTrainingData(data);
+                    if (data == null || data.length === 0) {
+                        displayNoTrainingsMessage();
+                    } else {
+                        displayTrainingData(data);
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error("API request error: " + error);
@@ -137,6 +157,7 @@
             for (var i = 0; i < trainings.length; i++) {
                 var training = trainings[i];
                 var row = $("<tr></tr>");
+                row.append("<td class='serial-column'>" + (i + 1) + "</td>");
 
                 row.append("<td>" + training.treasuryid + "</td>");
                 row.append("<td>" + training.tname + "</td>");
@@ -152,8 +173,14 @@
                 tableBody.append(row);
             }
         }
+
+        function displayNoTrainingsMessage() {
+            $("#noTrainingsMessage").text("You don't have any trainings.");
+        }
     });
 </script>
+
+
 
 
 

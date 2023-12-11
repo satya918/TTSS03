@@ -43,5 +43,10 @@ public class ActuaDataController {
 		
 		return ResponseEntity.ok(updateOne);
 	}
+	
+	 @PostMapping("/deactivate/{refplannerid}")
+	    public void deactivateTraining(@PathVariable String refplannerid) {
+		 actualDataService.deactivateTraining(refplannerid);
+	    }
 
 }

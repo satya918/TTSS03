@@ -10,31 +10,29 @@
 <meta name="author" content="" />
 <title>TTSS</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+<!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<!-- Add this script tag after including Toastr CSS -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<!-- Core theme CSS (includes Bootstrap)-->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
-<link href="css/styles.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Add this in the head section of your HTML file -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<!-- Include Toastr CSS and JS -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Your custom script containing deleteTraining function -->
+
+<!-- Include Bootstrap JS (after your custom script) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core theme JS (if needed) -->
+<script src="js/scripts.js"></script>
+
 </head>
 <body>
 
 	<a href="AddNewTraining.jsp" class="btn btn-success mt-2">Add
-		NewTraining</a>
+		NewTraining +</a>
 
 	<div class="card mt-2" style="width: 100%;">
 		<div class="card-body">
@@ -78,38 +76,37 @@
 	</div>
 
 
-
-	<script>
+<script>
     // Declare the editTraining function in the global scope
     function editTraining(training) {
-    // Construct the URL with parameters
-    var editUrl = "editTrainingPage.jsp" +
-        "?refplannerid=" + training.refplannerid +
-        "&tsubject=" + (training.tsubject) +
-        "&tcategory=" + (training.tcategory) +
-        "&tmode=" + (training.tmode) +
-        "&ttargetgroup=" + (training.ttargetgroup) +
-        "&tmonth=" + (training.tmonth) +
-        "&tyear=" + (training.tyear) +
-        "&tname=" + (training.tname) +
-        "&tdescription=" + (training.tdescription) +
-        "&tgrade=" + (training.tgrade) +
-        "&tagency=" + (training.tagency) +
-        "&tspell=" + (training.tspell) +
-        "&preferdlocation=" + (training.preferdlocation) +
-        "&numberofstakeholder=" + (training.numberofstakeholder) +
-        "&numberdayneeded=" + (training.numberdayneeded) +
-        "&thoursperday=" + (training.thoursperday) +
-        "&totalhours=" + (training.totalhours) +
-        "&trainingregstartdt=" + (training.trainingregstartdt) +
-        "&trainingregenddt=" + (training.trainingregenddt) +
-        "&tstatus=" + (training.tstatus);
+        // Construct the URL with parameters
+        var editUrl = "editTrainingPage.jsp" +
+            "?refplannerid=" + training.refplannerid +
+            "&tsubject=" + (training.tsubject) +
+            "&tcategory=" + (training.tcategory) +
+            "&tmode=" + (training.tmode) +
+            "&ttargetgroup=" + (training.ttargetgroup) +
+            "&tmonth=" + (training.tmonth) +
+            "&tyear=" + (training.tyear) +
+            "&tname=" + (training.tname) +
+            "&tdescription=" + (training.tdescription) +
+            "&tgrade=" + (training.tgrade) +
+            "&tagency=" + (training.tagency) +
+            "&tspell=" + (training.tspell) +
+            "&preferdlocation=" + (training.preferdlocation) +
+            "&numberofstakeholder=" + (training.numberofstakeholder) +
+            "&numberdayneeded=" + (training.numberdayneeded) +
+            "&thoursperday=" + (training.thoursperday) +
+            "&totalhours=" + (training.totalhours) +
+            "&trainingregstartdt=" + (training.trainingregstartdt) +
+            "&trainingregenddt=" + (training.trainingregenddt) +
+            "&tstatus=" + (training.tstatus);
 
-    // Redirect to the edit page
-    window.location.href = editUrl;
-}
+        // Redirect to the edit page
+        window.location.href = editUrl;
+    }
 
-    $(document).ready(function() {
+   
         // Execute the function on page load
         fetchDataAndDisplay();
 
@@ -118,10 +115,10 @@
                 type: "GET",
                 url: "api/getdata",
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     displayTrainingData(data);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error("API request error: " + error);
                     toastr.error("Failed to fetch training data");
                 }
@@ -139,7 +136,7 @@
                 var training = trainings[i];
                 var row = $("<tr></tr>");
 
-                row.append("<td>" + training.slno + "</td>");
+                row.append("<td class='serial-column'>" + (i + 1) + "</td>");
                 row.append("<td>" + training.refplannerid + "</td>");
                 row.append("<td>" + training.tsubject + "</td>");
                 row.append("<td>" + training.tcategory + "</td>");
@@ -161,7 +158,7 @@
                 row.append("<td>" + training.trainingregenddt + "</td>");
                 row.append("<td>" + training.tstatus + "</td>");
 
-                row.append("<td><button class='btn btn-primary btn-sm' onclick='editTraining(" + JSON.stringify(training) + ")'>Edit</button><button class='btn btn-danger btn-sm' onclick='deleteTraining(" + training.refplannerid + ")'>Delete</button></td>");
+                row.append("<td><button class='btn btn-primary btn-sm' onclick='editTraining(" + JSON.stringify(training) + ")'>Edit</button><button class='btn btn-danger btn-sm'  onclick='deleteTraining(" + training.refplannerid + ")'>Delete</button></td>");
 
                 tableBody.append(row);
             }
@@ -169,11 +166,24 @@
 
         // Sample functions for edit and delete
         function deleteTraining(refplannerid) {
-            alert("Delete Training with ID: " + refplannerid);
-            // Implement your delete logic here
+            // Make an AJAX request to the delete endpoint
+            
+            $.ajax({
+                type: "POST",
+                url: "/api/deactivate/" + refplannerid,
+                success: function (response) {
+                    toastr.success("Training deleted successfully");
+                    // Reload or update the data after deletion
+                    fetchDataAndDisplay();
+                },
+                error: function (xhr, status, error) {
+                    toastr.error("Failed to delete training: " + error);
+                }
+            });
         }
-    });
+   
 </script>
+
 
 
 	<script

@@ -6,7 +6,7 @@ import com.TTSS03.Entity.PreviousTrainings;
 
 public interface PreviousTrainingsService {
 	
-	PreviousTrainings saveonetraining(PreviousTrainings previousTrainings);
+	PreviousTrainings saveonetraining(List<PreviousTrainings> previousTrainings);
 	
 	List<PreviousTrainings> getAllPreviousData(String treasuryId);
 

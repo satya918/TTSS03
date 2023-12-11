@@ -13,15 +13,22 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <style>
 .container {
-	width: 180%;
+	width: 100%;
 	font-size: 14px;
 }
+
 #tab2 {
 	display: none;
 }
- .table{
-    height: "5  0px"
- }
+
+.table {
+	height: 500px;
+}
+
+.table thead th {
+	background-color: blue; /* Blue color for the table heading */
+	color: white; /* White text for the table heading */
+}
 </style>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
@@ -44,6 +51,23 @@
 			<b></b>
 		</div>
 		<table class="table table-hover" id="trainingTable">
+			<thead>
+				<tr>
+					<th>slno</th>
+					<th>Reference Id</th>
+					<th>Training Name</th>
+					<th>Training Mode</th>
+					<th>Description</th>
+					<th>Application start to end</th>
+					<th>Training start to end</th>
+					<th>Venue Id</th>
+					<th>venue Address</th>
+					<th>Map Location</th>
+					<th>Co-ordinater Details</th>
+					<th>Resource Type</th>
+					<th>Action</th>
+				</tr>
+			</thead>
 			<tbody></tbody>
 		</table>
 	</div>
@@ -76,25 +100,26 @@
 								var table = document
 										.getElementById("trainingTable");
 
-								table.innerHTML = "<tr><th>Reference Id</th><th>Training Name</th><th>Training Mode</th><th>Description</th><th>Application start to end</th><th>Training start to end</th><th>Venue Id</th><th>venue Address</th><th>Map Location</th><th>Co-ordinater Details</th><th>Resource Type</th><th>Action</th></tr>";
+								//table.innerHTML = "<tr><th>slno</th><th>Reference Id</th><th>Training Name</th><th>Training Mode</th><th>Description</th><th>Application start to end</th><th>Training start to end</th><th>Venue Id</th><th>venue Address</th><th>Map Location</th><th>Co-ordinater Details</th><th>Resource Type</th><th>Action</th></tr>";
 
 								for (var i = 0; i < trainings.length; i++) {
 									var training = trainings[i];
 									var row = table.insertRow(i + 1);
+						            row.insertCell(0).innerHTML = i + 1;
 
-									row.insertCell(0).innerHTML = training.ref_planner_id;
-									row.insertCell(1).innerHTML = training.tname;
-									row.insertCell(2).innerHTML = training.tmode;
-									row.insertCell(3).innerHTML = training.tdescription;
-									row.insertCell(4).innerHTML = training.apply_start_dt
+									row.insertCell(1).innerHTML = training.ref_planner_id;
+									row.insertCell(2).innerHTML = training.tname;
+									row.insertCell(3).innerHTML = training.tmode;
+									row.insertCell(4).innerHTML = training.tdescription;
+									row.insertCell(5).innerHTML = training.apply_start_dt
 											+ "to" + training.apply_end_dt;
-									row.insertCell(5).innerHTML = training.training_start_dt
+									row.insertCell(6).innerHTML = training.training_start_dt
 											+ "to" + training.training_end_dt;
-									row.insertCell(6).innerHTML = training.venue_id;
-									row.insertCell(7).innerHTML = training.vaddress;
-									row.insertCell(8).innerHTML = training.maplocation;
-									row.insertCell(9).innerHTML = training.coordinatorname;
-									row.insertCell(10).innerHTML = training.resourcetype;
+									row.insertCell(7).innerHTML = training.venue_id;
+									row.insertCell(8).innerHTML = training.vaddress;
+									row.insertCell(9).innerHTML = training.maplocation;
+									row.insertCell(10).innerHTML = training.coordinatorname;
+									row.insertCell(11).innerHTML = training.resourcetype;
 
 									var applyNowButton = document
 											.createElement("button");
@@ -105,7 +130,7 @@
 											training.ref_planner_id,
 											training.venue_id);
 
-									var actionCell = row.insertCell(11);
+									var actionCell = row.insertCell(12);
 									actionCell.appendChild(applyNowButton);
 								}
 							}

@@ -1,5 +1,7 @@
 package com.TTSS03.Repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -52,7 +54,17 @@ public interface ActualDataRepository extends JpaRepository<ActualData, Integer>
 	            @Param("thoursperday") String thoursperday,
 	            @Param("totalhours") String totalhours,
 	            @Param("tstatus") String tstatus);
+	    
+	    
+	    @Modifying
+	    @Query("UPDATE ActualData e SET e.tstatus = 'Inactive' WHERE e.refplannerid = :refplannerid")
+	    void deactivateTraining(@Param("refplannerid") String refplannerid);
+	    
+
+	    @Query("SELECT t FROM ActualData t WHERE t.tstatus != 'Inactive'")
+	    List<ActualData> findActiveData();
+	    		  
 	}
 	
-	
+
 	

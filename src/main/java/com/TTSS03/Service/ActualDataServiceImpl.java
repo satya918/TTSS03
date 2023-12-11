@@ -23,7 +23,7 @@ public class ActualDataServiceImpl implements ActualDataService {
 
 	@Override
 	public List<ActualData> getAll() {
-		return actualDataRepo.findAll();
+		return actualDataRepo.findActiveData();
 	}
 
 	@Override
@@ -60,4 +60,11 @@ public class ActualDataServiceImpl implements ActualDataService {
             return null;
         }
     }
+
+	@Override
+	@Transactional
+	public void deactivateTraining(String refplannerid) {
+		// TODO Auto-generated method stub
+		actualDataRepo.deactivateTraining(refplannerid);
+	}
 }

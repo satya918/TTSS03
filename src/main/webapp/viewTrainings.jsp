@@ -40,6 +40,7 @@
 					<!-- Table headers go here -->
 					<thead>
 						<tr>
+						<th>slno</th>
 							<th>Training Ref Id</th>
 							<th>Venue</th>
 							<th>Resource Type</th>
@@ -123,6 +124,7 @@
 					var training = trainings[i];
 
 					var row = $("<tr></tr>");
+	                row.append("<td class='serial-column'>" + (i + 1) + "</td>");
 
 					row.append("<td>" + training.ref_planner_id + "</td>");
 
