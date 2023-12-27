@@ -364,8 +364,7 @@
 						row.append("<td>" + trainings.tname + "</td>");
 						row.append("<td>" + trainings.tmode + "</td>");
 						row.append("<td>" + trainings.tdescription + "</td>");
-						row.append("<td>" + trainings.vaddress + "</td>");
-						 var appliedDateTime = new Date(trainings.applydateandtime);
+						row.append("<td>" + trainings.venue_name + ','+"<br>"+trainings.vaddress + "</td>");						 var appliedDateTime = new Date(trainings.applydateandtime);
 					        if (!isNaN(appliedDateTime.getTime())) {
 					            // Create a human-readable timestamp
 					            var options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };

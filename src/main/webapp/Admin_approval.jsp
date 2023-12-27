@@ -419,8 +419,8 @@ jQuery(document).ready(function($) {
 											+ "</td>");
 									row.append("<td>" + training.Description
 											+ "</td>");
-									row.append("<td>" + training.vaddress
-											+ "</td>");
+									row.append("<td>" +training.VenueName + "," +"<br>" +training.vaddress + "</td>");
+
 									   var appliedDateTime = new Date(training.Applydate);
 								        if (!isNaN(appliedDateTime.getTime())) {
 								            // Create a human-readable timestamp

@@ -50,6 +50,8 @@ public interface ViewMyTrainingsService {
 	 List<Map<String, Object>> findRejectedData();
 	 
 	 List<Map<String, Object>> findApprovedDataTeacher();
+		List<ViewMyTrainings>checkIfAlreadyAppliedTrainings(String treasuryId, String refPlannerIds);
+
 
 	/**
 	 * @param treasuryid

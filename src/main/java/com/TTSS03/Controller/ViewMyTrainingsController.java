@@ -164,6 +164,13 @@ public class ViewMyTrainingsController {
 		
         return ResponseEntity.ok(savemyTrainings1234);
     }
+	
+	@GetMapping("/HaveAnyTrainings")
+	public ResponseEntity<List<ViewMyTrainings>>CheckAppliedTrainings(@RequestParam String treasuryId,@RequestParam String ref_planner_id ){
+		
+		List<ViewMyTrainings> trainings = viewMyTrainingsService.checkIfAlreadyAppliedTrainings(treasuryId, ref_planner_id);
+	return ResponseEntity.ok(trainings);
+	}
 }
 
 

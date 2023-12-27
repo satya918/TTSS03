@@ -173,7 +173,7 @@
 
 					row.append("<td>" + training.tagency + "</td>");
 
-					row.append("<td>" + training.vaddress + "</td>");
+					row.append("<td>" +training.venue_name + "," +"<br>" +training.vaddress + "</td>");
 
 					row.append("<td>" + training.maplocation + "</td>");
 

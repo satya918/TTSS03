@@ -367,6 +367,13 @@ public class ViewMyTrainingsServiceImpl implements ViewMyTrainingsService {
 
 		        return ViewMyTrainingsRepo.saveAll(viewMyTrainingsList);
 			}
+			
+		 
+		 @Override
+			public List<ViewMyTrainings> checkIfAlreadyAppliedTrainings(String treasuryId, String refPlannerIds) {
+				List<ViewMyTrainings> trainings = ViewMyTrainingsRepo.findByTreasuryIdAndRefPlannerId(treasuryId, refPlannerIds);
+				return trainings;
+			}
 				
 			
 }

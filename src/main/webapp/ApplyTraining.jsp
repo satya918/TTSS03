@@ -58,16 +58,22 @@
 					<th>Training Name</th>
 					<th>Training Mode</th>
 					<th>Description</th>
-					<th>Application start to end</th>
-					<th>Training start to end</th>
+					<th>Application start Date</th>
+					
+					<th>Application End Date</th>
+					<th>Training start Date</th>
+					<th>Training Start Time</th>
+					
+					<th>Training End Date</th>
+					<th>Training End Time</th>
 					<th>Venue Id</th>
 					<th>venue Address</th>
 					<th>Map Location</th>
 					<th>Co-ordinater Details</th>
 					<th>Resource Type</th>
-					<th>Training Start Time</th>
-					<th>Training End Time</th>
+					
 										<th>Action</th>
+					
 					
 				</tr>
 			</thead>
@@ -110,56 +116,76 @@
 									var row = table.insertRow(i + 1);
 						            row.insertCell(0).innerHTML = i + 1;
 
-									row.insertCell(1).innerHTML = training.ref_planner_id;
-									row.insertCell(2).innerHTML = training.tname;
-									row.insertCell(3).innerHTML = training.tmode;
-									row.insertCell(4).innerHTML = training.tdescription;
-									row.insertCell(5).innerHTML = training.apply_start_dt
-											+ "to" + training.apply_end_dt;
-									row.insertCell(6).innerHTML = training.training_start_dt
-											+ "to" + training.training_end_dt;
-									row.insertCell(7).innerHTML = training.venue_id;
-									row.insertCell(8).innerHTML = training.vaddress;
-									row.insertCell(9).innerHTML = training.maplocation;
-									row.insertCell(10).innerHTML = training.coordinatorname;
-									row.insertCell(11).innerHTML = training.resourcetype;
-									row.insertCell(12).innerHTML = training.tstarttime;
-									row.insertCell(13).innerHTML = training.tendtime;
+						            row.insertCell(1).innerHTML = training.ref_planner_id;
+					                row.insertCell(2).innerHTML = training.tname;
+					                row.insertCell(3).innerHTML = training.tmode;
+					                row.insertCell(4).innerHTML = training.tdescription;
+					                row.insertCell(5).innerHTML = training.apply_start_dt;
+					                row.insertCell(6).innerHTML = training.apply_end_dt;
+					                row.insertCell(7).innerHTML = training.training_start_dt;
+					                row.insertCell(8).innerHTML = training.tstarttime;
+					                row.insertCell(9).innerHTML = training.training_end_dt;
+					                row.insertCell(10).innerHTML = training.tendtime;
+					                row.insertCell(11).innerHTML = training.venue_id;
+					                row.insertCell(12).innerHTML = training.venue_name + ', ' + training.vaddress;
+					                row.insertCell(13).innerHTML = training.maplocation;
+					                row.insertCell(14).innerHTML = training.coordinatorname;
+					                row.insertCell(15).innerHTML = training.resourcetype;
 
-									var applyNowButton = document
-											.createElement("button");
-									applyNowButton.textContent = "Apply Now";
-									applyNowButton.className = "btn btn-success";
+					                var applyNowButton = document.createElement("button");
+					                applyNowButton.textContent = "Apply Now";
+					                applyNowButton.className = "btn btn-success";
 
-									applyNowButton.onclick = createApplyButtonClickHandler(
-											training.ref_planner_id,
-											training.venue_id);
+					                applyNowButton.onclick = createApplyButtonClickHandler(training.ref_planner_id, training.venue_id);
 
-									var actionCell = row.insertCell(14);
-									actionCell.appendChild(applyNowButton);
-								}
-							}
+					                var actionCell = row.insertCell(16);
+					                actionCell.appendChild(applyNowButton);
+					            }
+					        }
 
-							function createApplyButtonClickHandler(
-									refPlannerId, venueId) {
-								return function() {
-									redirectToApplyPage(refPlannerId, venueId);
-								};
-							}
+					        function createApplyButtonClickHandler(refPlannerId, venueId) {
+					            return function () {
+					                checkApplicationStatusAndRedirect(refPlannerId, venueId);
+					            };
+					        }
 
-							function redirectToApplyPage(refPlannerId, venueId) {
-								var applyPageUrl = '/TTSS03/TrainingApplyForm.jsp';
-								applyPageUrl += '?ref_planner_id='
-										+ encodeURIComponent(refPlannerId);
+					        function checkApplicationStatusAndRedirect(refPlannerId, venueId) {
+					        	 var treasuryId = sessionStorage.getItem("treasuryId");
+					        	 
+					        	 console.log(treasuryId);
+					        	 console.log(refPlannerId);
+					        	 
+					            $.ajax({
+					                type: "Get",
+					                url: "/TTSS03/api/HaveAnyTrainings",
+					                data: {
+					                    ref_planner_id: refPlannerId,
+					                    treasuryId: treasuryId
+					                },
+					                success: function (response) {
+					                	if (response && Array.isArray(response) && response.length != 0) {
+					                        alert("You have already applied.");
+					                    } else {
+					                        redirectToApplyPage(refPlannerId, venueId);
+					                    }
+					                },
+					                error: function (xhr, status, error) {
+					                    console.error("API request error: " + error);
+					                }
+					            });
+					        }
 
-								if (venueId !== null && venueId !== undefined) {
-									applyPageUrl += '&venue_id='
-											+ encodeURIComponent(venueId);
-								}
+					        function redirectToApplyPage(refPlannerId, venueId) {
+					            var applyPageUrl = '/TTSS03/TrainingApplyForm.jsp';
+					            applyPageUrl += '?ref_planner_id=' + encodeURIComponent(refPlannerId);
 
-								window.location.href = applyPageUrl;
-							}
-						});
-	</script>
+					            if (venueId !== null && venueId !== undefined) {
+					                applyPageUrl += '&venue_id=' + encodeURIComponent(venueId);
+					            }
+
+					            window.location.href = applyPageUrl;
+					        }
+					    });
+					</script>
 </body>
 </html>

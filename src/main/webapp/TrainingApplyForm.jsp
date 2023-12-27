@@ -29,6 +29,18 @@
 body {
 	font-size: 14px;
 }
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-symbol {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px; /* Adjust the right distance as needed */
+    pointer-events: none; /* Ensure the symbol doesn't interfere with dropdown clicks */
+}
+
 </style>
 </head>
 
@@ -234,18 +246,27 @@ body {
 								<div class="row mt-3">
 									<div class="form-group col-md-3">
 										<div class="form-group" id="trainingName">
-											<label for="resource">Training Name:</label> 
-											<select	id="trainingDropdown" class="form-control"  required onclick="showotherfield()"  >
-											</select>
-										</div>
-									</div>
+    <label for="resource">Training Name:</label>
+    <div>
+        <div class="dropdown-container">
+            <select id="trainingDropdown" class="form-control" required onclick="showotherfield()">
+                <!-- Add your dropdown options here -->
+            </select>
+            <div class="dropdown-symbol">&#9660;</div>
+        </div>
+    </div>
+</div>
+</div>
 
 									<div id="otherField" class="hidden">
 										<label for="otherTraining">Specify Other Training:</label> <input
 											type="text" id="otherTraining" name="otherTraining" />
 									</div>
 									<div class="mb-2 col-3">
-										<label for="trainingMode">Training Mode:</label> <select
+										<label for="trainingMode">Training Mode:</label> 
+								 <div class="dropdown-container">
+										
+										<select
 											id="trainingMode" class="form-control"
 											style="font-size: 13px">
 											<option>--Select--</option>
@@ -253,9 +274,14 @@ body {
 											<option value="Offline">Offline</option>
 											<!-- Add more options as needed -->
 										</select>
+										 <div class="dropdown-symbol">&#9660;</div>
+										</div>
 									</div>
 									<div class="mb-2 col-3">
-										<label for="resourceType">Resource Type:</label> <select
+										<label for="resourceType">Resource Type:</label>
+										  <div class="dropdown-container">
+										
+										 <select
 											id="resourceType" class="form-control"
 											style="font-size: 13px">
 											<option>--Select--</option>
@@ -267,9 +293,14 @@ body {
 											<option value="Teachers">Teachers</option>
 											<!-- Add more options as needed -->
 										</select>
+										     <div class="dropdown-symbol">&#9660;</div>
+										</div>
 									</div>
 									<div class="mb-2 col-3">
-										<label for="state">State:</label> <select id="state"
+										<label for="state">State:</label>
+											  <div class="dropdown-container">
+										
+										 <select id="state"
 											class="form-control" style="font-size: 13px">
 											<option>--Select--</option>
 											<option value="andhra_pradesh">Andhra Pradesh</option>
@@ -303,6 +334,8 @@ body {
 											<option value="west_bengal">West Bengal</option>
 											<!-- Add more options as needed -->
 										</select>
+										       <div class="dropdown-symbol">&#9660;</div>
+										</div>
 									</div>
 
 									<div class="mb-2 col-3">
@@ -314,13 +347,14 @@ body {
 								</div>
 
 								<!-- Add more form fields as needed -->
-</div>
 							</div>
+						</div>
 					</form>
 				</div>
 				<div class="mb-2 col-1" id="btn_plus_minus" style="display: none;">
 
-					<button type="button" id="addFormButton" onclick="addForm()">+</button>
+					<button type="button" id="addFormButton"
+						 onclick="addForm()">+</button>
 					<button type="button" id="removeFormButton" onclick="removeForm()">-</button>
 
 				</div>
@@ -329,7 +363,7 @@ body {
 				style="font-size: 14px" onclick="fun()">Submit</button>
 		</div>
 	</div>
-	
+
 
 
 	<script>

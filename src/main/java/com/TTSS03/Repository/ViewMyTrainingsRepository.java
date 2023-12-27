@@ -17,6 +17,12 @@ public interface ViewMyTrainingsRepository extends JpaRepository<ViewMyTrainings
 
 	@Query("SELECT sv FROM ViewMyTrainings sv WHERE sv.treasuryid = :treasuryid")
 	List<ViewMyTrainings> findByTreasuryId(@Param("treasuryid") String treasuryid);
+	
+	
+
+	@Query("SELECT m FROM ViewMyTrainings m WHERE m.treasuryid = :treasuryid AND m.ref_planner_id = :ref_planner_id")
+    List<ViewMyTrainings> findByTreasuryIdAndRefPlannerId(@Param("treasuryid") String treasuryid, @Param("ref_planner_id") String ref_planner_id);
+
 
 
 //	@Query("SELECT  mt.treasuryid,tm.tname, vm.vname, tm.tmode, tm.tdescription, tm.training_start_dt, tm.training_end_dt, vm.vaddress, vm.vcontactno, vm.vcontactmailid, vm.maplocation,tm.resourcetype "
@@ -105,20 +111,20 @@ List<Object[]> findRejectedData();
 	List<Object[]> findNominatedTrainings();
 	
 
-    @Query(value = "SELECT mt.treasuryid, mt.mobilenumberteacher, mt.teacher_name, mt.designation, mt.dob, tm.resourcetype, mt.district_name, mt.school_code, " +
+	@Query(value = "SELECT mt.treasuryid, mt.mobilenumberteacher, mt.teacher_name, mt.designation, mt.dob, tm.resourcetype,tm.venue_name, mt.district_name, mt.school_code, " +
             "tm.tname, tm.tmode, tm.tdescription, tm.vaddress, mt.ref_planner_id, mt.appliedtype, mt.remarks ,mt.applydateandtime "+
             "FROM mytrainings mt " +
             "JOIN ttransactiontraining tm ON tm.ref_planner_id = mt.ref_planner_id " +
             "WHERE mt.status = 'rejected'", nativeQuery = true)
     List<Map<String, Object>>findRejectedDataList();
-    
-    @Query(value = "SELECT mt.treasuryid, tr.mobilenumberteacher, tr.teacher_name, tr.desig, tr.dob, tm.resourcetype, " +
-            "tr.district_name, tr.school_code, tm.tname, tm.tmode, tm.tdescription, tm.vaddress, mt.ref_planner_id, " +
-            "mt.appliedtype, mt.remarks, mt.applydateandtime " +
-            "FROM mytrainings mt, ttransactiontraining tm, tteacher_master tr " +
-            "WHERE tm.ref_planner_id = mt.ref_planner_id AND mt.treasuryid = tr.treasuryid " +
-            "AND mt.status = 'approved'", nativeQuery = true)
-    List<Map<String, Object>>findApprovedDataList();
+
+@Query(value = "SELECT mt.treasuryid, tr.mobilenumberteacher, tr.teacher_name, tr.desig, tr.dob, tm.resourcetype, " +
+        "tr.district_name, tr.school_code, tm.tname, tm.tmode, tm.tdescription,tm.venue_name, tm.vaddress, mt.ref_planner_id, " +
+        "mt.appliedtype, mt.remarks, mt.applydateandtime " +
+        "FROM mytrainings mt, ttransactiontraining tm, tteacher_master tr " +
+        "WHERE tm.ref_planner_id = mt.ref_planner_id AND mt.treasuryid = tr.treasuryid " +
+        "AND mt.status = 'approved'", nativeQuery = true)
+List<Map<String, Object>>findApprovedDataList();
     
    // NominateTrainings findByTreasuryidAndRefPlannerId(String treasuryid, String ref_planner_id);
 
@@ -136,4 +142,6 @@ List<Object[]> findRejectedData();
 	        @Param("vid") String vid,
 	        @Param("treasuryid") String treasuryid
 	);
+	
+	
 }

@@ -76,7 +76,10 @@
 							<label for="venue">Venue Id:</label> <input type="text"
 								class="form-control" id="venueId" name="venueId" required>
 						</div>
-
+<div class="form-group" style="display: none;">
+							<label for="venuename1">Venue Name1:</label> <input type="text"
+								class="form-control" id="venuename1" name="venueId" required>
+						</div>
 
 					</div>
 				</form>
@@ -318,6 +321,8 @@
 				var vaddress = $("#vaddress").val();
 				var tstarttime = $("#starttime").val();
 				var tendtime = $("#endtime").val();
+				var vname = $("#venuename1").val();
+
 
 				// Construct the formData object
 				var formData = {
@@ -346,6 +351,8 @@
 					vaddress: vaddress,
 					tstarttime: tstarttime,
 					tendtime: tendtime,
+					venue_name: vname,
+
 				};
 
 				var jsonString = JSON.stringify(formData);

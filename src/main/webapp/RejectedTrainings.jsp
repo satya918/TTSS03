@@ -265,8 +265,7 @@
 						row.append("<td>" + trainings.tname + "</td>");
 						row.append("<td>" + trainings.tmode + "</td>");
 						row.append("<td>" + trainings.tdescription + "</td>");
-						row.append("<td>" + trainings.vaddress + "</td>");
-						row.append("<td>" + trainings.applydateandtime + "</td>");
+						row.append("<td>" + trainings.venue_name + ','+"<br>"+trainings.vaddress + "</td>");						row.append("<td>" + trainings.applydateandtime + "</td>");
 						row.append("<td>" + trainings.appliedtype + "</td>");
 						//row.append("<td>" + trainings.remarks + "</td>");
 
